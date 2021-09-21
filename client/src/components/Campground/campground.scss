@@ -1,20 +1,26 @@
-@import '../../styles/vars';
+@import "../../styles/vars";
 
 .main {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 50%;
+  width: 60%;
   margin: 2rem auto;
 
   @media screen and (max-width: 960px) {
-    width: 70%; 
+    width: 80%;
   }
 
   .campground {
     padding: 0;
     margin-bottom: 3rem;
 
+    .campground-heading {
+      font-size: 3rem;
+      font-weight: 900;
+      text-align: center;
+      padding: 2rem;
+    }
     .campground-thumbnail {
       display: block;
       padding: 0;
@@ -22,7 +28,8 @@
       line-height: 1.5;
       background-color: #fff;
       border-radius: 0.3rem;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
       overflow: hidden;
 
       .campground-image {
@@ -35,11 +42,19 @@
         padding: 1rem;
         margin: 0 auto;
 
-        .campground-details-title {
-          font-size: 1.2rem;
-          font-weight: 900;
-          padding-bottom: 1rem;
+        .campground-details-main {
+          display: flex;
+          justify-content: space-between;
+          padding-bottom: 0.8rem;
 
+          .campground-details-title {
+            font-size: 1.2rem;
+            font-weight: 900;
+          }
+
+          .campground-details-country {
+            font-style: italic;
+          }
         }
 
         .campground-details-description {
@@ -47,8 +62,6 @@
         }
 
         .campground-details-author {
-          font-style: italic;
-
           .author-name {
             font-weight: 900;
           }
@@ -56,16 +69,15 @@
       }
     }
 
-
     .comments-container {
-      font-size: 0.8rem;
       min-height: 3rem;
       padding: 1rem;
       margin-bottom: 1rem;
       background-color: #f5f5f5;
       border: 1px solid #e3e3e3;
       border-radius: 0.3rem;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
       .comment-button-container {
         text-align: right;
@@ -94,7 +106,6 @@
       }
 
       .comments {
-
         .comment {
           padding-bottom: 0.8rem;
 
@@ -112,11 +123,7 @@
             }
           }
         }
-
-
       }
-
     }
-
   }
 }

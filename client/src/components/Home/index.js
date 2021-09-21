@@ -5,7 +5,7 @@ import CampgroundSmall from './CampgroundSmall';
 const Home = () => (
   <main className="home">
     <h1 className="home-title">Bienvenue dans Wildcamp</h1>
-    <p className="home-subtitle">Découvrez les derniers spots partagés par la communauté Wildcamp :</p>
+    <p className="home-subtitle">Découvrez les meilleurs spots de camping sauvage partagés par la communauté Wildcamp :</p>
     <div className="campgrounds-small">
       <CampgroundSmall />
       <CampgroundSmall />
