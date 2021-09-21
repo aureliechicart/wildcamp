@@ -21,7 +21,6 @@
       margin-bottom: 1rem;
       line-height: 1.5;
       background-color: #fff;
-      border: 1px solid #ddd;
       border-radius: 0.3rem;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
       overflow: hidden;
@@ -59,6 +58,7 @@
 
 
     .comments-container {
+      font-size: 0.8rem;
       min-height: 3rem;
       padding: 1rem;
       margin-bottom: 1rem;
@@ -96,11 +96,12 @@
       .comments {
 
         .comment {
-          padding: 1rem 0;
+          padding-bottom: 0.8rem;
 
           .comment-info {
             display: flex;
             justify-content: space-between;
+            padding-bottom: 0.2rem;
 
             .comment-author {
               font-weight: 900;

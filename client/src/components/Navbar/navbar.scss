@@ -24,29 +24,43 @@
     width: 100%;
     padding: 0 24px;
     max-width: 1100px;
-  }
 
-  .nav-items {
-    display: flex;
-    
-  }
+    .nav-logo {
+      display: flex;
+      flex-direction: row;
 
-  .nav-logo {
-    width: 40px;
-  }
-
-  .nav-item {
-    display: block;
-    color: $darkColor;
-    margin: 1em 1.5em;
-    text-decoration: none;
-
-    &:hover {
-      color: #777;
+      
+    .nav-logo-image {
+      width: 40px;
     }
 
-    &.nav-item-active {
-      color: blue;
+    .nav-brand {
+      font-size: 1.2rem;
+      margin: auto 0;
+      font-weight: 900;
+    }
+    }
+    
+
+    .nav-items {
+      display: flex;
+
+    }
+
+
+    .nav-item {
+      display: block;
+      color: $darkColor;
+      margin: 1em 1.5em;
+      text-decoration: none;
+
+      &:hover {
+        color: #777;
+      }
+
+      &.nav-item-active {
+        color: blue;
+      }
     }
   }
 }

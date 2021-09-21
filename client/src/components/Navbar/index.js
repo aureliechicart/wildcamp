@@ -6,8 +6,9 @@ import './navbar.scss';
 const Navbar = () => (
   <nav className="nav">
     <div className="nav-container">
-      <a href="/">
-        <img className= "nav-logo" src={logo} alt="Logo"></img>
+      <a href="/" className="nav-logo">
+        <img className= "nav-logo-image" src={logo} alt="Logo"></img>
+        <div className="nav-brand">Wildcamp</div>
       </a>
       <div className="nav-items">
       <a className="nav-item" href="/login">Connexion</a>
