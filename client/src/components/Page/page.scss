@@ -1,17 +1,7 @@
 @import '../../styles/vars';
 
-.main {
-  // background: rgb(71, 124, 134);
-  background: linear-gradient(45deg, rgba(48,82,88, 0.2) 0%, rgba(131, 217, 171, 0.3) 100%);
-  color: $darkColor;
+.page {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin-top: -80px;
-
-  h1 {
-    font-size: 3rem;
-    font-weight: 900;
-  }
 }

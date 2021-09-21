@@ -1,0 +1,54 @@
+@import 'src/styles/_vars.scss';
+
+.home {
+
+  margin-top: -80px;
+
+  .home-title {
+    font-size: 3rem;
+    font-weight: 900;
+    text-align: center;
+    padding: 3rem;
+  }
+
+  .home-subtitle {
+    text-align: center;
+  }
+
+  .campgrounds-small {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding: 3rem ;
+
+    .campground-small {
+      width: 300px;
+      margin: 2em;
+      border-radius: 1em;
+      overflow: hidden;
+      background-color: white;
+
+      img {
+        width: 100%;
+      }
+
+      .campground-small-content {
+        padding: 1em;
+
+        h2 {
+          margin-top: 0.3em;
+          margin-bottom : 0.3em;
+          font-size: 1.2rem;
+        }
+
+        a {
+          color: $darkColor;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}

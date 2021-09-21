@@ -1,10 +1,14 @@
 import './page.scss';
 
+// import Home from '../Home';
+import Campground from '../Campground';
+
 const Page = () => (
-  <main className="main">
-    <h1>Welcome to Wildcamp</h1>
+  <div className="page">
+    {/*<Home />*/}
+    <Campground />
     
-  </main>
+  </div>
 );
 
 export default Page;
