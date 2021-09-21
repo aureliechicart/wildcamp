@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const CampgroundSmall = () => (
   <article className="campground-small">
@@ -7,7 +8,7 @@ const CampgroundSmall = () => (
       alt=""
     />
     <div className="campground-small-content">
-      <a href="/campground/122" title="Afficher le spot"><h2>Mesa du desert</h2></a>
+      <Link to="/campground/122" title="Afficher le spot"><h2>Mesa du desert</h2></Link>
     </div>
   </article>
 );

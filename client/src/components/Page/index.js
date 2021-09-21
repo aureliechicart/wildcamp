@@ -1,13 +1,18 @@
-import './page.scss';
+import { Route } from "react-router-dom";
 
-// import Home from '../Home';
-import Campground from '../Campground';
+import "./page.scss";
+
+import Home from "../Home";
+import Campground from "../Campground";
 
 const Page = () => (
   <div className="page">
-    {/*<Home />*/}
-    <Campground />
-    
+    <Route path="/" exact>
+      <Home />
+    </Route>
+    <Route path="/campground/122">
+      <Campground />
+    </Route>
   </div>
 );
 

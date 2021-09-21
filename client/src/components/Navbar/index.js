@@ -1,18 +1,35 @@
-// import { NavLink } from 'react-router-dom';
-import logo from './logo.png';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import logo from "./logo.png";
 
-import './navbar.scss';
+import "./navbar.scss";
 
 const Navbar = () => (
   <nav className="nav">
     <div className="nav-container">
-      <a href="/" className="nav-logo">
-        <img className= "nav-logo-image" src={logo} alt="Logo"></img>
+      <NavLink
+        to="/"
+        className="nav-logo"
+        exact
+      >
+        <img className="nav-logo-image" src={logo} alt="Logo"></img>
         <div className="nav-brand">Wildcamp</div>
-      </a>
+      </NavLink>
       <div className="nav-items">
-      <a className="nav-item" href="/login">Connexion</a>
-      <a className="nav-item" href="/signup">Inscription</a>
+        <NavLink
+          to="/login"
+          className="nav-item"
+          activeClassName="nav-item-active"
+        >
+          Connexion
+        </NavLink>
+        <NavLink
+          to="/signup"
+          className="nav-item"
+          activeClassName="nav-item-active"
+        >
+          Inscription
+        </NavLink>
       </div>
     </div>
   </nav>
