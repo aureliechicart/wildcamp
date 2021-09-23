@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const CampgroundSmall = () => (
+const CampgroundSmall = ({id, image, title}) => (
   <article className="campground-small">
-    <Link to="/campground/122" title="Afficher le spot">
+    <Link to={`/campground/${id}`} title="Afficher le spot">
       <img
-        src="https://farm6.staticflickr.com/5487/11519019346_f66401b6c1.jpg"
+        src={image}
         alt=""
       />
       <div className="campground-small-content">
-        <h2>Mesa du desert</h2>
+        <h2>{title}</h2>
       </div>
     </Link>
   </article>

@@ -5,15 +5,19 @@ import "./page.scss";
 import Home from "../Home";
 import Campground from "../Campground";
 
-const Page = () => (
-  <div className="page">
-    <Route path="/" exact>
-      <Home />
-    </Route>
-    <Route path="/campground/122">
-      <Campground />
-    </Route>
-  </div>
-);
+const Page = ({ campgrounds }) => {
+  console.log(campgrounds);
+
+  return (
+    <div className="page">
+      <Route path="/" exact>
+        <Home campgrounds={campgrounds} />
+      </Route>
+      <Route path="/campground/:id">
+        <Campground campgrounds={campgrounds}/>
+      </Route>
+    </div>
+  );
+}
 
 export default Page;

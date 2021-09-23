@@ -36,6 +36,7 @@
 
       img {
         width: 100%;
+        height: 250px;
         transform: scale(1);
         transition: 0.3s ease-in-out;
       }
@@ -47,6 +48,7 @@
       .campground-small-content {
         padding: 0.8rem;
         color: $darkColor;
+        height: 20%;
 
         h2 {
           font-size: 1.2rem;

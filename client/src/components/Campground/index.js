@@ -1,64 +1,63 @@
 import React from "react";
+import { useParams } from 'react-router-dom';
 
 import "./campground.scss";
 
-const Campground = () => (
-  <main className="main">
-    <div className="campground">
-      <h1 className="campground-heading">Spot Wildcamp</h1>
-      <div className="campground-thumbnail">
-        <img
-          className="campground-image"
-          src="https://farm6.staticflickr.com/5487/11519019346_f66401b6c1.jpg"
-          alt="Spot de camping sauvage"
-        />
-        <div class="campground-details">
-          <div className="campground-details-main">
-            <h2 className="campground-details-title">Mesa du désert</h2>
-            <span className="campground-details-country">États-Unis</span>
-          </div>
-          <p className="campground-details-description">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur.Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum
-          </p>
-          <p className="campground-details-author">
-            Partagé par : <span className="author-name">Carrot</span>
-          </p>
-        </div>
-      </div>
+import Comment from './Comment';
 
-      <div className="comments-container">
-        <div className="comment-button-container">
-          <a className="comment-button" href="/campgrounds/122/comments/new">
-            Ajouter un commentaire
-          </a>
-        </div>
-        <hr />
+const Campground = ({ campgrounds }) => {
+  const { id } = useParams();
 
-        <div className="comments">
-          <div className="comment">
-            <div className="comment-info">
-              <p className="comment-author">Parsnip</p>
-              <span className="comment-date">il y a 10 jours</span>
+  const campground = campgrounds.find((campground) => campground.id === parseInt(id, 10));
+  console.log(parseInt(id, 10));
+  console.log(campground);
+
+
+  return (
+    <main className="main">
+      <div className="campground">
+        <h1 className="campground-heading">Spot Wildcamp</h1>
+        <div className="campground-thumbnail">
+          <img
+            className="campground-image"
+            src={campground.image}
+            alt="Spot de camping sauvage"
+          />
+          <div class="campground-details">
+            <div className="campground-details-main">
+              <h2 className="campground-details-title">{campground.title}</h2>
+              <span className="campground-details-country">{campground.country}</span>
             </div>
-            <p className="comment-description">Super spot !</p>
+            <p className="campground-details-description">
+              {campground.description}
+            </p>
+            <p className="campground-details-author">
+              Partagé par : <span className="author-name">{campground.author.username}</span>
+            </p>
           </div>
-          <div className="comment">
-            <div className="comment-info">
-              <p className="comment-author">Rutabaga</p>
-              <span className="comment-date">il y a 11 jours</span>
-            </div>
-            <p className="comment-description">Je recommande aussi</p>
+        </div>
+
+        <div className="comments-container">
+          <div className="comment-button-container">
+            <a className="comment-button" href={`/campgrounds/${campground.id}/comments/new`}>
+              Ajouter un commentaire
+            </a>
+          </div>
+          <hr />
+
+          <div className="comments">
+            {campground.comments &&
+              campground.comments.map((comment) => (
+                <Comment key={comment.id} {...comment} />
+              ))}
+            {!campground.comments && (
+             <p>Soyez le premier à partager un commentaire !</p> 
+            )}
           </div>
         </div>
       </div>
-    </div>
-  </main>
-);
+    </main>
+  );
+}
 
 export default Campground;
