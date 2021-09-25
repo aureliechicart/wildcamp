@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import "./page.scss";
 
-import Home from "../Home";
-import Campground from "../Campground";
+import Home from "../../containers/Home";
+import Campground from "../../containers/Campground";
 
 const Page = ({ campgrounds }) => {
   // console.log(campgrounds);
@@ -12,10 +12,10 @@ const Page = ({ campgrounds }) => {
   return (
     <div className="page">
       <Route path="/" exact>
-        <Home campgrounds={campgrounds} />
+        <Home />
       </Route>
       <Route path="/campground/:id">
-        <Campground campgrounds={campgrounds}/>
+        <Campground />
       </Route>
     </div>
   );

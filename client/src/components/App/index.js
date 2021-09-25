@@ -1,15 +1,13 @@
 import './app.scss';
 
 import Navbar from '../Navbar';
-import Page from '../Page';
-
-import data from '../../data';
+import Page from '../../containers/Page';
 
 function App() {
   return (
     <div className="App">
       <Navbar />
-      <Page campgrounds={data} />
+      <Page />
     </div>
   );
 }
