@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 // importing reducers
-import campgroundsReducer from 'src/reducers/camgroundsReducer';
+import campgroundsReducer from './campgroundsReducer';
 
 // this is the main reducer, which combines all the other reducers
 // combineReducers takes as argument an object which describes

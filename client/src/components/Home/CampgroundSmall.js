@@ -1,7 +1,8 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
-const CampgroundSmall = ({id, image, title}) => (
+const CampgroundSmall = ({ id, image, title }) => (
   <article className="campground-small">
     <Link to={`/campground/${id}`} title="Afficher le spot">
       <img
@@ -14,5 +15,11 @@ const CampgroundSmall = ({id, image, title}) => (
     </Link>
   </article>
 );
+
+CampgroundSmall.propTypes = {
+  id: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+};
 
 export default CampgroundSmall;

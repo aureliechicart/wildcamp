@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import './home.scss';
 import CampgroundSmall from './CampgroundSmall';
 
@@ -16,6 +18,27 @@ const Home = ({ campgrounds }) => {
       </div>
     </main>
   );
-}
+};
+
+Home.propTypes = {
+  campgrounds: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      image: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      country: PropTypes.string.isRequired,
+      author: PropTypes.shape({
+        username: PropTypes.string.isRequired
+      }).isRequired,
+      comments: PropTypes.arrayOf(
+        PropTypes.shape({
+          text: PropTypes.string.isRequired,
+          author: PropTypes.shape({
+            username: PropTypes.string.isRequired
+          }).isRequired,
+        }))
+    }).isRequired,
+  ).isRequired,
+};
 
 export default Home;

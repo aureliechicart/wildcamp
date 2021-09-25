@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 
 import "./campground.scss";
@@ -9,9 +10,6 @@ const Campground = ({ campgrounds }) => {
   const { id } = useParams();
 
   const campground = campgrounds.find((campground) => campground.id === parseInt(id, 10));
-  console.log(parseInt(id, 10));
-  console.log(campground);
-
 
   return (
     <main className="main">
@@ -23,7 +21,7 @@ const Campground = ({ campgrounds }) => {
             src={campground.image}
             alt="Spot de camping sauvage"
           />
-          <div class="campground-details">
+          <div className="campground-details">
             <div className="campground-details-main">
               <h2 className="campground-details-title">{campground.title}</h2>
               <span className="campground-details-country">{campground.country}</span>
@@ -59,5 +57,26 @@ const Campground = ({ campgrounds }) => {
     </main>
   );
 }
+
+Campground.propTypes = {
+  campgrounds: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      image: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      country: PropTypes.string.isRequired,
+      author: PropTypes.shape({
+        username: PropTypes.string.isRequired
+      }).isRequired,
+      comments: PropTypes.arrayOf(
+        PropTypes.shape({
+          text: PropTypes.string.isRequired,
+          author: PropTypes.shape({
+            username: PropTypes.string.isRequired
+          }).isRequired,
+        }))
+    }).isRequired,
+  ).isRequired,
+};
 
 export default Campground;
