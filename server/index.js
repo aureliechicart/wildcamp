@@ -8,16 +8,12 @@ const helmet = require('helmet');
 
 app.use(helmet());
 
-// const router = require('./app/router');
+const router = require('./app/router');
 
 // Middleware which parses incoming requests with JSON payloads
 app.use(express.json());
 
-// app.use('/api/', router);
-app.get('/api', (req, res) => {
-  res.send("hello");
-});
-
+app.use('/api/', router);
 
 app.listen(PORT, () => {
     console.log(`Server running on : localhost:${PORT}/api/`)
