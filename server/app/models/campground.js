@@ -74,8 +74,7 @@ class Campground {
       * 
       * @async
       * @function save
-      * @returns {<Campground>} - Instance of the Mission class.
-      * @throws {Error} - a potential SQL error.
+      * @returns {<Campground>} - Instance of the Campground class.
       */
   async save() {
     if (this.id) {
