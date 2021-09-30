@@ -52,7 +52,7 @@ class Campground {
       * @async
       * @static
       * @function findOne
-      * @param {number} id - A campground ID.
+      * @param {Number} id - A campground ID.
       * @returns {<Campground>} - Instance of the Campground class.
       */
   static async findOne(id) {

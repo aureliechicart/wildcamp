@@ -50,7 +50,7 @@ class Comment {
       * @async
       * @static
       * @function findOne
-      * @param {number} id - A comment ID.
+      * @param {Number} id - A comment ID.
       * @returns {<Comment>} - Instance of the Comment class.
       */
   static async findOne(id) {
@@ -72,12 +72,12 @@ class Comment {
     * @async
     * @static
     * @function findOne
-    * @param {number} cid - A campground ID.
+    * @param {Number} cid - A campground ID.
     * @returns {Array<Comment>} - Array of instances of the Comment class.
     */
   static async findByCampground(cid) {
     try {
-      const { rows } = await db.query(`SELECT comment.*, "user".username  FROM comment
+      const { rows } = await db.query(`SELECT comment.*, "user".username author FROM comment
       JOIN "user" ON "user".id = comment.user_id
       WHERE campground_id = $1;`, [cid]);
 
