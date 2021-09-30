@@ -21,4 +21,16 @@ router.get('/campgrounds', campgroundController.getAll);
  */
 router.get('/campgrounds/:id', campgroundController.getOneCampground);
 
+/**
+ * Edits a specific campground in the database
+ * @route POST /campgrounds/{id}
+ * @group Campgrounds
+ * @param {number} id.path.required - the campground id
+ * @param {string} title - the title
+ * @param {string} description- the description
+ * @returns {<Camground>} 200 - thee updated instance of the campground
+ */
+ router.put('/campgrounds/:id', campgroundController.changeCampground);
+
+
 module.exports = router;
