@@ -1,7 +1,5 @@
 require('dotenv').config();
 
-console.log(process.env.PGPORT);
-
 const { Pool } = require('pg');
 
 // For development
