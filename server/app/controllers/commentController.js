@@ -102,7 +102,7 @@ const commentController = {
       const comment = await Comment.findOne(id);
 
       if (!comment) {
-        res.status(404).json({ message: 'Campground not found' });
+        res.status(404).json({ message: 'Comment not found' });
       } else {
 
         // We get the text, in the body
@@ -115,12 +115,36 @@ const commentController = {
         };
 
         // Then we save the changes in database
-        const editedComment = await comment.save();
-        res.status(200).json(editedComment);
+        await comment.save();
+        res.status(200).json(comment);
       }
 
     } catch (err) {
       res.status(404).json(err.message)
+    };
+  },
+
+  /**
+    * Controls endpoint DELETE /api/comments/:id
+    */
+  deleteComment: async (req, res) => {
+    try {
+      // We get the comment id in the parameters of the request
+      const { id } = req.params;
+
+      // We check the mission id
+      const comment = await Comment.findOne(id);
+
+      if (!comment) {
+        res.status(404).json({ message: 'Comment not found' });
+      } else {
+        // If found, we delete the comment
+        await comment.delete();
+        res.status(200).json({message: 'Comment successfully deleted'});
+      }
+
+    } catch (err) {
+      res.status(500).json(err.message);
     };
   },
 

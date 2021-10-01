@@ -105,5 +105,14 @@ router.get('/comments/:id', commentController.getOneComment);
  */
  router.put('/comments/:id', commentController.editComment);
 
+ /**
+ * Deletes a specific comment in the database
+ * @route DELETE /api/comments/{id}
+ * @group Comments
+ * @param {number} id.path.required - the comment id
+ * @returns 200 - Removal confirmation message
+ */
+  router.delete('/comments/:id', commentController.deleteComment);
+
 
 module.exports = router;
