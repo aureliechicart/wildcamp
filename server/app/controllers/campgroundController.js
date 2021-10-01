@@ -94,6 +94,29 @@ const campgroundController = {
     };
   },
 
+  /**
+    * Controls endpoint DELETE /api/campgrounds/:id
+    */
+  deleteCampground: async (req, res) => {
+
+    try {
+      // We get the id in the parameters of the request
+      const { id } = req.params;
+      // We check the campground id in the database
+      const campground = await Campground.findOne(id);
+
+      if (campground) {
+        // If it exists, we delete the record in database
+        await campground.delete();
+        res.status(200).json({ message: 'Campground successfully deleted' });
+      } else {
+        res.status(404).json({ message: 'Campground not found' });
+      }
+    } catch (err) {
+      res.status(404).json(err.message);
+    };
+  }
+
 };
 
 module.exports = campgroundController;

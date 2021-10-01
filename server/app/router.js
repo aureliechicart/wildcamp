@@ -45,5 +45,13 @@ router.get('/campgrounds/:id', campgroundController.getOneCampground);
  */
  router.put('/campgrounds/:id', campgroundController.changeCampground);
 
+/**
+ * Deletes a specific campground in the database
+ * @route DELETE /api/campgrounds/{id}
+ * @group Campgrounds
+ * @param {number} id.path.required - the campground id
+ * @returns {<Campground>} 200 - Removal confirmation message
+ */
+ router.delete('/campgrounds/:id', campgroundController.deleteCampground);
 
 module.exports = router;
