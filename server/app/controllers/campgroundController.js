@@ -53,7 +53,7 @@ const campgroundController = {
   /**
     * Controls endpoint PUT /api/campgrounds/:id
     */
-  changeCampground: async (req, res) => {
+  editCampground: async (req, res) => {
     try {
       // we get the campground id from the params 
       const { id } = req.params;

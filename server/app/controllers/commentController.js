@@ -89,6 +89,41 @@ const commentController = {
     };
   },
 
+  /**
+    * Controls endpoint PUT /api/comments/:id
+    */
+  editComment: async (req, res) => {
+
+    try {
+      // We get the comment id in the parameters of the request
+      const { id } = req.params;
+
+      // We check if the comment exists
+      const comment = await Comment.findOne(id);
+
+      if (!comment) {
+        res.status(404).json({ message: 'Campground not found' });
+      } else {
+
+        // We get the text, in the body
+        // We don't need user_id or campground_id as those won't change
+        const { text } = req.body;
+
+        //  If a parameter is provided, we update the mission accordingly
+        if (text) {
+          comment.text = text;
+        };
+
+        // Then we save the changes in database
+        const editedComment = await comment.save();
+        res.status(200).json(editedComment);
+      }
+
+    } catch (err) {
+      res.status(404).json(err.message)
+    };
+  },
+
 };
 
 module.exports = commentController;

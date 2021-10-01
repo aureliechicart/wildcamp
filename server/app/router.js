@@ -46,7 +46,7 @@ router.get('/campgrounds/:id', campgroundController.getOneCampground);
  * @param {string} description- the description
  * @returns {<Camground>} 200 - thee updated instance of the campground
  */
- router.put('/campgrounds/:id', campgroundController.changeCampground);
+ router.put('/campgrounds/:id', campgroundController.editCampground);
 
 /**
  * Deletes a specific campground in the database
@@ -88,11 +88,22 @@ router.get('/comments/:id', commentController.getOneComment);
  * Adds a new comment in the database
  * @route POST /api/campgrounds/{campgroundId}/comments
  * @group Comments
+ * @param {number} campgroundId.path.required - the id of the campground
  * @param {string} text.path.required - the text
  * @param {number} userId.path.required - the id of the user who posted the comment
  * @returns {<New Comment>} 201 - An instance of new comment
  */
   router.post('/campgrounds/:campgroundId/comments', commentController.addComment);
+
+  /**
+ * Edits a specific comment in the database
+ * @route POST /api/comments/{id}
+ * @group Comments
+ * @param {number} id.path.required - the comment id
+ * @param {string} text - the text
+ * @returns {<Comment>} 200 - thee updated instance of the comment
+ */
+ router.put('/comments/:id', commentController.editComment);
 
 
 module.exports = router;
