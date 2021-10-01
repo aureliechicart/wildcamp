@@ -3,6 +3,9 @@ const router = Router();
 
 // Controllers
 const campgroundController = require('./controllers/campgroundController');
+const commentController = require('./controllers/commentController');
+
+/*****************CAMPGROUNDS *******************/
 
 /**
  * Returns all campgrounds from the database
@@ -53,5 +56,33 @@ router.get('/campgrounds/:id', campgroundController.getOneCampground);
  * @returns {<Campground>} 200 - Removal confirmation message
  */
  router.delete('/campgrounds/:id', campgroundController.deleteCampground);
+
+ /*****************COMMENTS *******************/
+ 
+/**
+ * Returns all comments from the database
+ * @route GET /api/comments
+ * @group Comments
+ * @returns {Array<Comment>} 200 - An array of comments
+ */
+ router.get('/comments', commentController.getAll);
+
+ /**
+ * Returns a comment from the database based on its id
+ * @route GET /api/comments/{id}
+ * @group Comments
+ * @param {number} id.path.required - the comment id
+ * @returns {<Comment>} 200 - An instance of a comment
+ */
+router.get('/comments/:id', commentController.getOneComment);
+
+/**
+ * Returns all comments for one specific campground
+ * @route GET /api/campgrounds/{campgroundId}/comments
+ * @group Comments
+ * @returns {Array<Comment>} 200 - An array of comments
+ */
+ router.get('/campgrounds/:campgroundId/comments', commentController.getAllByCampground);
+
 
 module.exports = router;
