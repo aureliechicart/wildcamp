@@ -33,7 +33,7 @@ router.get('/campgrounds/:id', campgroundController.getOneCampground);
  * @param {string} description.path.required - the description
  * @param {string} country.path.required - the country
  * @param {number} userId.path.required - the id of the user who posted the campground
- * @returns {<New Campground>} 200 - An instance of new campground
+ * @returns {<New Campground>} 201 - An instance of new campground
  */
  router.post('/campgrounds', campgroundController.addNewCampground);
 
@@ -83,6 +83,16 @@ router.get('/comments/:id', commentController.getOneComment);
  * @returns {Array<Comment>} 200 - An array of comments
  */
  router.get('/campgrounds/:campgroundId/comments', commentController.getAllByCampground);
+
+ /**
+ * Adds a new comment in the database
+ * @route POST /api/campgrounds/{campgroundId}/comments
+ * @group Comments
+ * @param {string} text.path.required - the text
+ * @param {number} userId.path.required - the id of the user who posted the comment
+ * @returns {<New Comment>} 201 - An instance of new comment
+ */
+  router.post('/campgrounds/:campgroundId/comments', commentController.addComment);
 
 
 module.exports = router;
