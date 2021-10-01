@@ -6,7 +6,7 @@ const campgroundController = require('./controllers/campgroundController');
 
 /**
  * Returns all campgrounds from the database
- * @route GET /campgrounds
+ * @route GET /api/campgrounds
  * @group Campgrounds
  * @returns {Array<Campground>} 200 - An array of campgrounds
  */
@@ -14,7 +14,7 @@ router.get('/campgrounds', campgroundController.getAll);
 
 /**
  * Returns a campground from the database based on its id
- * @route GET /campgrounds/{id}
+ * @route GET /api/campgrounds/{id}
  * @group Campgrounds
  * @param {number} id.path.required - the campground id
  * @returns {<Campground>} 200 - An instance of a campground
@@ -22,8 +22,21 @@ router.get('/campgrounds', campgroundController.getAll);
 router.get('/campgrounds/:id', campgroundController.getOneCampground);
 
 /**
+ * Adds a new campground in the database
+ * @route POST /api/campgrounds
+ * @group Campgrounds
+ * @param {string} title.path.required - the title
+ * @param {string} image.path.required - the image
+ * @param {string} description.path.required - the description
+ * @param {string} country.path.required - the country
+ * @param {number} userId.path.required - the id of the user who posted the campground
+ * @returns {<New Campground>} 200 - An instance of new campground
+ */
+ router.post('/campgrounds', campgroundController.addNewCampground);
+
+/**
  * Edits a specific campground in the database
- * @route POST /campgrounds/{id}
+ * @route POST /api/campgrounds/{id}
  * @group Campgrounds
  * @param {number} id.path.required - the campground id
  * @param {string} title - the title
