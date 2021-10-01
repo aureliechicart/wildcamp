@@ -4,6 +4,7 @@ const router = Router();
 // Controllers
 const campgroundController = require('./controllers/campgroundController');
 const commentController = require('./controllers/commentController');
+const userController = require('./controllers/userController');
 
 /*****************CAMPGROUNDS *******************/
 
@@ -114,5 +115,23 @@ router.get('/comments/:id', commentController.getOneComment);
  */
   router.delete('/comments/:id', commentController.deleteComment);
 
+  /*****************USERS *******************/
+
+/**
+ * Returns all users from the database
+ * @route GET /api/users
+ * @group Users
+ * @returns {Array<User>} 200 - An array of users
+ */
+router.get('/users', userController.getAll);
+
+/**
+ * Returns a user from the database based on its id
+ * @route GET /api/users/{id}
+ * @group Users
+ * @param {number} id.path.required - the user id
+ * @returns {<User>} 200 - An instance of a user
+ */
+ router.get('/users/:id', userController.getOneUser);
 
 module.exports = router;
