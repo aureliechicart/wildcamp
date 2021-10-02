@@ -1,28 +1,16 @@
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import './app.scss';
 
 import Navbar from '../Navbar';
 import Page from '../../containers/Page';
-import { useEffect } from 'react';
 
-function App() {
+const App = ({ loadCampgrounds }) => {
 
-  // testing API request through proxy
-  // const loadAPIText = () => {
-  //   axios.get('/api')
-  //     .then((response) => {
-  //       console.log(response);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     })
-  // }
-
-  // useEffect(() => {
-  //   loadAPIText();
-  // }, []);
-
+  useEffect(() => {
+    loadCampgrounds();
+  }, []);
 
   return (
     <div className="App">
@@ -31,5 +19,9 @@ function App() {
     </div>
   );
 }
+
+App.propTypes = {
+  loadCampgrounds: PropTypes.func.isRequired,
+};
 
 export default App;

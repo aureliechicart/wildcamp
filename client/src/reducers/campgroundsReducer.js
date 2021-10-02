@@ -1,11 +1,17 @@
-import data from '../data';
+import { SAVE_CAMPGROUNDS } from '../actions/campgrounds'
 
 const initialState = {
-  campgroundsList: data,
+  campgroundsList: [],
 };
 
 function campgroundsReducer(state = initialState, action) {
   switch (action.type) {
+    case SAVE_CAMPGROUNDS:
+      return {
+        ...state,
+        campgroundsList: action.campgrounds,
+      }
+
     default:
       return state;
   }

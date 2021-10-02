@@ -16,7 +16,7 @@ const Page = ({ campgrounds }) => {
         <Home />
       </Route>
       <Route path="/campground/:id">
-        <Campground />
+        <Campground campgrounds={campgrounds}/>
       </Route>
       <Route path="/new-campground">
         <NewCampground />
@@ -32,16 +32,6 @@ Page.propTypes = {
       image: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       country: PropTypes.string.isRequired,
-      author: PropTypes.shape({
-        username: PropTypes.string.isRequired
-      }).isRequired,
-      comments: PropTypes.arrayOf(
-        PropTypes.shape({
-          text: PropTypes.string.isRequired,
-          author: PropTypes.shape({
-            username: PropTypes.string.isRequired
-          }).isRequired,
-        }))
     }).isRequired,
   ).isRequired,
 };
