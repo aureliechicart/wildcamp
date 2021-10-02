@@ -1,7 +1,7 @@
 @import '../../styles/vars';
 
 .nav {
-  height: 80px;
+  height: 6rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,10 +24,9 @@
     z-index: 1;
     width: 100%;
     padding: 0 24px;
-    max-width: 1100px;
 
     .nav-item-active {
-      color: $darkColor!important;
+      color: $darkColor !important;
       font-weight: 900;
     }
 
@@ -35,24 +34,21 @@
       display: flex;
       flex-direction: row;
 
-      
-    .nav-logo-image {
-      width: 40px;
-    }
 
-    .nav-brand {
-      // font-size: 1.2rem;
-      margin: auto 0.5rem;
-      font-weight: 900;
+      .nav-logo-image {
+        width: 40px;
+      }
+
+      .nav-brand {
+        margin: auto 0.5rem;
+        font-weight: 900;
+      }
     }
-    }
-    
 
     .nav-items {
       display: flex;
 
     }
-
 
     .nav-item {
       display: block;
@@ -61,11 +57,12 @@
       text-decoration: none;
 
       &:hover {
-        color: #777;
+        color: $mediumColor;
       }
 
       &.nav-item-active {
-        color: blue;
+        color: $mediumColor;
+        font-weight: 700;
       }
     }
   }

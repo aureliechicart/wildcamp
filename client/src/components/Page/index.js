@@ -5,6 +5,7 @@ import "./page.scss";
 
 import Home from "../../containers/Home";
 import Campground from "../../containers/Campground";
+import NewCampground from "../../components/NewCampground";
 
 const Page = ({ campgrounds }) => {
   // console.log(campgrounds);
@@ -16,6 +17,9 @@ const Page = ({ campgrounds }) => {
       </Route>
       <Route path="/campground/:id">
         <Campground />
+      </Route>
+      <Route path="/new-campground">
+        <NewCampground />
       </Route>
     </div>
   );

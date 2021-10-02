@@ -9,19 +9,19 @@ import { useEffect } from 'react';
 function App() {
 
   // testing API request through proxy
-  const loadAPIText = () => {
-    axios.get('/api')
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
+  // const loadAPIText = () => {
+  //   axios.get('/api')
+  //     .then((response) => {
+  //       console.log(response);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     })
+  // }
 
-  useEffect(() => {
-    loadAPIText();
-  }, []);
+  // useEffect(() => {
+  //   loadAPIText();
+  // }, []);
 
 
   return (

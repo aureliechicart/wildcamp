@@ -40,7 +40,7 @@ const userController = {
     }
   },
 
-
+// TODO: adding signup, login and logout methods
 
 };
 
