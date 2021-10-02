@@ -16,7 +16,7 @@ const Page = ({ campgrounds }) => {
         <Home />
       </Route>
       <Route path="/campground/:id">
-        <Campground campgrounds={campgrounds}/>
+        <Campground />
       </Route>
       <Route path="/new-campground">
         <NewCampground />

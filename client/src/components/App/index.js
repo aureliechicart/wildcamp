@@ -10,7 +10,7 @@ const App = ({ loadCampgrounds }) => {
 
   useEffect(() => {
     loadCampgrounds();
-  }, []);
+  }, [loadCampgrounds]);
 
   return (
     <div className="App">

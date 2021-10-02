@@ -27,13 +27,6 @@ Home.propTypes = {
       image: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       country: PropTypes.string.isRequired,
-      comments: PropTypes.arrayOf(
-        PropTypes.shape({
-          text: PropTypes.string.isRequired,
-          author: PropTypes.shape({
-            username: PropTypes.string.isRequired
-          }).isRequired,
-        }))
     }).isRequired,
   ).isRequired,
 };

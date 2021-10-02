@@ -79,7 +79,7 @@ const commentController = {
 
         // We create a new comment and save it in the database
         const newComment = new Comment({ text, campground_id: campgroundId, user_id });
-        // await newComment.save();
+        await newComment.save();
         res.status(201).json(newComment);
       }
 

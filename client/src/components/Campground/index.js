@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 
@@ -6,10 +6,13 @@ import "./campground.scss";
 
 import Comment from './Comment';
 
-const Campground = ({ campgrounds }) => {
+const Campground = ({ selectedCampground, loadSelectedCampground, author, comments }) => {
   const { id } = useParams();
 
-  const campground = campgrounds.find((campground) => campground.id === parseInt(id, 10));
+  useEffect(() => {
+    loadSelectedCampground(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   return (
     <main className="main">
@@ -18,38 +21,38 @@ const Campground = ({ campgrounds }) => {
         <div className="campground-thumbnail">
           <img
             className="campground-image"
-            src={campground.image}
+            src={selectedCampground.image}
             alt="Spot de camping sauvage"
           />
           <div className="campground-details">
             <div className="campground-details-main">
-              <h2 className="campground-details-title">{campground.title}</h2>
-              <span className="campground-details-country">{campground.country}</span>
+              <h2 className="campground-details-title">{selectedCampground.title}</h2>
+              <span className="campground-details-country">{selectedCampground.country}</span>
             </div>
             <p className="campground-details-description">
-              {campground.description}
+              {selectedCampground.description}
             </p>
             <p className="campground-details-author">
-              Partagé par : <span className="author-name">{campground.author.username}</span>
+              Partagé par : <span className="author-name">{author}</span>
             </p>
           </div>
         </div>
 
         <div className="comments-container">
           <div className="comment-button-container">
-            <a className="comment-button" href={`/campgrounds/${campground.id}/comments/new`}>
+            <a className="comment-button" href={`/campgrounds/${selectedCampground.id}/comments/new`}>
               Ajouter un commentaire
             </a>
           </div>
           <hr />
 
           <div className="comments">
-            {campground.comments &&
-              campground.comments.map((comment) => (
+            {comments &&
+              comments.map((comment) => (
                 <Comment key={comment.id} {...comment} />
               ))}
-            {!campground.comments && (
-             <p>Soyez le premier à partager un commentaire !</p> 
+            {!comments.length && (
+              <p>Soyez le premier à partager un commentaire !</p>
             )}
           </div>
         </div>
@@ -59,24 +62,25 @@ const Campground = ({ campgrounds }) => {
 }
 
 Campground.propTypes = {
-  campgrounds: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      country: PropTypes.string.isRequired,
-      author: PropTypes.shape({
-        username: PropTypes.string.isRequired
-      }).isRequired,
-      comments: PropTypes.arrayOf(
-        PropTypes.shape({
-          text: PropTypes.string.isRequired,
-          author: PropTypes.shape({
-            username: PropTypes.string.isRequired
-          }).isRequired,
-        }))
-    }).isRequired,
-  ).isRequired,
+  loadSelectedCampground: PropTypes.func.isRequired,
+  // campgrounds: PropTypes.arrayOf(
+  //   PropTypes.shape({
+  //     title: PropTypes.string.isRequired,
+  //     image: PropTypes.string.isRequired,
+  //     description: PropTypes.string.isRequired,
+  //     country: PropTypes.string.isRequired,
+  //     author: PropTypes.shape({
+  //       username: PropTypes.string.isRequired
+  //     }).isRequired,
+  //     comments: PropTypes.arrayOf(
+  //       PropTypes.shape({
+  //         text: PropTypes.string.isRequired,
+  //         author: PropTypes.shape({
+  //           username: PropTypes.string.isRequired
+  //         }).isRequired,
+  //       }))
+  //   }).isRequired,
+  // ).isRequired,
 };
 
 export default Campground;

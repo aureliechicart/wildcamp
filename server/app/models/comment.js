@@ -79,7 +79,8 @@ class Comment {
     try {
       const { rows } = await db.query(`SELECT comment.*, "user".username author FROM comment
       JOIN "user" ON "user".id = comment.user_id
-      WHERE campground_id = $1;`, [cid]);
+      WHERE campground_id = $1
+      ORDER BY modified_at ASC;`, [cid]);
 
       if (rows) {
         return rows.map(row => new Comment(row));
