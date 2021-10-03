@@ -8,6 +8,9 @@ export const SAVE_SELECTED_CAMPGROUND = 'SAVE_SELECTED_CAMPGROUND';
 export const SAVE_AUTHOR = 'SAVE_AUTHOR';
 export const SAVE_COMMENTS = 'SAVE_COMMENTS';
 
+export const TOGGLE_LOADING_CAMPGROUNDS = 'TOGGLE_LOADING_CAMPGROUNDS';
+export const TOGGLE_SELECTED_LOADING_CAMPGROUND = 'TOGGLE_SELECTED_LOADING_CAMPGROUND';
+
 // === action creators
 export const fetchCampgrounds = () => ({
   type: FETCH_CAMPGROUNDS,
@@ -36,4 +39,12 @@ export const saveAuthor = (author) => ({
 export const saveComments = (comments) => ({
   type: SAVE_COMMENTS,
   comments: comments,
+});
+
+export const toggleLoadingCampgrounds = () => ({
+  type: TOGGLE_LOADING_CAMPGROUNDS,
+});
+
+export const toggleLoadingSelectedCampground = () => ({
+  type: TOGGLE_SELECTED_LOADING_CAMPGROUND,
 });

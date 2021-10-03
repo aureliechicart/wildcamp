@@ -12,6 +12,7 @@ const mapStateToProps = (state) => ({
   selectedCampground: state.campgrounds.selectedCampground,
   author: state.campgrounds.author,
   comments: state.campgrounds.comments,
+  loadingSelectedCampground: state.campgrounds.loadingSelectedCampground,
 });
 
 // === mapDispatchToProps

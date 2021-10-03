@@ -8,6 +8,7 @@ import Home from '../../components/Home';
 const mapStateToProps = (state) => ({
   // name of the prop to specify: element to get from the state
   campgrounds: state.campgrounds.campgroundsList,
+  loadingCampgrounds: state.campgrounds.loadingCampgrounds,
 });
 
 // === mapDispatchToProps

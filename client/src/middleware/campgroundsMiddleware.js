@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { FETCH_CAMPGROUNDS, FETCH_SELECTED_CAMPGROUND, saveCampgrounds, saveSelectedCampground, saveAuthor, saveComments } from '../actions/campgrounds';
+import { FETCH_CAMPGROUNDS, FETCH_SELECTED_CAMPGROUND, saveCampgrounds, saveSelectedCampground, saveAuthor, saveComments, toggleLoadingCampgrounds, toggleLoadingSelectedCampground } from '../actions/campgrounds';
 
 const campgroundsMiddleware = (store) => (next) => (action) => {
 
@@ -13,6 +13,9 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
         })
         .catch((error) => {
           console.log(error);
+        })
+        .finally(() => {
+          store.dispatch(toggleLoadingCampgrounds());
         });
       break;
 
@@ -20,6 +23,7 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
       axios.get(`/api/campgrounds/${action.id}`)
         .then((firstResponse) => {
           console.log(firstResponse.data);
+          console.log(`/api/campgrounds/${action.id}`);
           store.dispatch(saveSelectedCampground(firstResponse.data));
           return axios.get(`/api/users/${firstResponse.data.user_id}`);
         })
@@ -36,6 +40,9 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
         })
         .catch((error) => {
           console.log(error);
+        })
+        .finally(() => {
+          store.dispatch(toggleLoadingSelectedCampground());
         });
       break;
 
