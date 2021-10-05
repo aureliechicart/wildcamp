@@ -20,6 +20,10 @@ const Home = ({ campgrounds, loadingCampgrounds }) => {
           ))}
         </div>
       }
+      <div className="add-campground">
+        <p className="add-campground-subtitle">Vous avez découvert un spot unique et vous souhaitez le partager ? C'est par ici !</p>
+        <button>Ajouter un spot</button>
+      </div>
     </main>
   );
 };
