@@ -4,8 +4,9 @@ import {
   SAVE_AUTHOR,
   SAVE_COMMENTS,
   TOGGLE_LOADING_CAMPGROUNDS,
-  TOGGLE_SELECTED_LOADING_CAMPGROUND
- } from '../actions/campgrounds'
+  TOGGLE_SELECTED_LOADING_CAMPGROUND,
+  UPDATE_CAMPGROUND_FIELD
+} from '../actions/campgrounds'
 
 const initialState = {
   campgroundsList: [],
@@ -14,6 +15,10 @@ const initialState = {
   comments: [],
   loadingCampgrounds: true,
   loadingSelectedCampground: true,
+  title: '',
+  image: '',
+  description: '',
+  country: ''
 };
 
 function campgroundsReducer(state = initialState, action) {
@@ -42,16 +47,22 @@ function campgroundsReducer(state = initialState, action) {
         comments: action.comments,
       };
 
-      case TOGGLE_LOADING_CAMPGROUNDS:
+    case TOGGLE_LOADING_CAMPGROUNDS:
       return {
         ...state,
         loadingCampgrounds: !state.loadingCampgrounds,
       };
 
-      case TOGGLE_SELECTED_LOADING_CAMPGROUND:
+    case TOGGLE_SELECTED_LOADING_CAMPGROUND:
       return {
         ...state,
         loadingSelectedCampground: !state.loadingSelectedCampground,
+      };
+
+    case UPDATE_CAMPGROUND_FIELD:
+      return {
+        ...state,
+        [action.fieldName]: action.newValue,
       };
 
     default:

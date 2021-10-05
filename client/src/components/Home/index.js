@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import './home.scss';
 import CampgroundSmall from './CampgroundSmall';
 import Spinner from '../Spinner';
+import { Link } from 'react-router-dom';
 
 const Home = ({ campgrounds, loadingCampgrounds }) => {
   // console.log(campgrounds);
@@ -22,7 +23,12 @@ const Home = ({ campgrounds, loadingCampgrounds }) => {
       }
       <div className="add-campground">
         <p className="add-campground-subtitle">Vous avez découvert un spot unique et vous souhaitez le partager ? C'est par ici !</p>
-        <button>Ajouter un spot</button>
+        <Link
+          className="add-campground-button"
+          to="/new-campground"
+        >
+          Ajouter un spot
+        </Link>
       </div>
     </main>
   );

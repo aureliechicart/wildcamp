@@ -74,7 +74,7 @@
       margin: 1rem auto;
     }
 
-    button {
+    .add-campground-button {
       width: 200px;
       font-family: inherit;
       background-color: $darkColor;
@@ -86,6 +86,10 @@
       border-radius: 4px;
       margin: 1rem auto;
       border: none;
+    }
+
+    .add-campground-button:hover {
+      background-color: $mediumColor;
     }
   }
 

@@ -93,6 +93,10 @@
           text-align: center;
           border-radius: 4px;
         }
+
+        .comment-button:hover {
+          background-color: $mediumColor;
+        }
       }
 
       hr {
