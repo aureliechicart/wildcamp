@@ -21,6 +21,7 @@
       text-align: center;
       padding: 2rem;
     }
+
     .campground-thumbnail {
       display: block;
       padding: 0;
@@ -61,10 +62,39 @@
           padding: 1rem 0;
         }
 
-        .campground-details-author {
-          .author-name {
-            font-weight: 900;
+        .campground-details-commands {
+          display: flex;
+          justify-content: space-between;
+
+          .author {
+            .author-name {
+              font-weight: 900;
+            }
           }
+
+          .button-group {
+            display: flex;
+
+            button {
+              width: 150px;
+              font-family: inherit;
+              background-color: $mediumColor;
+              color: #ffffff;
+              padding: 0.5rem 1rem;
+              font-size: 1rem;
+              font-weight: 400;
+              text-align: center;
+              border-radius: 4px;
+              border: none;
+              margin-left: 1rem;
+            }
+
+            button:hover {
+              background-color: $darkColor;
+            }
+          }
+
+
         }
       }
     }
@@ -83,15 +113,17 @@
         text-align: right;
 
         .comment-button {
+          font-family: inherit;
           width: 200px;
           background-color: $darkColor;
           color: #ffffff;
           display: inline-block;
-          padding: 0.7rem 1rem;
+          padding: 0.5rem 1rem;
           font-size: 1rem;
           font-weight: 400;
           text-align: center;
           border-radius: 4px;
+          border: none;
         }
 
         .comment-button:hover {
@@ -121,9 +153,62 @@
 
             .comment-date {
               text-align: right;
+              font-size: 0.9rem;
             }
           }
+
+          .comment-commands {
+            display: flex;
+            justify-content: space-between;
+
+            .button-group {
+              display: flex;
+
+              button {
+                width: 75px;
+                font-family: inherit;
+                background-color: $mediumColor;
+                color: #ffffff;
+                padding: 0.3rem 0.8rem;
+                font-size: 0.8rem;
+                font-weight: 400;
+                text-align: center;
+                border-radius: 4px;
+                border: none;
+                margin-left: 1rem;
+              }
+
+              button:hover {
+                background-color: $darkColor;
+              }
+            }
+
+
+          }
         }
+      }
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+
+      .add-campground-button {
+        width: 200px;
+        font-family: inherit;
+        background-color: $darkColor;
+        color: #ffffff;
+        padding: 0.7rem 1rem;
+        font-size: 1rem;
+        font-weight: 400;
+        text-align: center;
+        border-radius: 4px;
+        margin: 1rem auto;
+        border: none;
+      }
+
+      .add-campground-button:hover {
+        background-color: $mediumColor;
       }
     }
   }

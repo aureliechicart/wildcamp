@@ -51,7 +51,7 @@ function campgroundsReducer(state = initialState, action) {
     case TOGGLE_LOADING_SELECTED_CAMPGROUND:
       return {
         ...state,
-        loadingSelectedCampground: !state.loadingSelectedCampground,
+        loadingSelectedCampground: false,
       };
 
     default:

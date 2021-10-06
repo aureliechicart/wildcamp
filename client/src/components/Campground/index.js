@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 import "./campground.scss";
 
@@ -18,7 +18,7 @@ const Campground = ({
 
   useEffect(() => {
     loadSelectedCampground(id);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (
@@ -40,20 +40,37 @@ const Campground = ({
                   <h2 className="campground-details-title">{selectedCampground.title}</h2>
                   <span className="campground-details-country">{selectedCampground.country}</span>
                 </div>
+
                 <p className="campground-details-description">
                   {selectedCampground.description}
                 </p>
-                <p className="campground-details-author">
-                  Partagé par : <span className="author-name">{author}</span>
-                </p>
+                <div className="campground-details-commands">
+                  <p className="author">
+                    Partagé par : <span className="author-name">{author}</span>
+                  </p>
+                  {/* TODO: add conditional display for this button group
+                  if logged username is triple equal to author, display the button group */}
+                  <div className="button-group">
+                    <button
+                      className="edit-button"
+                    >
+                      Modifier
+                    </button>
+                    <button
+                      className="delete-button"
+                    >
+                      Supprimer
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
             <div className="comments-container">
               <div className="comment-button-container">
-                <a className="comment-button" href={`/campgrounds/${selectedCampground.id}/comments/new`}>
+                <button className="comment-button" href={`/campgrounds/${selectedCampground.id}/comments/new`}>
                   Ajouter un commentaire
-                </a>
+                </button>
               </div>
               <hr />
 
@@ -63,9 +80,18 @@ const Campground = ({
                     <Comment key={comment.id} {...comment} />
                   ))}
                 {!comments.length && (
-                  <p>Soyez le premier à partager un commentaire !</p>
+                  <p>Soyez le ou la première à partager un commentaire !</p>
                 )}
               </div>
+            </div>
+
+            <div className="button-container">
+              <Link
+                className="add-campground-button"
+                to="/new-campground"
+              >
+                Ajouter un nouveau spot
+              </Link>
             </div>
           </div>
         )}
@@ -78,10 +104,10 @@ Campground.propTypes = {
   loadingSelectedCampground: PropTypes.bool.isRequired,
   loadSelectedCampground: PropTypes.func.isRequired,
   selectedCampground: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    country: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    image: PropTypes.string,
+    description: PropTypes.string,
+    country: PropTypes.string,
   }).isRequired,
   author: PropTypes.string.isRequired,
   comments: PropTypes.array,

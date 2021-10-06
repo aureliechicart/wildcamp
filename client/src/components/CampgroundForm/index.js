@@ -84,8 +84,16 @@ const CampgroundForm = ({
           </label>
 
           <div className="actions">
-            <input type="button" value="Annuler" onClick={routeChange} />
-            <input type="submit" value="Valider" />
+            <input
+              type="button"
+              value="Annuler"
+              title="Revenir à la page d'accueil"
+              onClick={routeChange}
+            />
+            <input
+              type="submit"
+              value="Valider"
+            />
           </div>
         </form>
       </div>
