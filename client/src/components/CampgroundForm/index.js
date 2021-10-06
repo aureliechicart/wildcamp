@@ -66,6 +66,9 @@ const CampgroundForm = ({ title, image, description, country, changeField }) => 
 
 CampgroundForm.propTypes = {
   title: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  country: PropTypes.string.isRequired,
   changeField: PropTypes.func.isRequired
 };
 
