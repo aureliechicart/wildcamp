@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 // importing reducers
 import campgroundsReducer from './campgroundsReducer';
+import newCampgroundReducer from './newCampgroundReducer';
 
 // this is the main reducer, which combines all the other reducers
 // combineReducers takes as argument an object which describes
@@ -10,6 +11,7 @@ import campgroundsReducer from './campgroundsReducer';
 const rootReducer = combineReducers({
   // drawer name: reducer which controls this part of the state
   campgrounds: campgroundsReducer,
+  newCampground: newCampgroundReducer,
 });
 
 export default rootReducer;

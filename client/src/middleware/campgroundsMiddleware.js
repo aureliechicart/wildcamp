@@ -8,10 +8,7 @@ import {
   saveAuthor,
   saveComments,
   toggleLoadingCampgrounds,
-  toggleLoadingSelectedCampground,
-  SUBMIT_CAMPGROUND,
-  saveCampgroundId,
-  toggleLoadingCampgroundId
+  toggleLoadingSelectedCampground
  } from '../actions/campgrounds';
 
 const campgroundsMiddleware = (store) => (next) => (action) => {
@@ -51,26 +48,6 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
         })
         .finally(() => {
           store.dispatch(toggleLoadingSelectedCampground());
-        });
-      break;
-
-      case SUBMIT_CAMPGROUND:
-        axios.post('/api/campgrounds', {
-        title: store.getState().campgrounds.title,
-        image: store.getState().campgrounds.image,
-        description: store.getState().campgrounds.description,
-        country: store.getState().campgrounds.country,
-        // user_id hard-coded for now
-        user_id: 1
-      })
-        .then((response) => {
-          store.dispatch(saveCampgroundId(response.data.id)); 
-        })
-        .catch((error) => {
-          console.log(error.response);
-        })
-        .finally(()=> {
-          store.dispatch(toggleLoadingCampgroundId());
         });
       break;
 

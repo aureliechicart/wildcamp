@@ -18,7 +18,7 @@ const Campground = ({
 
   useEffect(() => {
     loadSelectedCampground(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (

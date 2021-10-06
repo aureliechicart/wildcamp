@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { submitCampground, updateCampgroundField } from '../../actions/campgrounds';
+import { submitCampground, updateCampgroundField } from '../../actions/newCampground';
 
 // importing presentational component
 import CampgroundForm from '../../components/CampgroundForm';
@@ -9,12 +9,12 @@ import CampgroundForm from '../../components/CampgroundForm';
 // if we need to read information from the state
 const mapStateToProps = (state) => ({
   // name of the prop to specify: element to get from the state
-  title: state.campgrounds.title,
-  image: state.campgrounds.image,
-  description: state.campgrounds.description,
-  country: state.campgrounds.country,
-  campgroundId: state.campgrounds.campgroundId,
-  loadingCampgroundId: state.campgrounds.loadingCampgroundId
+  title: state.newCampground.title,
+  image: state.newCampground.image,
+  description: state.newCampground.description,
+  country: state.newCampground.country,
+  campgroundId: state.newCampground.campgroundId,
+  loadingCampgroundId: state.newCampground.loadingCampgroundId
 });
 
 // === mapDispatchToProps
