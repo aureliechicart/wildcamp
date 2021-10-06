@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { updateCampgroundField } from '../../actions/campgrounds';
+import { submitCampground, updateCampgroundField } from '../../actions/campgrounds';
 
 // importing presentational component
 import CampgroundForm from '../../components/CampgroundForm';
@@ -13,6 +13,8 @@ const mapStateToProps = (state) => ({
   image: state.campgrounds.image,
   description: state.campgrounds.description,
   country: state.campgrounds.country,
+  campgroundId: state.campgrounds.campgroundId,
+  loadingCampgroundId: state.campgrounds.loadingCampgroundId
 });
 
 // === mapDispatchToProps
@@ -20,9 +22,11 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   // name of the prop to specify: function which will dispatch the action
   changeField: (newValue, name) => {
-    console.log(newValue, name);
     dispatch(updateCampgroundField(newValue, name));
-  }
+  },
+  submitCampground: () => {
+    dispatch(submitCampground());
+  },
 });
 
 // === creating the assistant

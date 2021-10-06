@@ -54,7 +54,8 @@
       height: 150px;
     }
 
-    input[type=text]:focus, textarea:focus {
+    input[type=text]:focus,
+    textarea:focus {
       border: 2px solid black;
     }
   }
@@ -63,15 +64,23 @@
     display: flex;
     justify-content: center;
 
-    input[type=submit] {
-      padding: 1rem;
+    input[type=submit],
+    input[type=button] {
+      font-family: inherit;
+      width: 150px;
+      padding: 0.7rem 1rem;
       margin-right: 2rem;
       border: none;
       background-color: $darkColor;
-      color: #fff;
-      font-weight: 600;
-      border-radius: 5px;
-      width: 10%;
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 400;
+      border-radius: 4px;
+    }
+
+    input[type=submit]:hover,
+    input[type=button]:hover {
+      background-color: $mediumColor;
     }
   }
 

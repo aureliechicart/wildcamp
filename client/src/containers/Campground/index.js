@@ -20,7 +20,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   // name of the prop to specify: function which will dispatch the action
   loadSelectedCampground: (id) => {
-    console.log('je suis dans loadSelectedCampground');
     dispatch(fetchSelectedCampground(id));
   }
 });

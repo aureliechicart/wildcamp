@@ -5,7 +5,9 @@ import {
   SAVE_COMMENTS,
   TOGGLE_LOADING_CAMPGROUNDS,
   TOGGLE_SELECTED_LOADING_CAMPGROUND,
-  UPDATE_CAMPGROUND_FIELD
+  UPDATE_CAMPGROUND_FIELD,
+  SAVE_CAMPGROUND_ID,
+  TOGGLE_LOADING_CAMPGROUND_ID
 } from '../actions/campgrounds'
 
 const initialState = {
@@ -18,7 +20,9 @@ const initialState = {
   title: '',
   image: '',
   description: '',
-  country: ''
+  country: '',
+  campgroundId: '',
+  loadingCampgroundId: true,
 };
 
 function campgroundsReducer(state = initialState, action) {
@@ -64,6 +68,23 @@ function campgroundsReducer(state = initialState, action) {
         ...state,
         [action.fieldName]: action.newValue,
       };
+
+    case SAVE_CAMPGROUND_ID:
+      return {
+        ...state,
+        campgroundId: action.campgroundId,
+        // now the campground is created, we can reset the inputs
+        title: '',
+        image: '',
+        description: '',
+        country: ''
+      };
+
+    case TOGGLE_LOADING_CAMPGROUND_ID:
+      return {
+        ...state,
+        loadingCampgroundId: !state.loadingCampgroundId,
+      }
 
     default:
       return state;

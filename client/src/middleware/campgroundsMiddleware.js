@@ -1,6 +1,18 @@
 import axios from 'axios';
 
-import { FETCH_CAMPGROUNDS, FETCH_SELECTED_CAMPGROUND, saveCampgrounds, saveSelectedCampground, saveAuthor, saveComments, toggleLoadingCampgrounds, toggleLoadingSelectedCampground } from '../actions/campgrounds';
+import {
+  FETCH_CAMPGROUNDS,
+  FETCH_SELECTED_CAMPGROUND,
+  saveCampgrounds,
+  saveSelectedCampground,
+  saveAuthor,
+  saveComments,
+  toggleLoadingCampgrounds,
+  toggleLoadingSelectedCampground,
+  SUBMIT_CAMPGROUND,
+  saveCampgroundId,
+  toggleLoadingCampgroundId
+ } from '../actions/campgrounds';
 
 const campgroundsMiddleware = (store) => (next) => (action) => {
 
@@ -12,7 +24,7 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
           store.dispatch(saveCampgrounds(response.data));
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.response);
         })
         .finally(() => {
           store.dispatch(toggleLoadingCampgrounds());
@@ -22,27 +34,43 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
     case FETCH_SELECTED_CAMPGROUND:
       axios.get(`/api/campgrounds/${action.id}`)
         .then((firstResponse) => {
-          console.log(firstResponse.data);
-          console.log(`/api/campgrounds/${action.id}`);
           store.dispatch(saveSelectedCampground(firstResponse.data));
           return axios.get(`/api/users/${firstResponse.data.user_id}`);
         })
         .then((secondResponse) => {
-          console.log(secondResponse.data.username);
           store.dispatch(saveAuthor(secondResponse.data.username));
           return axios.get(`/api/campgrounds/${action.id}/comments`);
         })
         .then((thirdResponse) => {
-          console.log(thirdResponse.data);
           if (thirdResponse.data) {
             store.dispatch(saveComments(thirdResponse.data));
           }
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.response);
         })
         .finally(() => {
           store.dispatch(toggleLoadingSelectedCampground());
+        });
+      break;
+
+      case SUBMIT_CAMPGROUND:
+        axios.post('/api/campgrounds', {
+        title: store.getState().campgrounds.title,
+        image: store.getState().campgrounds.image,
+        description: store.getState().campgrounds.description,
+        country: store.getState().campgrounds.country,
+        // user_id hard-coded for now
+        user_id: 1
+      })
+        .then((response) => {
+          store.dispatch(saveCampgroundId(response.data.id)); 
+        })
+        .catch((error) => {
+          console.log(error.response);
+        })
+        .finally(()=> {
+          store.dispatch(toggleLoadingCampgroundId());
         });
       break;
 

@@ -1,18 +1,46 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 import "./campgroundform.scss";
 
-const CampgroundForm = ({ title, image, description, country, changeField }) => {
-  // console.log(title);
+const CampgroundForm = ({
+  title,
+  image,
+  description,
+  country,
+  changeField,
+  submitCampground,
+  campgroundId,
+  loadingCampgroundId
+}) => {
+
+  const history = useHistory();
+  const routeChange = () => {
+    const path = `/`;
+    history.push(path);
+  }
+
+  useEffect(() => {
+    if (!loadingCampgroundId) {
+      const path = `/campground/${campgroundId}`;
+      history.push(path);
+    }
+  });
 
   return (
     <div className="campground-form">
       <h2 className="heading">Ajouter un spot de camping sauvage</h2>
       <div className="content" >
-        <form className="form">
-          <label className="label">
-            Titre* :
+        <form
+          className="form"
+          onSubmit={(event) => {
+            event.preventDefault();
+            submitCampground();
+          }}
+        >
+          <label htmlFor="title" className="label">
+            Titre*:
             <input
               type="text"
               value={title}
@@ -22,7 +50,7 @@ const CampgroundForm = ({ title, image, description, country, changeField }) => 
                 changeField(event.target.value, event.target.name);
               }} />
           </label>
-          <label className="label">
+          <label htmlFor="image" className="label">
             URL de l'image* :
             <input
               type="text"
@@ -33,8 +61,8 @@ const CampgroundForm = ({ title, image, description, country, changeField }) => 
                 changeField(event.target.value, event.target.name);
               }} />
           </label>
-          <label className="label">
-            Description* :
+          <label htmlFor="description" className="label">
+            Description*:
             <textarea
               value={description}
               name="description"
@@ -44,8 +72,8 @@ const CampgroundForm = ({ title, image, description, country, changeField }) => 
               }}
             />
           </label>
-          <label className="label">
-            Pays* :
+          <label htmlFor="country" className="label">
+            Pays*:
             <input type="text"
               value={country}
               name="country"
@@ -54,11 +82,12 @@ const CampgroundForm = ({ title, image, description, country, changeField }) => 
                 changeField(event.target.value, event.target.name);
               }} />
           </label>
+
+          <div className="actions">
+            <input type="button" value="Annuler" onClick={routeChange} />
+            <input type="submit" value="Valider" />
+          </div>
         </form>
-      </div>
-      <div className="actions">
-        <input type="submit" value="Annuler" />
-        <input type="submit" value="Valider" />
       </div>
     </div>
   )
@@ -69,7 +98,8 @@ CampgroundForm.propTypes = {
   image: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
-  changeField: PropTypes.func.isRequired
+  changeField: PropTypes.func.isRequired,
+  // submitCamgpround: PropTypes.func.isRequired
 };
 
 export default CampgroundForm;
