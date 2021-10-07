@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useHistory } from 'react-router-dom';
 
 import "./campground.scss";
 
@@ -20,6 +20,12 @@ const Campground = ({
     loadSelectedCampground(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  const history = useHistory();
+  const editRouteChange = () => {
+    const path = `/edit-campground/${selectedCampground.id}`;
+    history.push(path);
+  }
 
   return (
     <main className="main">
@@ -53,6 +59,7 @@ const Campground = ({
                   <div className="button-group">
                     <button
                       className="edit-button"
+                      onClick={editRouteChange}
                     >
                       Modifier
                     </button>

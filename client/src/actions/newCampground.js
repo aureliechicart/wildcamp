@@ -6,6 +6,8 @@ export const SAVE_CAMPGROUND_ID = 'SAVE_CAMPGROUND_ID';
 
 export const TOGGLE_LOADING_CAMPGROUND_ID = 'TOGGLE_LOADING_CAMPGROUND_ID';
 
+export const SUBMIT_EDITED_CAMPGROUND = 'SUBMIT_EDITED_CAMPGROUND';
+
 // === action creators
 
 export const updateCampgroundField = (newValue, fieldName) => ({
@@ -25,4 +27,9 @@ export const saveCampgroundId = (campgroundId) => ({
 
 export const toggleLoadingCampgroundId = () => ({
   type: TOGGLE_LOADING_CAMPGROUND_ID,
+});
+
+export const submitEditedCampground = (campgroundId) => ({
+  type: SUBMIT_EDITED_CAMPGROUND,
+  campgroundId: campgroundId
 });

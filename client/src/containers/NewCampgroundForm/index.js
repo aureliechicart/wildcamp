@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { submitCampground, updateCampgroundField } from '../../actions/newCampground';
 
 // importing presentational component
-import CampgroundForm from '../../components/CampgroundForm';
+import NewCampgroundForm from '../../components/NewCampgroundForm';
 
 // === mapStateToProps
 // if we need to read information from the state
@@ -31,4 +31,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 // === creating the assistant
 // adding withRouter to be able to access params in container
-export default connect(mapStateToProps, mapDispatchToProps)(CampgroundForm);
+export default connect(mapStateToProps, mapDispatchToProps)(NewCampgroundForm);

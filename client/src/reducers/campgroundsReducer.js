@@ -5,6 +5,7 @@ import {
   SAVE_COMMENTS,
   TOGGLE_LOADING_CAMPGROUNDS,
   TOGGLE_LOADING_SELECTED_CAMPGROUND,
+  UPDATE_EDIT_FIELD
 } from '../actions/campgrounds'
 
 const initialState = {
@@ -52,6 +53,15 @@ function campgroundsReducer(state = initialState, action) {
       return {
         ...state,
         loadingSelectedCampground: false,
+      };
+
+    case UPDATE_EDIT_FIELD:
+      return {
+        ...state,
+        selectedCampground: {
+          ...state.selectedCampground,
+          [action.fieldName]: action.newValue
+        }
       };
 
     default:

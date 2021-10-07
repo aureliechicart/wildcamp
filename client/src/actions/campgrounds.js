@@ -11,7 +11,7 @@ export const SAVE_COMMENTS = 'SAVE_COMMENTS';
 export const TOGGLE_LOADING_CAMPGROUNDS = 'TOGGLE_LOADING_CAMPGROUNDS';
 export const TOGGLE_LOADING_SELECTED_CAMPGROUND = 'TOGGLE_LOADING_SELECTED_CAMPGROUND';
 
-
+export const UPDATE_EDIT_FIELD = 'UPDATE_EDIT_FIELD';
 
 // === action creators
 export const fetchCampgrounds = () => ({
@@ -49,4 +49,10 @@ export const toggleLoadingCampgrounds = () => ({
 
 export const toggleLoadingSelectedCampground = () => ({
   type: TOGGLE_LOADING_SELECTED_CAMPGROUND,
+});
+
+export const updateEditField = (newValue, fieldName) => ({
+  type: UPDATE_EDIT_FIELD,
+  newValue: newValue,
+  fieldName: fieldName,
 });

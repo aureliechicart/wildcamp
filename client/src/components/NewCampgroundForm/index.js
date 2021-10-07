@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import PropTypes from 'prop-types';
 
-import "./campgroundform.scss";
+import "./newcampgroundform.scss";
 
-const CampgroundForm = ({
+const NewCampgroundForm = ({
   title,
   image,
   description,
@@ -101,7 +101,7 @@ const CampgroundForm = ({
   )
 };
 
-CampgroundForm.propTypes = {
+NewCampgroundForm.propTypes = {
   title: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
@@ -110,4 +110,4 @@ CampgroundForm.propTypes = {
   // submitCamgpround: PropTypes.func.isRequired
 };
 
-export default CampgroundForm;
+export default NewCampgroundForm;
