@@ -4,7 +4,8 @@ import {
   fetchSelectedCampground,
   toggleCommentEditing,
   submitEditedComment,
-  updateEditCommentField
+  updateEditCommentField,
+  deleteComment
 } from '../../actions/currentCampground';
 
 // importing presentational component
@@ -38,6 +39,9 @@ const mapDispatchToProps = (dispatch) => ({
   changeCommentField: (newValue, commentId) => {   
     dispatch(updateEditCommentField(newValue, commentId));
   },
+  deleteComment: (commentId) => {
+    dispatch(deleteComment(commentId));
+  }
 });
 
 // === creating the assistant

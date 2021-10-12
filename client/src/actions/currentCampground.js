@@ -15,6 +15,8 @@ export const UPDATE_EDIT_COMMENT_FIELD = 'UPDATE_EDIT_COMMENT_FIELD';
 export const TOGGLE_COMMENT_EDITING = 'TOGGLE_COMMENT_EDITING';
 export const SUBMIT_EDITED_COMMENT = 'SUBMIT_EDITED_COMMENT';
 export const SAVE_EDITED_COMMENT_ID = 'SAVE_EDITED_COMMENT_ID';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 
 // === action creators
 
@@ -63,8 +65,15 @@ export const submitEditedComment = (commentId) => ({
   commentId: commentId
 });
 
+export const deleteComment = (commentId) => ({
+  type: DELETE_COMMENT,
+  commentId: commentId
+});
 
-
+export const removeComment = (commentId) => ({
+  type: REMOVE_COMMENT,
+  commentId: commentId
+});
 
 
 export const updateEditCommentField = (newValue, commentId) => ({

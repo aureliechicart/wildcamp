@@ -17,7 +17,8 @@ const Campground = ({
   toggleCommentEditing,
   selectedCommentId,
   submitEditedComment,
-  changeCommentField
+  changeCommentField,
+  deleteComment
 }) => {
   const { id } = useParams();
 
@@ -97,6 +98,7 @@ const Campground = ({
                       selectedCommentId={selectedCommentId}
                       submitEditedComment={submitEditedComment}
                       changeCommentField={changeCommentField}
+                      deleteComment={deleteComment}
                     />
                   ))}
                 {!comments.length && (

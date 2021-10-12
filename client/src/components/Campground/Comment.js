@@ -12,11 +12,14 @@ const Comment = ({
   selectedCommentId,
   toggleCommentEditing,
   submitEditedComment,
-  changeCommentField
+  changeCommentField,
+  deleteComment
 }) => {
 
   const textAreaRef = useRef();
 
+  // when the user double-clicked on a comment, it changes the comment into an editable mode
+  // when the user clicks outside this textarea, the editing mode is changed to false
   useOutsideClick(textAreaRef, () => {
     toggleCommentEditing();
   });
@@ -57,14 +60,20 @@ const Comment = ({
             }}
 
           />
-          : <p
-            className="comment-text"
-            onDoubleClick={(event) => {
-              // TODO: add following conditions
-              // if loggedUser === author > toggle commentEditing
-              // else > display an error message stating the user cannot edit ohter users'comments
-              toggleCommentEditing(id.toString());
-            }}>{text}</p>
+          : <div>
+            <p
+              className="comment-text"
+              onDoubleClick={(event) => {
+                // TODO: add following conditions
+                // if loggedUser === author > toggle commentEditing
+                // else > display an error message stating the user cannot edit ohter users'comments
+                toggleCommentEditing(id.toString());
+              }}>
+              {text}
+            </p>
+            {/* TODO: add a condition to check loggedUser is author */}
+            <p className="edit-hint">Double-cliquez pour modifier</p>
+          </div>
         }
 
         {/* TODO: add conditional display for this button group
@@ -72,6 +81,9 @@ const Comment = ({
         <div className="button-group">
           <button
             className="delete-button"
+            onClick={() => {
+              deleteComment(id);
+            }}
           >
             Supprimer
           </button>

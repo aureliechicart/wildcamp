@@ -6,7 +6,8 @@ import {
   UPDATE_EDIT_FIELD,
   TOGGLE_COMMENT_EDITING,
   UPDATE_EDIT_COMMENT_FIELD,
-  SAVE_EDITED_COMMENT_ID
+  SAVE_EDITED_COMMENT_ID,
+  REMOVE_COMMENT
 } from '../actions/currentCampground'
 
 const initialState = {
@@ -83,6 +84,12 @@ function currentCampgroundReducer(state = initialState, action) {
         editedCommentId: action.editedCommentId,
         commentEditing: false,
       };
+
+    case REMOVE_COMMENT:
+      return {
+        ...state,
+        comments: state.comments.filter(comment => comment.id !== action.commentId)
+      }
 
 
     default:

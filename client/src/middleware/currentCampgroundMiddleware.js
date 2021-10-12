@@ -8,7 +8,9 @@ import {
   toggleLoadingSelectedCampground,
   SUBMIT_EDITED_CAMPGROUND,
   SUBMIT_EDITED_COMMENT,
-  saveEditedCommentId
+  saveEditedCommentId,
+  DELETE_COMMENT,
+  removeComment
  } from '../actions/currentCampground';
  import {
   saveCampgroundId,
@@ -78,6 +80,20 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
         })
         .catch((error) => {
           console.log(error.response);
+        })
+      break;
+
+      case DELETE_COMMENT:
+        console.log(action.commentId);
+        axios.delete(`/api/comments/${action.commentId}`)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error.response);
+        })
+        .finally(()=> {
+          store.dispatch(removeComment(action.commentId));
         })
       break;
 
