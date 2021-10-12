@@ -1,8 +1,12 @@
 @import "src/styles/_vars.scss";
 
 .home {
+  width: 80%;
 
   @media screen and (max-width: 960px) {
+    width: 80%;
+  }
+  @media screen and (max-width: 480px) {
     width: 90%;
   }
 
@@ -11,6 +15,10 @@
     font-weight: 900;
     text-align: center;
     padding: 3rem;
+
+    @media screen and (max-width: 360px) {
+      font-size: 2rem;
+    }
   }
 
   .home-subtitle {
@@ -19,6 +27,14 @@
     margin-bottom: 1rem;
     width: 50%;
     margin: 0 auto;
+
+    @media screen and (max-width: 960px) {
+      width: 90%;
+    }
+
+    @media screen and (max-width: 360px) {
+      font-size: 1.2rem;
+    }
   }
 
   .campgrounds-small {
@@ -28,17 +44,37 @@
     padding: 2rem;
 
     .campground-small {
-      width: 25%;
+      width: 30%;
       margin: 1rem;
       border-radius: 1em;
       overflow: hidden;
       background-color: white;
 
+      @media screen and (max-width: 960px) {
+        width: 43%;
+      }
+
+      @media screen and (max-width: 680px) {
+        width: 90%;
+      }
+
+      @media screen and (max-width: 480px) {
+        width: 100%;
+      }
+
       img {
         width: 100%;
-        height: 250px;
+        height: 200px;
         transform: scale(1);
         transition: 0.3s ease-in-out;
+
+        @media screen and (max-width: 650px) {
+          height: 170px;
+        }
+
+        @media screen and (max-width: 360px) {
+          height: 150px;
+        }
       }
 
       img:hover {
@@ -72,6 +108,14 @@
       margin-bottom: 1rem;
       width: 50%;
       margin: 1rem auto;
+
+      @media screen and (max-width: 960px) {
+        width: 90%;
+      }
+
+      @media screen and (max-width: 360px) {
+        font-size: 1.2rem;
+      }
     }
 
     .add-campground-button {

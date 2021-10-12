@@ -5,9 +5,10 @@
 body {
   font-family: 'Alegreya Sans', sans-serif;
   background: $lightColor;
-  width: 80%;
-  margin: 0 auto;
+  // width: 100%;
   box-sizing: border-box;
+  display: flex;
+  justify-content: center;
 }
 
 
