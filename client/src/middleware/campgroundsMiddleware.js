@@ -8,7 +8,9 @@ import {
   saveAuthor,
   saveComments,
   toggleLoadingCampgrounds,
-  toggleLoadingSelectedCampground
+  toggleLoadingSelectedCampground,
+  SUBMIT_EDITED_COMMENT,
+  saveEditedCommentId
  } from '../actions/campgrounds';
 
 const campgroundsMiddleware = (store) => (next) => (action) => {
@@ -49,6 +51,20 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
         .finally(() => {
           store.dispatch(toggleLoadingSelectedCampground());
         });
+      break;
+
+      case SUBMIT_EDITED_COMMENT:
+        const comments = store.getState().campgrounds.comments;
+        const comment = comments.find((comment) => comment.id === action.commentId);
+        axios.put(`/api/comments/${action.commentId}`, {
+          text: comment.text
+        })
+        .then((response)=> {
+          store.dispatch(saveEditedCommentId(response.data.id));
+        })
+        .catch((error) => {
+          console.log(error.response);
+        })
       break;
 
     default:

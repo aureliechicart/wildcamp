@@ -1,6 +1,11 @@
 import { connect } from 'react-redux';
 
-import { fetchSelectedCampground } from '../../actions/campgrounds';
+import {
+  fetchSelectedCampground,
+  toggleCommentEditing,
+  submitEditedComment,
+  updateEditCommentField
+} from '../../actions/campgrounds';
 
 // importing presentational component
 import Campground from '../../components/Campground';
@@ -13,6 +18,8 @@ const mapStateToProps = (state) => ({
   author: state.campgrounds.author,
   comments: state.campgrounds.comments,
   loadingSelectedCampground: state.campgrounds.loadingSelectedCampground,
+  commentEditing: state.campgrounds.commentEditing,
+  selectedCommentId: state.campgrounds.selectedCommentId
 });
 
 // === mapDispatchToProps
@@ -21,7 +28,16 @@ const mapDispatchToProps = (dispatch) => ({
   // name of the prop to specify: function which will dispatch the action
   loadSelectedCampground: (id) => {
     dispatch(fetchSelectedCampground(id));
-  }
+  },
+  toggleCommentEditing: (commentId) => {
+    dispatch(toggleCommentEditing(commentId));
+  },
+  submitEditedComment: (commentId) => {
+    dispatch(submitEditedComment(commentId));
+  },
+  changeCommentField: (newValue, commentId) => {   
+    dispatch(updateEditCommentField(newValue, commentId));
+  },
 });
 
 // === creating the assistant

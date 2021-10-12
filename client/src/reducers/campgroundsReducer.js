@@ -5,7 +5,10 @@ import {
   SAVE_COMMENTS,
   TOGGLE_LOADING_CAMPGROUNDS,
   TOGGLE_LOADING_SELECTED_CAMPGROUND,
-  UPDATE_EDIT_FIELD
+  UPDATE_EDIT_FIELD,
+  TOGGLE_COMMENT_EDITING,
+  UPDATE_EDIT_COMMENT_FIELD,
+  SAVE_EDITED_COMMENT_ID
 } from '../actions/campgrounds'
 
 const initialState = {
@@ -15,6 +18,9 @@ const initialState = {
   comments: [],
   loadingCampgrounds: true,
   loadingSelectedCampground: true,
+  commentEditing: false,
+  selectedCommentId: '',
+  editedCommentId: ''
 };
 
 function campgroundsReducer(state = initialState, action) {
@@ -63,6 +69,36 @@ function campgroundsReducer(state = initialState, action) {
           [action.fieldName]: action.newValue
         }
       };
+
+    case TOGGLE_COMMENT_EDITING:
+      return {
+        ...state,
+        commentEditing: !state.commentEditing,
+        selectedCommentId: action.commentId
+      };
+
+    case UPDATE_EDIT_COMMENT_FIELD:
+      return {
+        ...state,
+        comments: state.comments.map((comment) => {
+          if (comment.id === action.commentId) {
+            return {
+              ...comment,
+              text: action.newValue
+            }
+          } else {
+            return comment;
+          }
+        })
+      };
+
+    case SAVE_EDITED_COMMENT_ID:
+      return {
+        ...state,
+        editedCommentId: action.editedCommentId,
+        commentEditing: false,
+      };
+
 
     default:
       return state;

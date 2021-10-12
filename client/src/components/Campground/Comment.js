@@ -1,14 +1,32 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from 'prop-types';
 
-const Comment = ({ author, text, modified_at }) => {
+import useOutsideClick from "../../hooks/useOutsideClick";
+
+const Comment = ({
+  id,
+  author,
+  text,
+  modified_at,
+  commentEditing,
+  selectedCommentId,
+  toggleCommentEditing,
+  submitEditedComment,
+  changeCommentField
+}) => {
+
+  const textAreaRef = useRef();
+
+  useOutsideClick(textAreaRef, () => {
+    toggleCommentEditing();
+  });
 
   // Calculating how long ago the comment was posted
   const msInADay = 1000 * 60 * 60 * 24;
   const diffDays = Math.floor((Date.now() - new Date(modified_at)) / msInADay);
 
   return (
-    <div className="comment">
+    <div className="comment" >
       <div className="comment-info">
         <p className="comment-author">{author}</p>
         {diffDays <= 1 &&
@@ -23,15 +41,35 @@ const Comment = ({ author, text, modified_at }) => {
         }
       </div>
       <div className="comment-commands">
-        <p className="description">{text}</p>
+        {(selectedCommentId === id.toString()) && commentEditing ?
+          <textarea
+            ref={textAreaRef}
+            className="edit-textarea"
+            type="text"
+            value={text}
+            onChange={(event) => {
+              changeCommentField(event.target.value, id);
+            }}
+            onKeyUp={(event) => {
+              if (event.key === 'Enter') {
+                submitEditedComment(id);
+              }
+            }}
+
+          />
+          : <p
+            className="comment-text"
+            onDoubleClick={(event) => {
+              // TODO: add following conditions
+              // if loggedUser === author > toggle commentEditing
+              // else > display an error message stating the user cannot edit ohter users'comments
+              toggleCommentEditing(id.toString());
+            }}>{text}</p>
+        }
+
         {/* TODO: add conditional display for this button group
           if logged username is triple equal to comment author, display the button group */}
         <div className="button-group">
-          <button
-            className="edit-button"
-          >
-            Modifier
-          </button>
           <button
             className="delete-button"
           >
@@ -40,7 +78,7 @@ const Comment = ({ author, text, modified_at }) => {
         </div>
       </div>
 
-    </div>
+    </div >
   );
 
 }

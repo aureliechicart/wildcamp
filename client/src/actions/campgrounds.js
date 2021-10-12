@@ -12,6 +12,11 @@ export const TOGGLE_LOADING_CAMPGROUNDS = 'TOGGLE_LOADING_CAMPGROUNDS';
 export const TOGGLE_LOADING_SELECTED_CAMPGROUND = 'TOGGLE_LOADING_SELECTED_CAMPGROUND';
 
 export const UPDATE_EDIT_FIELD = 'UPDATE_EDIT_FIELD';
+export const UPDATE_EDIT_COMMENT_FIELD = 'UPDATE_EDIT_COMMENT_FIELD';
+
+export const TOGGLE_COMMENT_EDITING = 'TOGGLE_COMMENT_EDITING';
+export const SUBMIT_EDITED_COMMENT = 'SUBMIT_EDITED_COMMENT';
+export const SAVE_EDITED_COMMENT_ID = 'SAVE_EDITED_COMMENT_ID';
 
 
 // === action creators
@@ -57,3 +62,24 @@ export const updateEditField = (newValue, fieldName) => ({
   newValue: newValue,
   fieldName: fieldName,
 });
+
+export const toggleCommentEditing = (commentId) => ({
+  type: TOGGLE_COMMENT_EDITING,
+  commentId: commentId
+});
+
+export const submitEditedComment = (commentId) => ({
+  type: SUBMIT_EDITED_COMMENT,
+  commentId: commentId
+});
+
+export const updateEditCommentField = (newValue, commentId) => ({
+  type: UPDATE_EDIT_COMMENT_FIELD,
+  newValue: newValue,
+  commentId: commentId
+});
+
+export const saveEditedCommentId = (editedCommentId) => ({
+  type: SAVE_EDITED_COMMENT_ID,
+  editedCommentId: editedCommentId
+})

@@ -12,7 +12,12 @@ const Campground = ({
   selectedCampground,
   loadSelectedCampground,
   author,
-  comments
+  comments,
+  commentEditing,
+  toggleCommentEditing,
+  selectedCommentId,
+  submitEditedComment,
+  changeCommentField
 }) => {
   const { id } = useParams();
 
@@ -84,7 +89,15 @@ const Campground = ({
               <div className="comments">
                 {comments &&
                   comments.map((comment) => (
-                    <Comment key={comment.id} {...comment} />
+                    <Comment
+                      key={comment.id}
+                      {...comment}
+                      commentEditing={commentEditing}
+                      toggleCommentEditing={toggleCommentEditing}
+                      selectedCommentId={selectedCommentId}
+                      submitEditedComment={submitEditedComment}
+                      changeCommentField={changeCommentField}
+                    />
                   ))}
                 {!comments.length && (
                   <p>Soyez le ou la première à partager un commentaire !</p>
