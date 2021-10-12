@@ -18,6 +18,12 @@ export const SAVE_EDITED_COMMENT_ID = 'SAVE_EDITED_COMMENT_ID';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 
+export const TOGGLE_ADD_COMMENT_EDITING = 'TOGGLE_ADD_COMMENT_EDITING';
+export const UPDATE_ADD_COMMENT_FIELD = 'UPDATE_ADD_COMMENT_FIELD';
+export const SUBMIT_NEW_COMMENT = 'SUBMIT_NEW_COMMENT';
+export const ADD_COMMENT = 'ADD_COMMENT';
+
+
 // === action creators
 
 export const fetchSelectedCampground = (id) => ({
@@ -85,4 +91,23 @@ export const updateEditCommentField = (newValue, commentId) => ({
 export const saveEditedCommentId = (editedCommentId) => ({
   type: SAVE_EDITED_COMMENT_ID,
   editedCommentId: editedCommentId
+});
+
+export const toggleAddCommentEditing = () => ({
+  type: TOGGLE_ADD_COMMENT_EDITING
+});
+
+export const updateAddCommentField = (newValue) => ({
+  type: UPDATE_ADD_COMMENT_FIELD,
+  newValue: newValue
+});
+
+export const submitNewComment = (campgroundId) => ({
+  type: SUBMIT_NEW_COMMENT,
+  campgroundId: campgroundId
+});
+
+export const addComment = (comment) => ({
+  type: ADD_COMMENT,
+  comment: comment
 });

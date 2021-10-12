@@ -5,7 +5,10 @@ import {
   toggleCommentEditing,
   submitEditedComment,
   updateEditCommentField,
-  deleteComment
+  deleteComment,
+  toggleAddCommentEditing,
+  updateAddCommentField,
+  submitNewComment
 } from '../../actions/currentCampground';
 
 // importing presentational component
@@ -20,7 +23,9 @@ const mapStateToProps = (state) => ({
   comments: state.currentCampground.comments,
   loadingSelectedCampground: state.currentCampground.loadingSelectedCampground,
   commentEditing: state.currentCampground.commentEditing,
-  selectedCommentId: state.currentCampground.selectedCommentId
+  selectedCommentId: state.currentCampground.selectedCommentId,
+  addCommentEditing: state.currentCampground.addCommentEditing,
+  newCommentValue: state.currentCampground.newCommentValue
 });
 
 // === mapDispatchToProps
@@ -36,12 +41,22 @@ const mapDispatchToProps = (dispatch) => ({
   submitEditedComment: (commentId) => {
     dispatch(submitEditedComment(commentId));
   },
-  changeCommentField: (newValue, commentId) => {   
+  changeCommentField: (newValue, commentId) => {
     dispatch(updateEditCommentField(newValue, commentId));
   },
   deleteComment: (commentId) => {
     dispatch(deleteComment(commentId));
+  },
+  toggleAddCommentEditing: () => {
+    dispatch(toggleAddCommentEditing());
+  },
+  changeAddCommentField: (newValue) => {
+    dispatch(updateAddCommentField(newValue));
+  },
+  submitNewComment: (campgroundId) => {
+    dispatch(submitNewComment(campgroundId));
   }
+
 });
 
 // === creating the assistant

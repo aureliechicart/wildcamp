@@ -18,7 +18,12 @@ const Campground = ({
   selectedCommentId,
   submitEditedComment,
   changeCommentField,
-  deleteComment
+  deleteComment,
+  addCommentEditing,
+  toggleAddCommentEditing,
+  newCommentValue,
+  changeAddCommentField,
+  submitNewComment
 }) => {
   const { id } = useParams();
 
@@ -80,11 +85,47 @@ const Campground = ({
             </div>
 
             <div className="comments-container">
-              <div className="comment-button-container">
-                <button className="comment-button" href={`/campgrounds/${selectedCampground.id}/comments/new`}>
-                  Ajouter un commentaire
-                </button>
-              </div>
+              {!addCommentEditing &&
+                <div className="comment-button-container">
+                  <button
+                    className="comment-button"
+                    onClick={() => {
+                      toggleAddCommentEditing();
+                    }}
+                  >
+                    Ajouter un commentaire
+                  </button>
+                </div>
+              }
+              {addCommentEditing &&
+                  <div className="add-comment-container">
+                    <label className="add-comment-label" htmlFor="add-comment">
+                      <textarea
+                        className="add-comment-textarea"
+                        value={newCommentValue}
+                        title="add-comment"
+                        placeholder="Ajoutez un commentaire..."
+                        onChange={(event) => {
+                          changeAddCommentField(event.target.value);
+                        }}
+                      />
+                    </label>
+                    <div className="add-comment-button-container">
+                    <button
+                      className="submit-comment"
+                      onClick={() => {
+                        submitNewComment(selectedCampground.id);
+                      }}
+                    >
+                      Valider
+                    </button>
+                    <button className="cancel-comment"
+                    onClick={()=> {
+                      toggleAddCommentEditing();
+                    }}>Annuler</button>
+                    </div>
+                  </div>
+              }
               <hr />
 
               <div className="comments">

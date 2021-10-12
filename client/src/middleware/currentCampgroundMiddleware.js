@@ -10,12 +10,15 @@ import {
   SUBMIT_EDITED_COMMENT,
   saveEditedCommentId,
   DELETE_COMMENT,
-  removeComment
- } from '../actions/currentCampground';
- import {
+  removeComment,
+  SUBMIT_NEW_COMMENT,
+  addComment,
+  toggleAddCommentEditing
+} from '../actions/currentCampground';
+import {
   saveCampgroundId,
   toggleLoadingCampgroundId,
- } from '../actions/newCampground';
+} from '../actions/newCampground';
 
 const campgroundsMiddleware = (store) => (next) => (action) => {
 
@@ -43,7 +46,7 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
         });
       break;
 
-      case SUBMIT_EDITED_CAMPGROUND:
+    case SUBMIT_EDITED_CAMPGROUND:
       // we send a put request using the information in state
       axios.put(`/api/campgrounds/${action.campgroundId}`, {
         title: store.getState().campgrounds.selectedCampground.title,
@@ -69,13 +72,13 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
         });
       break;
 
-      case SUBMIT_EDITED_COMMENT:
-        const comments = store.getState().campgrounds.comments;
-        const comment = comments.find((comment) => comment.id === action.commentId);
-        axios.put(`/api/comments/${action.commentId}`, {
-          text: comment.text
-        })
-        .then((response)=> {
+    case SUBMIT_EDITED_COMMENT:
+      const comments = store.getState().campgrounds.comments;
+      const comment = comments.find((comment) => comment.id === action.commentId);
+      axios.put(`/api/comments/${action.commentId}`, {
+        text: comment.text
+      })
+        .then((response) => {
           store.dispatch(saveEditedCommentId(response.data.id));
         })
         .catch((error) => {
@@ -83,18 +86,40 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
         })
       break;
 
-      case DELETE_COMMENT:
-        console.log(action.commentId);
-        axios.delete(`/api/comments/${action.commentId}`)
+    case DELETE_COMMENT:
+      console.log(action.commentId);
+      axios.delete(`/api/comments/${action.commentId}`)
         .then((response) => {
           console.log(response.data);
         })
         .catch((error) => {
           console.log(error.response);
         })
-        .finally(()=> {
+        .finally(() => {
           store.dispatch(removeComment(action.commentId));
         })
+      break;
+
+    case SUBMIT_NEW_COMMENT:
+      axios.post(`/api/campgrounds/${action.campgroundId}/comments`, {
+        text: store.getState().currentCampground.newCommentValue,
+        // TODO: get the logged user when login feature is ready
+        // user_id hard-coded for now
+        user_id: 1
+      })
+        .then((response) => {
+          // I will need to get the username in the state once the login feature is up and running
+          // I will then create the comment structure I want to add to the comments array in state
+          // username is hard-coded for now
+          const fullComment = { ...response.data, author: 'carrot' };
+
+          // Now I can dispatch the action with the proper comment structure
+          store.dispatch(addComment(fullComment));
+          store.dispatch(toggleAddCommentEditing());
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
       break;
 
     default:
