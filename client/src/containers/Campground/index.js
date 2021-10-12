@@ -5,7 +5,7 @@ import {
   toggleCommentEditing,
   submitEditedComment,
   updateEditCommentField
-} from '../../actions/campgrounds';
+} from '../../actions/currentCampground';
 
 // importing presentational component
 import Campground from '../../components/Campground';
@@ -14,12 +14,12 @@ import Campground from '../../components/Campground';
 // if we need to read information from the state
 const mapStateToProps = (state) => ({
   // name of the prop to specify: element to get from the state
-  selectedCampground: state.campgrounds.selectedCampground,
-  author: state.campgrounds.author,
-  comments: state.campgrounds.comments,
-  loadingSelectedCampground: state.campgrounds.loadingSelectedCampground,
-  commentEditing: state.campgrounds.commentEditing,
-  selectedCommentId: state.campgrounds.selectedCommentId
+  selectedCampground: state.currentCampground.selectedCampground,
+  author: state.currentCampground.author,
+  comments: state.currentCampground.comments,
+  loadingSelectedCampground: state.currentCampground.loadingSelectedCampground,
+  commentEditing: state.currentCampground.commentEditing,
+  selectedCommentId: state.currentCampground.selectedCommentId
 });
 
 // === mapDispatchToProps

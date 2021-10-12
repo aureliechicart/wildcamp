@@ -1,7 +1,10 @@
 import { connect } from 'react-redux';
 
-import { submitEditedCampground } from '../../actions/newCampground';
-import { fetchSelectedCampground, updateEditField } from '../../actions/campgrounds'
+import {
+  fetchSelectedCampground,
+  submitEditedCampground,
+  updateEditField
+ } from '../../actions/currentCampground'
 
 // importing presentational component
 import EditCampgroundForm from '../../components/EditCampgroundForm';
@@ -10,7 +13,7 @@ import EditCampgroundForm from '../../components/EditCampgroundForm';
 // if we need to read information from the state
 const mapStateToProps = (state) => ({
   // name of the prop to specify: element to get from the state
-  selectedCampground: state.campgrounds.selectedCampground,
+  selectedCampground: state.currentCampground.selectedCampground,
   campgroundId: state.newCampground.campgroundId,
   loadingCampgroundId: state.newCampground.loadingCampgroundId
 });
