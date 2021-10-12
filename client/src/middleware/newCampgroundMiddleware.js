@@ -46,8 +46,9 @@ const newCampgroundMiddleware = (store) => (next) => (action) => {
         // this means the user_id won't change and is not relevant here
       })
         .then((response) => {
-          // once we get the id of the new campground from the database
+          // once we get the id of the edited campground from the database
           // we save it in state
+          // (here, receiving the id represents the fact the record has been updated in db)
           store.dispatch(saveCampgroundId(response.data.id));
         })
         .catch((error) => {
@@ -55,7 +56,7 @@ const newCampgroundMiddleware = (store) => (next) => (action) => {
         })
         .finally(() => {
           // once the request is finished, we toggle the boolean
-          // which represents if campground id is available
+          // which represents if campground id is loaded
           store.dispatch(toggleLoadingCampgroundId());
         });
       break;

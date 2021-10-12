@@ -13,6 +13,7 @@ export const TOGGLE_LOADING_SELECTED_CAMPGROUND = 'TOGGLE_LOADING_SELECTED_CAMPG
 
 export const UPDATE_EDIT_FIELD = 'UPDATE_EDIT_FIELD';
 
+
 // === action creators
 export const fetchCampgrounds = () => ({
   type: FETCH_CAMPGROUNDS,

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { submitEditedCampground } from '../../actions/newCampground';
-import { updateEditField } from '../../actions/campgrounds'
+import { fetchSelectedCampground, updateEditField } from '../../actions/campgrounds'
 
 // importing presentational component
 import EditCampgroundForm from '../../components/EditCampgroundForm';
@@ -19,6 +19,9 @@ const mapStateToProps = (state) => ({
 // if we need to dispatch actions from the store (modify the state)
 const mapDispatchToProps = (dispatch) => ({
   // name of the prop to specify: function which will dispatch the action
+  loadSelectedCampground: (id) => {
+    dispatch(fetchSelectedCampground(id));
+  },
   changeField: (newValue, name) => {
     dispatch(updateEditField(newValue, name));
   },

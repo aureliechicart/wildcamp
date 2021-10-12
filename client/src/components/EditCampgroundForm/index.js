@@ -1,22 +1,30 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import PropTypes from 'prop-types';
+
 
 import "./editcampgroundform.scss";
 
 const EditCampgroundForm = ({
+  loadSelectedCampground,
   selectedCampground,
   changeField,
   submitEditedCampground,
+  // state info returned after submitting edited campground
   campgroundId,
   loadingCampgroundId
 }) => {
+  const { id } = useParams();
 
   const history = useHistory();
   const routeChange = () => {
     const path = `/campground/${selectedCampground.id}`;
     history.push(path);
   }
+  useEffect(() => {
+    loadSelectedCampground(id);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   useEffect(() => {
     if (!loadingCampgroundId) {
@@ -25,6 +33,7 @@ const EditCampgroundForm = ({
     }
   });
 
+ 
   return (
     <div className="campground-form">
       <h2 className="heading">Modifier les informations sur le spot</h2>
@@ -96,12 +105,17 @@ const EditCampgroundForm = ({
 };
 
 EditCampgroundForm.propTypes = {
+  loadSelectedCampground: PropTypes.func.isRequired,
+  selectedCampground: PropTypes.shape({
   title: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
+  }).isRequired,
   changeField: PropTypes.func.isRequired,
-  // submitCamgpround: PropTypes.func.isRequired
+  submitEditedCamgpround: PropTypes.func,
+  campgroundId: PropTypes.string.isRequired,
+  loadingCampgroundId: PropTypes.bool.isRequired
 };
 
 export default EditCampgroundForm;

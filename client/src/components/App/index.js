@@ -10,7 +10,8 @@ const App = ({ loadCampgrounds }) => {
 
   useEffect(() => {
     loadCampgrounds();
-  }, [loadCampgrounds]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="App">
