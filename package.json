@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "engines": {
-    "node": "16.x"
+    "node": "16.x",
+    "npm": "7.x"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon index.js",
-    "client": "cd ../client && yarn start",
+    "server": "cd server && nodemon index.js",
+    "client": "cd client && yarn start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "start": "node server/index.js"
   },
