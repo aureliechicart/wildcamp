@@ -78,9 +78,6 @@ const campgroundController = {
         if (country) {
           campground.country = country;
         }
-        if (user_id) {
-          campground.user_id = user_id;
-        }
 
         // we save the changes in database
         await campground.save();
