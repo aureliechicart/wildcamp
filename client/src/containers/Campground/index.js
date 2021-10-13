@@ -8,7 +8,8 @@ import {
   deleteComment,
   toggleAddCommentEditing,
   updateAddCommentField,
-  submitNewComment
+  submitNewComment,
+  deleteSelectedCampground
 } from '../../actions/currentCampground';
 
 // importing presentational component
@@ -25,7 +26,8 @@ const mapStateToProps = (state) => ({
   commentEditing: state.currentCampground.commentEditing,
   selectedCommentId: state.currentCampground.selectedCommentId,
   addCommentEditing: state.currentCampground.addCommentEditing,
-  newCommentValue: state.currentCampground.newCommentValue
+  newCommentValue: state.currentCampground.newCommentValue,
+  campgroundDeleted: state.currentCampground.campgroundDeleted
 });
 
 // === mapDispatchToProps
@@ -55,6 +57,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   submitNewComment: (campgroundId) => {
     dispatch(submitNewComment(campgroundId));
+  },
+  deleteCampground: (campgroundId) => {
+    dispatch(deleteSelectedCampground(campgroundId));
   }
 
 });

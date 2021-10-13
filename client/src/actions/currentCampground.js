@@ -1,4 +1,5 @@
 // === action types
+
 export const FETCH_SELECTED_CAMPGROUND = 'FETCH_SELECTED_CAMPGROUND';
 export const SAVE_SELECTED_CAMPGROUND = 'SAVE_SELECTED_CAMPGROUND';
 
@@ -7,9 +8,15 @@ export const SAVE_COMMENTS = 'SAVE_COMMENTS';
 
 export const TOGGLE_LOADING_SELECTED_CAMPGROUND = 'TOGGLE_LOADING_SELECTED_CAMPGROUND';
 
+// campground edition
 export const SUBMIT_EDITED_CAMPGROUND = 'SUBMIT_EDITED_CAMPGROUND';
-
 export const UPDATE_EDIT_FIELD = 'UPDATE_EDIT_FIELD';
+
+// campground deleting
+export const DELETE_SELECTED_CAMPGROUND = 'DELETE_SELECTED_CAMPGROUND';
+export const TOGGLE_CAMPGROUND_DELETED = 'TOGGLE_CAMPGROUND_DELETED';
+
+// campground comment edition
 export const UPDATE_EDIT_COMMENT_FIELD = 'UPDATE_EDIT_COMMENT_FIELD';
 
 export const TOGGLE_COMMENT_EDITING = 'TOGGLE_COMMENT_EDITING';
@@ -18,6 +25,7 @@ export const SAVE_EDITED_COMMENT_ID = 'SAVE_EDITED_COMMENT_ID';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 
+// campground comment adding
 export const TOGGLE_ADD_COMMENT_EDITING = 'TOGGLE_ADD_COMMENT_EDITING';
 export const UPDATE_ADD_COMMENT_FIELD = 'UPDATE_ADD_COMMENT_FIELD';
 export const SUBMIT_NEW_COMMENT = 'SUBMIT_NEW_COMMENT';
@@ -110,4 +118,13 @@ export const submitNewComment = (campgroundId) => ({
 export const addComment = (comment) => ({
   type: ADD_COMMENT,
   comment: comment
+});
+
+export const deleteSelectedCampground = (campgroundId) => ({
+  type: DELETE_SELECTED_CAMPGROUND,
+  campgroundId: campgroundId
+});
+
+export const toggleCampgroundDeleted = () => ({
+  type: TOGGLE_CAMPGROUND_DELETED,
 });

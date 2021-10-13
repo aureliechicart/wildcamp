@@ -22,7 +22,7 @@ const Home = ({ campgrounds, loadingCampgrounds }) => {
         </div>
       }
       <div className="add-campground">
-        <p className="add-campground-subtitle">Vous avez découvert un spot unique et vous souhaitez le partager ? C'est par ici !</p>
+        <p className="add-campground-subtitle">Vous avez découvert un spot unique et vous souhaitez le partager&nbsp;? C'est par ici&nbsp;!</p>
         <Link
           className="add-campground-button"
           to="/new-campground"

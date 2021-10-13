@@ -23,20 +23,35 @@ const Campground = ({
   toggleAddCommentEditing,
   newCommentValue,
   changeAddCommentField,
-  submitNewComment
+  submitNewComment,
+  deleteCampground,
+  campgroundDeleted
 }) => {
   const { id } = useParams();
-
-  useEffect(() => {
-    loadSelectedCampground(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
 
   const history = useHistory();
   const editRouteChange = () => {
     const path = `/edit-campground/${selectedCampground.id}`;
     history.push(path);
   }
+
+  // if the id in params of the url changes, we load the corresponding
+  // campground from db
+  useEffect(() => {
+    loadSelectedCampground(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+  // on campground deletion: if the value of campgroundDeleted
+  // changes and turns to true, we redirect to the home page
+  useEffect(() => {
+    if(campgroundDeleted) {
+      history.push('/');
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [campgroundDeleted]);
+
+  
 
   return (
     <main className="main">
@@ -76,6 +91,10 @@ const Campground = ({
                     </button>
                     <button
                       className="delete-button"
+                      onClick={() => {
+                        console.log("campgroundId : ", id);
+                        deleteCampground(id);
+                      }}
                     >
                       Supprimer
                     </button>

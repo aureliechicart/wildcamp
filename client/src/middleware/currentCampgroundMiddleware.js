@@ -13,8 +13,11 @@ import {
   removeComment,
   SUBMIT_NEW_COMMENT,
   addComment,
-  toggleAddCommentEditing
+  toggleAddCommentEditing,
+  DELETE_SELECTED_CAMPGROUND,
+  toggleCampgroundDeleted
 } from '../actions/currentCampground';
+
 import {
   saveCampgroundId,
   toggleLoadingCampgroundId,
@@ -116,6 +119,20 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
           // Now I can dispatch the action with the proper comment structure
           store.dispatch(addComment(fullComment));
           store.dispatch(toggleAddCommentEditing());
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+      break;
+
+    case DELETE_SELECTED_CAMPGROUND:
+      console.log("action : ", typeof (action.campgroundId));
+      axios.delete(`/api/campgrounds/${action.campgroundId}`)
+        .then((response) => {
+          if (response.status !== 200) {
+          console.log(response.data);
+          }
+          store.dispatch(toggleCampgroundDeleted());
         })
         .catch((error) => {
           console.log(error.response);

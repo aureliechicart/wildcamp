@@ -39,16 +39,20 @@
 
   .campgrounds-small {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     flex-wrap: wrap;
     padding: 2rem;
 
     .campground-small {
-      width: 30%;
+      width: 20%;
       margin: 1rem;
       border-radius: 1em;
       overflow: hidden;
       background-color: white;
+
+      @media screen and (max-width: 1200px) {
+        width: 40%;
+      }
 
       @media screen and (max-width: 960px) {
         width: 43%;
@@ -59,7 +63,7 @@
       }
 
       @media screen and (max-width: 480px) {
-        width: 100%;
+        width: 90%;
       }
 
       img {
@@ -67,13 +71,14 @@
         height: 200px;
         transform: scale(1);
         transition: 0.3s ease-in-out;
+        object-fit: cover;
 
         @media screen and (max-width: 650px) {
           height: 170px;
         }
 
         @media screen and (max-width: 360px) {
-          height: 150px;
+          // height: 150px;
         }
       }
 
