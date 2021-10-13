@@ -1,0 +1,76 @@
+@import "../../styles/vars";
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  height: 100%;
+
+  .title {
+    font-size: 5rem;
+    color: $mediumColor;
+    margin: 4rem auto;
+    height: 20%;
+
+    @media screen and (max-width: 450px) {
+      font-size: 2.5rem;
+      margin: 2rem auto;
+    }
+  }
+
+  .description-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80%;
+
+    @media screen and (max-width: 700px) {
+      flex-direction: column;
+    }
+
+    .logo-image {
+      width: 15rem;
+
+      @media screen and (max-width: 450px) {
+        width: 10rem;
+      }
+    }
+
+    .description-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .description {
+        font-size: 1.5rem;
+        align-items: center;
+        margin: 2rem 0;
+
+        @media screen and (max-width: 450px) {
+          font-size: 1rem;
+        }
+      }
+
+      .home-button {
+        width: 12rem;
+        height: 2rem;
+        font-family: inherit;
+        background-color: $mediumColor;
+        color: #ffffff;
+        padding: 0.3rem 0.8rem;
+        font-size: 1.2rem;
+        font-weight: 400;
+        text-align: center;
+        border-radius: 4px;
+        border: none;
+        align-self: center;
+        margin-left: 0.3rem;
+      }
+    }
+
+
+  }
+
+
+
+}
