@@ -12,7 +12,8 @@
     "server": "cd server && nodemon index.js",
     "client": "cd client && yarn start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "build": "cd client/ && yarn && yarn build"
   },
   "keywords": [],
   "author": "",

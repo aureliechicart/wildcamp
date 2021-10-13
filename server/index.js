@@ -15,17 +15,28 @@ app.use(morgan('tiny'));
 
 const router = require('./app/router');
 
+app.use(function (req, res, next) {
+  res.setHeader(
+    'Content-Security-Policy-Report-Only',
+    "default-src *;  img-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src  'self' 'unsafe-inline' * "
+  );
+next();
+});
+
 // Middleware which parses incoming requests with JSON payloads
 app.use(express.json());
 
+// Priority serve any static files
 app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
 
-app.get('/*', function (req, res) {
-    res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
-  });
-
+// Answer API requests
 app.use('/api/', router);
 
+// All remaining requests return the React app, so it can handle routing
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
+});
+
 app.listen(PORT, () => {
-    console.log(`Server running on : localhost:${PORT}/api/`)
+  console.log(`Server running on : localhost:${PORT}/api/`)
 });
