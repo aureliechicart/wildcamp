@@ -17,7 +17,7 @@ const router = require('./app/router');
 
 app.use(function (req, res, next) {
   res.setHeader(
-    'Content-Security-Policy-Report-Only',
+    'Content-Security-Policy',
     "default-src *;  img-src 'self' 'unsafe-inline' 'unsafe-eval' *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src 'self' 'unsafe-inline' *"
   );
 next();
