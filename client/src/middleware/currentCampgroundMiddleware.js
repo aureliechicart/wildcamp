@@ -42,7 +42,11 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
           }
         })
         .catch((error) => {
-          console.log(error.response);
+          if (error.response.status === 404) {
+            console.log(error.response.data.message);
+          } else {
+            console.log(error.response);
+          }
         })
         .finally(() => {
           store.dispatch(toggleLoadingSelectedCampground());
@@ -52,10 +56,10 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
     case SUBMIT_EDITED_CAMPGROUND:
       // we send a put request using the information in state
       axios.put(`/api/campgrounds/${action.campgroundId}`, {
-        title: store.getState().campgrounds.selectedCampground.title,
-        image: store.getState().campgrounds.selectedCampground.image,
-        description: store.getState().campgrounds.selectedCampground.description,
-        country: store.getState().campgrounds.selectedCampground.country,
+        title: store.getState().currentCampground.selectedCampground.title,
+        image: store.getState().currentCampground.selectedCampground.image,
+        description: store.getState().currentCampground.selectedCampground.description,
+        country: store.getState().currentCampground.selectedCampground.country,
         // user_id: only the user who posted this record can change it
         // this means the user_id won't change and is not relevant here
       })
@@ -90,7 +94,6 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
       break;
 
     case DELETE_COMMENT:
-      console.log(action.commentId);
       axios.delete(`/api/comments/${action.commentId}`)
         .then((response) => {
           console.log(response.data);
@@ -126,11 +129,10 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
       break;
 
     case DELETE_SELECTED_CAMPGROUND:
-      console.log("action : ", typeof (action.campgroundId));
       axios.delete(`/api/campgrounds/${action.campgroundId}`)
         .then((response) => {
           if (response.status !== 200) {
-          console.log(response.data);
+            console.log(response.data);
           }
           store.dispatch(toggleCampgroundDeleted());
         })

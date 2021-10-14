@@ -14,7 +14,6 @@ import EditCampgroundForm from '../../components/EditCampgroundForm';
 const mapStateToProps = (state) => ({
   // name of the prop to specify: element to get from the state
   selectedCampground: state.currentCampground.selectedCampground,
-  campgroundId: state.newCampground.campgroundId,
   loadingCampgroundId: state.newCampground.loadingCampgroundId
 });
 

@@ -92,7 +92,6 @@ const Campground = ({
                     <button
                       className="delete-button"
                       onClick={() => {
-                        console.log("campgroundId : ", id);
                         deleteCampground(id);
                       }}
                     >
