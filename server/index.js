@@ -20,22 +20,26 @@ app.use(function (req, res, next) {
     'Content-Security-Policy',
     "default-src *;  img-src 'self' 'unsafe-inline' 'unsafe-eval' *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src 'self' 'unsafe-inline' *"
   );
-next();
+  next();
 });
 
 // Middleware which parses incoming requests with JSON payloads
 app.use(express.json());
 
-// Priority serve any static files
-app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
+if (process.env.NODE_ENV === 'production') {
+  // Priority serve any static files
+  app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
+}
 
 // Answer API requests
 app.use('/api/', router);
 
-// All remaining requests return the React app, so it can handle routing
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
-});
+if (process.env.NODE_ENV === 'production') {
+  // All remaining requests return the React app, so it can handle routing
+  app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`Server running on : localhost:${PORT}/api/`)
