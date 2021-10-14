@@ -20,8 +20,12 @@ import {
 
 import {
   saveCampgroundId,
-  toggleLoadingCampgroundId,
+  toggleLoadingCampgroundId
 } from '../actions/newCampground';
+
+import {
+  updateCampgroundsAfterDelete
+} from '../actions/campgrounds';
 
 const campgroundsMiddleware = (store) => (next) => (action) => {
 
@@ -133,8 +137,12 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
         .then((response) => {
           if (response.status !== 200) {
             console.log(response.data);
+          } else {
+            // acts on a boolean which helps redirect to home page after deletion
+            store.dispatch(toggleCampgroundDeleted());
+            //  used to remove the deleted campground from campgroundsList in state
+            store.dispatch(updateCampgroundsAfterDelete(parseInt(action.campgroundId)));
           }
-          store.dispatch(toggleCampgroundDeleted());
         })
         .catch((error) => {
           console.log(error.response);
