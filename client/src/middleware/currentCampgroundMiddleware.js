@@ -84,7 +84,8 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
       break;
 
     case SUBMIT_EDITED_COMMENT:
-      const comments = store.getState().campgrounds.comments;
+      const comments = store.getState().currentCampground.comments;
+      console.log(comments);
       const comment = comments.find((comment) => comment.id === action.commentId);
       axios.put(`/api/comments/${action.commentId}`, {
         text: comment.text

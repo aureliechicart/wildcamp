@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 import { useParams, Link, useHistory } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSave, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 import "./campground.scss";
 
@@ -45,13 +47,13 @@ const Campground = ({
   // on campground deletion: if the value of campgroundDeleted
   // changes and turns to true, we redirect to the home page
   useEffect(() => {
-    if(campgroundDeleted) {
+    if (campgroundDeleted) {
       history.push('/');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [campgroundDeleted]);
 
-  
+
 
   return (
     <main className="main">
@@ -116,33 +118,40 @@ const Campground = ({
                 </div>
               }
               {addCommentEditing &&
-                  <div className="add-comment-container">
-                    <label className="add-comment-label" htmlFor="add-comment">
-                      <textarea
-                        className="add-comment-textarea"
-                        value={newCommentValue}
-                        title="add-comment"
-                        placeholder="Ajoutez un commentaire..."
-                        onChange={(event) => {
-                          changeAddCommentField(event.target.value);
+                <div className="add-comment-container">
+                  <label className="add-comment-label" htmlFor="add-comment">
+                    <textarea
+                      className="add-comment-textarea"
+                      value={newCommentValue}
+                      title="add-comment"
+                      placeholder="Ajoutez un commentaire..."
+                      onChange={(event) => {
+                        changeAddCommentField(event.target.value);
+                      }}
+                    />
+                  </label>
+                  <div className="add-comment-icon-container">
+                    <React.Fragment>
+                      <FontAwesomeIcon
+                        icon={faSave}
+                        title="Enregistrer"
+                        className="comment-icon"
+                        onClick={() => {
+                          console.log(id, typeof (id));
+                          submitNewComment(selectedCampground.id);
                         }}
                       />
-                    </label>
-                    <div className="add-comment-button-container">
-                    <button
-                      className="submit-comment"
-                      onClick={() => {
-                        submitNewComment(selectedCampground.id);
-                      }}
-                    >
-                      Valider
-                    </button>
-                    <button className="cancel-comment"
-                    onClick={()=> {
-                      toggleAddCommentEditing();
-                    }}>Annuler</button>
-                    </div>
+                      <FontAwesomeIcon
+                        icon={faWindowClose}
+                        title="Annuler"
+                        className="comment-icon"
+                        onClick={() => {
+                          toggleAddCommentEditing();
+                        }}
+                      />
+                    </React.Fragment>
                   </div>
+                </div>
               }
               <hr />
 

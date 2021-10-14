@@ -32,7 +32,7 @@
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
       overflow: hidden;
-      
+
 
       .campground-image {
         display: block;
@@ -126,30 +126,21 @@
           }
         }
 
-        .add-comment-button-container {
+        .add-comment-icon-container {
           display: flex;
 
-          button {
-            width: 4.5rem;
-            height: 1.5rem;
-            font-family: inherit;
-            background-color: $mediumColor;
-            color: #ffffff;
-            padding: 0.3rem 0.8rem;
-            font-size: 0.8rem;
-            font-weight: 400;
-            text-align: center;
-            border-radius: 4px;
-            border: none;
-            align-self: center;
-            margin-left: 0.3rem;
+          .comment-icon {
+            font-size: 1.2rem;
+            color: $mediumColor;
+            margin-left: 0.7rem;
+          }
+
+          .comment-icon:hover {
+            color: $darkColor;
           }
         }
 
-       
       }
-
-
 
       .comment-button-container {
         text-align: right;
@@ -183,6 +174,8 @@
       }
 
       .comments {
+
+        // Comment component starts here
         .comment {
           padding-bottom: 0.8rem;
 
@@ -220,25 +213,17 @@
               color: gray
             }
 
-            .button-group {
+            .icon-group {
               display: flex;
 
-              button {
-                width: 75px;
-                height: 1.5rem;
-                font-family: inherit;
-                background-color: $mediumColor;
-                color: #ffffff;
-                padding: 0.3rem 0.8rem;
-                font-size: 0.8rem;
-                font-weight: 400;
-                text-align: center;
-                border-radius: 4px;
-                border: none;
+              .comment-icon {
+                font-size: 1.2rem;
+                color: $mediumColor;
+                margin-left: 0.7rem;
               }
 
-              button:hover {
-                background-color: $darkColor;
+              .comment-icon:hover {
+                color: $darkColor;
               }
             }
 
