@@ -35,7 +35,7 @@ function currentCampgroundReducer(state = initialState, action) {
     case TOGGLE_CAMPGROUND_NOT_FOUND:
       return {
         ...state,
-        campgroundNotFound: true
+        campgroundNotFound: !state.campgroundNotFound
       };
 
     case SAVE_SELECTED_CAMPGROUND:
@@ -60,6 +60,7 @@ function currentCampgroundReducer(state = initialState, action) {
       return {
         ...state,
         loadingSelectedCampground: false,
+        campgroundNotFound: false
       };
 
     case UPDATE_EDIT_FIELD:

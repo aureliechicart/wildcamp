@@ -1,5 +1,4 @@
 import { Route, Switch } from "react-router-dom";
-import PropTypes from 'prop-types';
 
 import "./page.scss";
 
@@ -7,10 +6,9 @@ import Home from "../../containers/Home";
 import Campground from "../../containers/Campground";
 import NewCampgroundForm from "../../containers/NewCampgroundForm";
 import EditCampgroundForm from "../../containers/EditCampgroundForm";
-import NotFound from "../NotFound";
+import NotFound from "../../containers/NotFound";
 
-const Page = ({ campgrounds }) => {
-  // console.log(campgrounds);
+const Page = () => {
 
   return (
     <div className="page">
@@ -33,17 +31,6 @@ const Page = ({ campgrounds }) => {
       </Switch>
     </div>
   );
-};
-
-Page.propTypes = {
-  campgrounds: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      country: PropTypes.string.isRequired,
-    }).isRequired,
-  ).isRequired,
 };
 
 export default Page;

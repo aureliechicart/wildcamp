@@ -42,7 +42,6 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
           return axios.get(`/api/campgrounds/${action.id}/comments`);
         })
         .then((thirdResponse) => {
-          console.log('coucou', thirdResponse);
           if (thirdResponse.data) {
             store.dispatch(saveComments(thirdResponse.data));
             store.dispatch(toggleLoadingSelectedCampground());
