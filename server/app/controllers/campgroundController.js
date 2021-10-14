@@ -24,10 +24,15 @@ const campgroundController = {
       const { id } = req.params;
 
       const oneCampground = await Campground.findOne(id);
-      res.status(200).json(oneCampground);
+      if (!oneCampground) {
+        res.status(404).json({ message: 'No campground found with this id' });
+      } else {
+        res.status(200).json(oneCampground);
+      }
 
 
     } catch (err) {
+      console.log(err);
       res.status(404).json(err.message);
     };
   },
@@ -105,7 +110,7 @@ const campgroundController = {
       if (campground) {
         // If it exists, we delete the record in database
         await campground.delete();
-        res.status(200).json({message: 'Campground successfully deleted'});
+        res.status(200).json({ message: 'Campground successfully deleted' });
       } else {
         res.status(404).json({ message: 'Campground not found' });
       }

@@ -27,7 +27,8 @@ const Campground = ({
   changeAddCommentField,
   submitNewComment,
   deleteCampground,
-  campgroundDeleted
+  campgroundDeleted,
+  campgroundNotFound
 }) => {
   const { id } = useParams();
 
@@ -44,6 +45,13 @@ const Campground = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
+  useEffect(() => {
+    if (campgroundNotFound) {
+      history.push('/404');
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [campgroundNotFound]);
+  
   // on campground deletion: if the value of campgroundDeleted
   // changes and turns to true, we redirect to the home page
   useEffect(() => {
@@ -198,7 +206,7 @@ Campground.propTypes = {
     image: PropTypes.string,
     description: PropTypes.string,
     country: PropTypes.string,
-  }).isRequired,
+  }),
   author: PropTypes.string.isRequired,
   comments: PropTypes.array,
 };

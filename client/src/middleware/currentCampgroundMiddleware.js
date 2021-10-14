@@ -15,7 +15,8 @@ import {
   addComment,
   toggleAddCommentEditing,
   DELETE_SELECTED_CAMPGROUND,
-  toggleCampgroundDeleted
+  toggleCampgroundDeleted,
+  toggleCampgroundNotFound
 } from '../actions/currentCampground';
 
 import {
@@ -41,20 +42,20 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
           return axios.get(`/api/campgrounds/${action.id}/comments`);
         })
         .then((thirdResponse) => {
+          console.log('coucou', thirdResponse);
           if (thirdResponse.data) {
             store.dispatch(saveComments(thirdResponse.data));
+            store.dispatch(toggleLoadingSelectedCampground());
           }
         })
         .catch((error) => {
           if (error.response.status === 404) {
             console.log(error.response.data.message);
+            store.dispatch(toggleCampgroundNotFound());
           } else {
             console.log(error.response);
           }
         })
-        .finally(() => {
-          store.dispatch(toggleLoadingSelectedCampground());
-        });
       break;
 
     case SUBMIT_EDITED_CAMPGROUND:

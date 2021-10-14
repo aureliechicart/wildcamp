@@ -27,7 +27,8 @@ const mapStateToProps = (state) => ({
   selectedCommentId: state.currentCampground.selectedCommentId,
   addCommentEditing: state.currentCampground.addCommentEditing,
   newCommentValue: state.currentCampground.newCommentValue,
-  campgroundDeleted: state.currentCampground.campgroundDeleted
+  campgroundDeleted: state.currentCampground.campgroundDeleted,
+  campgroundNotFound: state.currentCampground.campgroundNotFound
 });
 
 // === mapDispatchToProps

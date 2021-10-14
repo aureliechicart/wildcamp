@@ -25,7 +25,11 @@ const commentController = {
       const { id } = req.params;
 
       const oneComment = await Comment.findOne(id);
-      res.status(200).json(oneComment);
+      if (!oneComment) {
+        res.status(404).json({ message: 'No comment found with this id' });
+      } else {
+        res.status(200).json(oneComment);
+      }
     }
 
     catch (err) {

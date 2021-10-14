@@ -11,10 +11,12 @@ import {
   TOGGLE_ADD_COMMENT_EDITING,
   UPDATE_ADD_COMMENT_FIELD,
   ADD_COMMENT,
-  TOGGLE_CAMPGROUND_DELETED
+  TOGGLE_CAMPGROUND_DELETED,
+  TOGGLE_CAMPGROUND_NOT_FOUND
 } from '../actions/currentCampground'
 
 const initialState = {
+  campgroundNotFound: false,
   selectedCampground: {},
   author: '',
   comments: [],
@@ -29,6 +31,12 @@ const initialState = {
 
 function currentCampgroundReducer(state = initialState, action) {
   switch (action.type) {
+
+    case TOGGLE_CAMPGROUND_NOT_FOUND:
+      return {
+        ...state,
+        campgroundNotFound: true
+      };
 
     case SAVE_SELECTED_CAMPGROUND:
       return {

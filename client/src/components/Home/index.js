@@ -21,6 +21,10 @@ const Home = ({ campgrounds, loadingCampgrounds }) => {
           ))}
         </div>
       }
+      {/* TODO: si l'utilisateur n'est pas connecté, lui proposer
+      de s'inscrire ou de se connecter
+      sinon afficher la div d'ajout de spot */}
+
       <div className="add-campground">
         <p className="add-campground-subtitle">Vous avez découvert un spot unique et vous souhaitez le partager&nbsp;? C'est par ici&nbsp;!</p>
         <Link
