@@ -29,6 +29,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 80%;
+    
+    @media screen and (max-width: 470px) {
+      width: 100%;
+    }
 
     .nav-item-active {
       color: $darkColor !important;
@@ -37,19 +42,13 @@
 
     .nav-logo {
       display: flex;
-      margin-right: 20rem;
-
-      @media screen and (max-width: 750px) {
-        margin-right: 12rem;
-      }
-
-      @media screen and (max-width: 560px) {
-        margin-right: 2rem;
-      }
-
 
       .nav-logo-image {
         width: 40px;
+        
+        @media screen and (max-width: 470px) {
+          width: 30px;
+        }
       }
 
       .nav-brand {
