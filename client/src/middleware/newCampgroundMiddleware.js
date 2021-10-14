@@ -6,12 +6,16 @@ import {
   toggleLoadingCampgroundId
 } from '../actions/newCampground';
 
+import {
+  updateCampgroundsAfterAdd
+} from '../actions/campgrounds';
+
 const newCampgroundMiddleware = (store) => (next) => (action) => {
 
   switch (action.type) {
     case SUBMIT_CAMPGROUND:
       // we post the new campground using the information in state
-      const {title, image, description, country } = store.getState().newCampground;
+      const { title, image, description, country } = store.getState().newCampground;
       axios.post('/api/campgrounds', {
         title,
         image,
@@ -24,6 +28,8 @@ const newCampgroundMiddleware = (store) => (next) => (action) => {
           // once we get the id of the new campground from the database
           // we save it in state
           store.dispatch(saveCampgroundId(response.data.id));
+          // updates campground list in state with new campground
+          store.dispatch(updateCampgroundsAfterAdd(response.data));
         })
         .catch((error) => {
           console.log(error.response);
@@ -32,10 +38,11 @@ const newCampgroundMiddleware = (store) => (next) => (action) => {
           // once the request is finished, we toggle the boolean
           // which represents if campground id is available
           store.dispatch(toggleLoadingCampgroundId());
+
         });
       break;
 
-    
+
 
     default:
   }

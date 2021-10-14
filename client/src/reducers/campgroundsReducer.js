@@ -1,6 +1,7 @@
 import {
   SAVE_CAMPGROUNDS,
   TOGGLE_LOADING_CAMPGROUNDS,
+  UPDATE_CAMPGROUNDS_AFTER_ADD,
   UPDATE_CAMPGROUNDS_AFTER_DELETE
 } from '../actions/campgrounds'
 
@@ -22,15 +23,20 @@ function campgroundsReducer(state = initialState, action) {
         ...state,
         loadingCampgrounds: !state.loadingCampgrounds,
       };
+    case UPDATE_CAMPGROUNDS_AFTER_ADD:
+      return {
+        ...state,
+        campgroundsList: [...state.campgroundsList, action.campground]
+      };
 
-      case UPDATE_CAMPGROUNDS_AFTER_DELETE:
-        return {
-          ...state,
-          // following deletion of a campground, we update the campground list in state
-          campgroundsList: state.campgroundsList.filter(campground => 
-            campground.id !== action.campgroundId
-          )
-        }
+    case UPDATE_CAMPGROUNDS_AFTER_DELETE:
+      return {
+        ...state,
+        // following deletion of a campground, we update the campground list in state
+        campgroundsList: state.campgroundsList.filter(campground =>
+          campground.id !== action.campgroundId
+        )
+      }
 
     default:
       return state;

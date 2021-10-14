@@ -4,6 +4,8 @@ export const SAVE_CAMPGROUNDS = 'SAVE_CAMPGROUNDS';
 
 export const TOGGLE_LOADING_CAMPGROUNDS = 'TOGGLE_LOADING_CAMPGROUNDS';
 
+export const UPDATE_CAMPGROUNDS_AFTER_ADD = 'UPDATE_CAMPGROUNDS_AFTER_ADD';
+
 export const UPDATE_CAMPGROUNDS_AFTER_DELETE = 'UPDATE_CAMPGROUNDS_AFTER_DELETE';
 
 // === action creators
@@ -18,6 +20,12 @@ export const saveCampgrounds = (campgrounds) => ({
 
 export const toggleLoadingCampgrounds = () => ({
   type: TOGGLE_LOADING_CAMPGROUNDS,
+});
+
+export const updateCampgroundsAfterAdd = (campground) => ({
+  type: UPDATE_CAMPGROUNDS_AFTER_ADD,
+  // New campground to add in state
+  campground: campground
 });
 
 export const updateCampgroundsAfterDelete = (campgroundId) => ({
