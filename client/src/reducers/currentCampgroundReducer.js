@@ -12,7 +12,7 @@ import {
   UPDATE_ADD_COMMENT_FIELD,
   ADD_COMMENT,
   TOGGLE_CAMPGROUND_DELETED,
-  TOGGLE_CAMPGROUND_NOT_FOUND
+  SET_CAMPGROUND_NOT_FOUND
 } from '../actions/currentCampground'
 
 const initialState = {
@@ -32,10 +32,10 @@ const initialState = {
 function currentCampgroundReducer(state = initialState, action) {
   switch (action.type) {
 
-    case TOGGLE_CAMPGROUND_NOT_FOUND:
+    case SET_CAMPGROUND_NOT_FOUND:
       return {
         ...state,
-        campgroundNotFound: !state.campgroundNotFound
+        campgroundNotFound: action.isNotFound
       };
 
     case SAVE_SELECTED_CAMPGROUND:
@@ -59,8 +59,7 @@ function currentCampgroundReducer(state = initialState, action) {
     case TOGGLE_LOADING_SELECTED_CAMPGROUND:
       return {
         ...state,
-        loadingSelectedCampground: false,
-        campgroundNotFound: false
+        loadingSelectedCampground: false
       };
 
     case UPDATE_EDIT_FIELD:

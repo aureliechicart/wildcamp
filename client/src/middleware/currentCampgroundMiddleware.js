@@ -16,7 +16,7 @@ import {
   toggleAddCommentEditing,
   DELETE_SELECTED_CAMPGROUND,
   toggleCampgroundDeleted,
-  toggleCampgroundNotFound
+  setCampgroundNotFound
 } from '../actions/currentCampground';
 
 import {
@@ -32,8 +32,10 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
 
   switch (action.type) {
     case FETCH_SELECTED_CAMPGROUND:
+      console.log(action.id);
       axios.get(`/api/campgrounds/${action.id}`)
         .then((firstResponse) => {
+          console.log('coucou first response : ', firstResponse);
           store.dispatch(saveSelectedCampground(firstResponse.data));
           return axios.get(`/api/users/${firstResponse.data.user_id}`);
         })
@@ -44,16 +46,17 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
         .then((thirdResponse) => {
           if (thirdResponse.data) {
             store.dispatch(saveComments(thirdResponse.data));
-            store.dispatch(toggleLoadingSelectedCampground());
           }
         })
         .catch((error) => {
-          if (error.response.status === 404) {
-            console.log(error.response.data.message);
-            store.dispatch(toggleCampgroundNotFound());
+          if (error.response.status === 404 && error.response.data.message === 'No campground found with this id') {
+            store.dispatch(setCampgroundNotFound(true));
           } else {
             console.log(error.response);
           }
+        })
+        .finally(() => {
+          store.dispatch(toggleLoadingSelectedCampground());
         })
       break;
 

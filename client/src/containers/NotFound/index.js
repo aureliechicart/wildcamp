@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import {
-  toggleCampgroundNotFound
+  setCampgroundNotFound
 } from '../../actions/currentCampground'
 
 // importing presentational component
@@ -17,8 +17,8 @@ const mapStateToProps = (state) => ({
 // if we need to dispatch actions from the store (modify the state)
 const mapDispatchToProps = (dispatch) => ({
   // name of the prop to specify: function which will dispatch the action
-  toggleCampgroundNotFound: () => {
-    dispatch(toggleCampgroundNotFound());
+  setCampgroundNotFound: (isNotFound) => {
+    dispatch(setCampgroundNotFound(isNotFound));
   }
 });
 

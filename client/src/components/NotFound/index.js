@@ -6,11 +6,11 @@ import './notfound.scss';
 import logo from '../Navbar/logo.png';
 // == Component
 const NotFound = ({
-  toggleCampgroundNotFound
+  setCampgroundNotFound
 }) => {
 
   useEffect(() => {
-    toggleCampgroundNotFound();
+    setCampgroundNotFound(false);
   });
 
   return (

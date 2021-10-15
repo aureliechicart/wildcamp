@@ -2,7 +2,7 @@
 
 export const FETCH_SELECTED_CAMPGROUND = 'FETCH_SELECTED_CAMPGROUND';
 export const SAVE_SELECTED_CAMPGROUND = 'SAVE_SELECTED_CAMPGROUND';
-export const TOGGLE_CAMPGROUND_NOT_FOUND = 'TOGGLE_CAMPGROUND_NOT_FOUND';
+export const SET_CAMPGROUND_NOT_FOUND = 'SET_CAMPGROUND_NOT_FOUND';
 
 export const SAVE_AUTHOR = 'SAVE_AUTHOR';
 export const SAVE_COMMENTS = 'SAVE_COMMENTS';
@@ -40,8 +40,9 @@ export const fetchSelectedCampground = (id) => ({
   id: id,
 });
 
-export const toggleCampgroundNotFound = () => ({
-  type: TOGGLE_CAMPGROUND_NOT_FOUND
+export const setCampgroundNotFound = (isNotFound) => ({
+  type: SET_CAMPGROUND_NOT_FOUND,
+  isNotFound: isNotFound
 });
 
 export const saveSelectedCampground = (selectedCampground) => ({
