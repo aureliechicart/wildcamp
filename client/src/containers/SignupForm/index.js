@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { updateSignupField } from '../../actions/signup';
+import { updateSignupField, submitNewuser } from '../../actions/signup';
 
 // importing presentational component
 import SignupForm from '../../components/SignupForm';
@@ -22,6 +22,9 @@ const mapDispatchToProps = (dispatch) => ({
   changeField: (newValue, name) => {
     dispatch(updateSignupField(newValue, name));
   },
+  submitNewUser: () => {
+    dispatch(submitNewuser());
+  }
 });
 
 // === creating the assistant

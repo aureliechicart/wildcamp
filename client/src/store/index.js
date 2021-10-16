@@ -2,6 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import campgroundsMiddleware from '../middleware/campgroundsMiddleware';
+import signupMiddleware from '../middleware/signupMiddleware';
 import currentCampgroundMiddleware from '../middleware/currentCampgroundMiddleware';
 import newCampgroundMiddleware from '../middleware/newCampgroundMiddleware';
 
@@ -12,6 +13,7 @@ import reducer from '../reducers';
 const enhancers = composeWithDevTools(
   applyMiddleware(
     campgroundsMiddleware,
+    signupMiddleware,
     currentCampgroundMiddleware,
     newCampgroundMiddleware,
     // ... other middleware

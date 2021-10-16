@@ -9,7 +9,8 @@ const SignupForm = ({
   username,
   password,
   passwordConfirm,
-  changeField
+  changeField,
+  submitNewUser
 }) => {
 
   // Redirect for cancel button
@@ -18,16 +19,19 @@ const SignupForm = ({
     history.push('/');
   }
 
-
   return (
     <div className="signup-form">
       <h2 className="heading">Inscrivez-vous pour partager des spots de camping sauvage</h2>
       <div className="content" >
         <form
           className="form"
+          onSubmit={(event) => {
+            event.preventDefault();
+            submitNewUser();
+          }}
         >
           <label htmlFor="email" className="label">
-            Adresse email*:
+            Adresse email*&nbsp;:
             <input
               type="email"
               value={email}
@@ -38,7 +42,7 @@ const SignupForm = ({
             />
           </label>
           <label htmlFor="username" className="label">
-            Pseudo* :
+            Pseudo*&nbsp;:
             <input
               type="text"
               value={username}
@@ -49,9 +53,9 @@ const SignupForm = ({
             />
           </label>
           <label htmlFor="password" className="label">
-            Mot de passe*:
+            Mot de passe*&nbsp;:
             <input
-              type="text"
+              type="password"
               value={password}
               name="password"
               onChange={(event) => {
@@ -60,9 +64,9 @@ const SignupForm = ({
             />
           </label>
           <label htmlFor="passwordConfirm" className="label">
-            Confirmation du mot de passe*:
+            Confirmation du mot de passe*&nbsp;:
             <input
-              type="text"
+              type="password"
               value={passwordConfirm}
               name="passwordConfirm"
               onChange={(event) => {
