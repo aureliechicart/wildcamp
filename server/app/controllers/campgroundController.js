@@ -105,17 +105,23 @@ const campgroundController = {
       // We get the id in the parameters of the request
       const { id } = req.params;
       // We check the campground id in the database
-      const campground = await Campground.findOne(id);
+      const campgroundToDelete = await Campground.findOne(id);
 
-      if (campground) {
-        // If it exists, we delete the record in database
-        await campground.delete();
-        res.status(200).json({ message: 'Campground successfully deleted' });
+      if (campgroundToDelete) {
+        // If it exists, we check the logged in user is the author of the campground
+        if (req.user.id === campgroundToDelete.user_id) {
+          // if they are the same, we delete the campground
+          await campgroundToDelete.delete();
+          res.status(200).json({ message: 'Campground successfully deleted' });
+        } else {
+          // if the logged in user is not the author, we return an error
+          res.status(403).json({ message: "User is not allowed to delete a campground posted by another user" });
+        }
       } else {
         res.status(404).json({ message: 'Campground not found' });
       }
     } catch (err) {
-      res.status(404).json(err.message);
+      res.status(500).json(err.message);
     };
   }
 

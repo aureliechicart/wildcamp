@@ -15,7 +15,11 @@ const verifyJwt = require('./middleware/verifyJwtMiddleware');
 /**
 * Returns a new user added in the database
 * @route POST /api/signup
-* @group Users
+* @group Login
+* @param {string} email.path.required - the user email
+* @param {string} username.path.required - the username
+* @param {string} password.path.required - the password
+* @param {string} passwordConfirm.path.required - the confirmation of the password
 * @returns {<User>} 200 - An instance of a user
 */
 router.post('/signup', loginController.doSignup);
@@ -23,7 +27,9 @@ router.post('/signup', loginController.doSignup);
 /**
 * Returns the logged user from the database
 * @route POST /api/login
-* @group Users
+* @group Login
+* @param {string} email.path.required - the user email
+* @param {string} password.path.required - the password
 * @returns {<User>} 200 - An instance of a user
 */
 router.post('/login', loginController.doLogin);
@@ -31,14 +37,16 @@ router.post('/login', loginController.doLogin);
 /**
 * Returns new access token and new refresh token
 * @route POST /api/refresh
-* @group Users
+* @param {string} token.path.required - the refresh token
+* @group Login
 */
 router.post('/refresh', loginController.refreshToken);
 
 /**
 * Returns new access token and new refresh token
 * @route POST /api/logout
-* @group Users
+* @param {string} token.path.required - the refresh token
+* @group Login
 */
 router.post('/logout', loginController.doLogout);
 
