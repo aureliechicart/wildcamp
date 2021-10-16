@@ -4,14 +4,20 @@ import { useHistory } from "react-router-dom";
 
 import "./signup.scss";
 
-const SignupForm = () => {
+const SignupForm = ({
+  email,
+  username,
+  password,
+  passwordConfirm,
+  changeField
+}) => {
 
   // Redirect for cancel button
   const history = useHistory();
   const routeChange = () => {
     history.push('/');
   }
-  
+
 
   return (
     <div className="signup-form">
@@ -24,32 +30,45 @@ const SignupForm = () => {
             Adresse email*:
             <input
               type="email"
-              value=""
+              value={email}
               name="email"
-              />
+              onChange={(event) => {
+                changeField(event.target.value, event.target.name);
+              }}
+            />
           </label>
           <label htmlFor="username" className="label">
             Pseudo* :
             <input
               type="text"
-              value=""
-              name="username"/>
+              value={username}
+              name="username"
+              onChange={(event) => {
+                changeField(event.target.value, event.target.name);
+              }}
+            />
           </label>
           <label htmlFor="password" className="label">
             Mot de passe*:
             <input
               type="text"
-              value=""
+              value={password}
               name="password"
+              onChange={(event) => {
+                changeField(event.target.value, event.target.name);
+              }}
             />
           </label>
           <label htmlFor="passwordConfirm" className="label">
             Confirmation du mot de passe*:
             <input
               type="text"
-              value=""
+              value={passwordConfirm}
               name="passwordConfirm"
-              />
+              onChange={(event) => {
+                changeField(event.target.value, event.target.name);
+              }}
+            />
           </label>
 
           <div className="actions">
