@@ -4,10 +4,10 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 
-const { 
+const {
   generateAccessToken,
   generateRefreshToken
-  } = require('../utils/jwt');
+} = require('../utils/jwt');
 
 const userController = {
   /**
@@ -143,7 +143,6 @@ const userController = {
       res.status(500).json(err.message);
     }
   },
-  
 
   /**
      * Controls endpoint POST /api/refresh
@@ -154,12 +153,12 @@ const userController = {
 
     //we send an error if there is no token or it is invalid
     if (!refreshToken) {
-      return res.status(401).json("User is not authenticated");
+      return res.status(401).json({ message: "User is not authenticated" });
     }
 
     // we send an error if the refreshToken doen't appear in our array
     if (!userController.refreshTokens.includes(refreshToken)) {
-      return res.status(403).json("Refresh token is not valid");
+      return res.status(403).json({ message: "Refresh token is not valid" });
     }
 
     // we then verify the token
@@ -183,6 +182,18 @@ const userController = {
         refreshToken: newRefreshToken,
       });
     });
+  },
+
+  /**
+     * Controls endpoint POST /api/logout
+     */
+  doLogout: async (req, res) => {
+    // we get the token from the body
+    const refreshToken = req.body.token;
+    // we remove it from our array to invalidate it
+    userController.refreshTokens = userController.refreshTokens.filter((token) => token !== refreshToken);
+    // we send back a confirmation message
+    res.status(200).json({ message: "User logged out successfully" });
   }
 
 };

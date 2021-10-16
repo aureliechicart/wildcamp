@@ -34,6 +34,13 @@ router.post('/login', userController.doLogin);
 */
 router.post('/refresh', userController.refreshToken);
 
+/**
+* Returns new access token and new refresh token
+* @route POST /api/logout
+* @group Users
+*/
+router.post('/logout', userController.doLogout);
+
 /*****************USERS *******************/
 
 /**
