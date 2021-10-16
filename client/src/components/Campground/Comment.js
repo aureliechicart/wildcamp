@@ -84,7 +84,6 @@ const Comment = ({
                 title="Enregistrer"
                 className="comment-icon"
                 onClick={() => {
-                  console.log(id, typeof (id));
                   submitEditedComment(id);
                 }}
               />

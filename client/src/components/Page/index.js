@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import "./page.scss";
 
 import Home from "../../containers/Home";
+import SignupForm from "../../components/SignupForm";
 import Campground from "../../containers/Campground";
 import NewCampgroundForm from "../../containers/NewCampgroundForm";
 import EditCampgroundForm from "../../containers/EditCampgroundForm";
@@ -15,6 +16,9 @@ const Page = () => {
       <Switch>
         <Route path="/" exact>
           <Home />
+        </Route>
+        <Route path="/signup">
+        <SignupForm />
         </Route>
         <Route path="/campground/:id">
           <Campground />

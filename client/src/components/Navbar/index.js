@@ -17,19 +17,20 @@ const Navbar = () => (
       </NavLink>
       <div className="nav-items">
         <NavLink
-          to="/login"
-          className="nav-item"
-          activeClassName="nav-item-active"
-        >
-          Connexion
-        </NavLink>
-        <NavLink
           to="/signup"
           className="nav-item"
           activeClassName="nav-item-active"
         >
           Inscription
         </NavLink>
+        <NavLink
+          to="/login"
+          className="nav-item"
+          activeClassName="nav-item-active"
+        >
+          Connexion
+        </NavLink>
+
       </div>
     </div>
   </nav>

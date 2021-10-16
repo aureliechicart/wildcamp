@@ -47,7 +47,6 @@ const Campground = ({
 
   useEffect(() => {
     if (campgroundNotFound) {
-      console.log("je suis dans campground et je vais vers 404", campgroundNotFound);
       history.push('/404');
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -146,7 +145,6 @@ const Campground = ({
                         title="Enregistrer"
                         className="comment-icon"
                         onClick={() => {
-                          console.log(id, typeof (id));
                           submitNewComment(selectedCampground.id);
                         }}
                       />

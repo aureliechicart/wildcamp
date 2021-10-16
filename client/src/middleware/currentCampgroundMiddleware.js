@@ -32,10 +32,8 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
 
   switch (action.type) {
     case FETCH_SELECTED_CAMPGROUND:
-      console.log(action.id);
       axios.get(`/api/campgrounds/${action.id}`)
         .then((firstResponse) => {
-          console.log('coucou first response : ', firstResponse);
           store.dispatch(saveSelectedCampground(firstResponse.data));
           return axios.get(`/api/users/${firstResponse.data.user_id}`);
         })
