@@ -3,12 +3,10 @@ const jwt = require('jsonwebtoken');
 
 const verifyJwtMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
-  console.log(authHeader);
 
   // if the request has an authorization header, we get its value, extract the token and verify it
   if (authHeader) {
     const token = authHeader.split(" ")[1];
-    console.log(token);
 
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
       if (err) {

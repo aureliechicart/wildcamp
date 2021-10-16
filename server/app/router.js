@@ -2,6 +2,7 @@ const { Router } = require('express');
 const router = Router();
 
 // Controllers
+const loginController = require('./controllers/loginController');
 const campgroundController = require('./controllers/campgroundController');
 const commentController = require('./controllers/commentController');
 const userController = require('./controllers/userController');
@@ -17,7 +18,7 @@ const verifyJwt = require('./middleware/verifyJwtMiddleware');
 * @group Users
 * @returns {<User>} 200 - An instance of a user
 */
-router.post('/signup', userController.doSignup);
+router.post('/signup', loginController.doSignup);
 
 /**
 * Returns the logged user from the database
@@ -25,21 +26,21 @@ router.post('/signup', userController.doSignup);
 * @group Users
 * @returns {<User>} 200 - An instance of a user
 */
-router.post('/login', userController.doLogin);
+router.post('/login', loginController.doLogin);
 
 /**
 * Returns new access token and new refresh token
 * @route POST /api/refresh
 * @group Users
 */
-router.post('/refresh', userController.refreshToken);
+router.post('/refresh', loginController.refreshToken);
 
 /**
 * Returns new access token and new refresh token
 * @route POST /api/logout
 * @group Users
 */
-router.post('/logout', userController.doLogout);
+router.post('/logout', loginController.doLogout);
 
 /*****************USERS *******************/
 
