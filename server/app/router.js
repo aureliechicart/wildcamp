@@ -134,4 +134,12 @@ router.get('/users', userController.getAll);
  */
  router.get('/users/:id', userController.getOneUser);
 
+ /**
+ * Returns a new user added in the database
+ * @route GET /api/signup
+ * @group Users
+ * @returns {<User>} 200 - An instance of a user
+ */
+  router.post('/login', userController.doSignup);
+
 module.exports = router;

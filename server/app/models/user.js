@@ -67,6 +67,28 @@ class User {
     }
   }
 
+    /**
+      * Returns a specific user.
+      * @async
+      * @static
+      * @function findOneByEmail
+      * @param {string} email - A user email.
+      * @returns {<User>} - Instance of the User class.
+      */
+     static async findOneByEmail(email) {
+      try {
+        const { rows } = await db.query('SELECT * FROM "user" WHERE email = $1;', [email]);
+  
+        if (rows[0]) {
+          return new User(rows[0]);
+        } else {
+          return null;
+        };
+      } catch (err) {
+        throw new Error(err.detail);
+      }
+    }
+
   /**
       * Creates a new user or updates the database if the record already exists
       * 
