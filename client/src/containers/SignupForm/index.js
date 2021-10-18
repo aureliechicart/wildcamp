@@ -1,6 +1,10 @@
 import { connect } from 'react-redux';
 
-import { updateSignupField, submitNewuser } from '../../actions/signup';
+import {
+  updateSignupField,
+  submitNewuser,
+  setError
+} from '../../actions/signup';
 
 // importing presentational component
 import SignupForm from '../../components/SignupForm';
@@ -13,6 +17,8 @@ const mapStateToProps = (state) => ({
   username: state.signup.username,
   password: state.signup.password,
   passwordConfirm: state.signup.passwordConfirm,
+  isUserCreated: state.signup.isUserCreated,
+  errors: state.signup.errors
 });
 
 // === mapDispatchToProps
@@ -24,6 +30,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   submitNewUser: () => {
     dispatch(submitNewuser());
+  },
+  setError: (fieldName, error) => {
+    console.log('error : ', fieldName, error);
+    dispatch(setError(fieldName, error));
   }
 });
 

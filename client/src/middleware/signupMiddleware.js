@@ -3,7 +3,9 @@ import axios from 'axios';
 import {
   SUBMIT_NEW_USER,
   toggleUserCreated,
-  toggleClearSignup
+  toggleClearSignup,
+  toggleAlreadyRegistered,
+  togglePasswordDiffer
 } from '../actions/signup';
 
 const signupMiddleware = (store) => (next) => (action) => {
@@ -23,17 +25,19 @@ const signupMiddleware = (store) => (next) => (action) => {
           // once we get the id of the new user from the database
           // we save it in state
           if (response.data.id) {
+            // we togg:e boolean to display confirmation message
             store.dispatch(toggleUserCreated());
+            // we reset the inputs and errors
+            store.dispatch(toggleClearSignup());
           }
         })
         .catch((error) => {
           console.log(error.response);
-        })
-        .finally(() => {
-          // once the request is finished, we toggle a boolean
-          // to clear the signup form state info
-          store.dispatch(toggleClearSignup());
-
+          if (error.response.data.message === 'A user will this email is already registered') {
+            store.dispatch(toggleAlreadyRegistered());
+          } else if (error.response.data.message === 'The password and password confirmation are different') {
+            store.dispatch(togglePasswordDiffer());
+          }
         });
       break;
 

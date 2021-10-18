@@ -25,64 +25,89 @@
     clear: both;
     font-size: 1.2rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
 
-    .label {
-      display: block;
-      padding: 0.2rem;
+    .message {
+      background-color: $mediumColor;
+      padding: 1rem;
+      margin: 1rem auto;
     }
 
-    input[type=text],
-    input[type=email],
-    input[type=password] {
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 400;
-      padding: 0.5rem;
-      margin: 0.2rem 0;
-      width: 100%;
-      height: 2rem;
-      border: 0;
-      border-bottom: 1px solid $mediumColor;
-      border-radius: 0.3rem;
-      box-shadow: 0 0 2rem 0.2rem rgba(0, 0, 0, 0.06);
+    .message-link {
+      font-weight: 700;
+      text-decoration: underline;
     }
 
-    input[type=text]:focus,
-    input[type=email]:focus,
-    input[type=password]:focus {
-      border: 2px solid black;
+    .message-link:hover{
+      color: $darkColor;
     }
 
-    .actions {
-      display: flex;
-      justify-content: center;
-      margin-top: 2rem;
+    .form {
+      width: 20%;
+      margin: 0 auto;
 
-      input[type=submit],
-      input[type=button] {
+      .label {
+        display: block;
+        padding: 0.2rem;
+      }
+
+      input[type=text],
+      input[type=email],
+      input[type=password] {
         font-family: inherit;
-        width: 150px;
-        padding: 0.7rem 1rem;
-        margin-right: 2rem;
-        border: none;
-        background-color: $darkColor;
-        color: #ffffff;
         font-size: 1rem;
         font-weight: 400;
-        border-radius: 4px;
-        cursor: pointer
+        padding: 0.5rem;
+        margin: 0.2rem 0;
+        width: 100%;
+        height: 2rem;
+        border: 0;
+        border-bottom: 1px solid $mediumColor;
+        border-radius: 0.3rem;
+        box-shadow: 0 0 2rem 0.2rem rgba(0, 0, 0, 0.06);
       }
 
-      input[type=submit]:hover,
-      input[type=button]:hover {
-        background-color: $mediumColor;
+      input[type=text]:focus,
+      input[type=email]:focus,
+      input[type=password]:focus {
+        border: 2px solid black;
       }
+
+      .error {
+        display: block;
+        color: whitesmoke;
+        font-size: 0.9rem;
+        padding: 0.3rem; 
+        background-color: $errorColor;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+
+        input[type=submit],
+        input[type=button] {
+          font-family: inherit;
+          width: 150px;
+          padding: 0.7rem 1rem;
+          margin-right: 2rem;
+          border: none;
+          background-color: $darkColor;
+          color: #ffffff;
+          font-size: 1rem;
+          font-weight: 400;
+          border-radius: 4px;
+          cursor: pointer
+        }
+
+        input[type=submit]:hover,
+        input[type=button]:hover {
+          background-color: $mediumColor;
+        }
+      }
+
     }
-
-
   }
-
-
-
 }
