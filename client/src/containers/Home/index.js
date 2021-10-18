@@ -9,6 +9,8 @@ const mapStateToProps = (state) => ({
   // name of the prop to specify: element to get from the state
   campgrounds: state.campgrounds.campgroundsList,
   loadingCampgrounds: state.campgrounds.loadingCampgrounds,
+  isLoggedIn: state.auth.isLoggedIn,
+  bannerDisplayed: state.campgrounds.bannerDisplayed
 });
 
 // === mapDispatchToProps

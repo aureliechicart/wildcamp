@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './app.scss';
 
-import Navbar from '../Navbar';
+import Navbar from '../../containers/Navbar';
 import Page from '../../containers/Page';
 
 const App = ({ loadCampgrounds }) => {

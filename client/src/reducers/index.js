@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 // importing reducers
 import campgroundsReducer from './campgroundsReducer';
 import signupReducer from './signupReducer';
+import authReducer from './authReducer';
 import currentCampgroundReducer from './currentCampgroundReducer';
 import newCampgroundReducer from './newCampgroundReducer';
 
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   // drawer name: reducer which controls this part of the state
   campgrounds: campgroundsReducer,
   signup: signupReducer,
+  auth: authReducer,
   currentCampground: currentCampgroundReducer,
   newCampground: newCampgroundReducer,
 });

@@ -6,8 +6,17 @@
   @media screen and (max-width: 960px) {
     width: 80%;
   }
+
   @media screen and (max-width: 480px) {
     width: 90%;
+  }
+
+  .success-message {
+    background-color: $mediumColor;
+    color: white;
+    padding: 1rem;
+    margin: 1rem auto;
+    width: 50%;
   }
 
   .home-title {

@@ -14,7 +14,6 @@ const signupMiddleware = (store) => (next) => (action) => {
     case SUBMIT_NEW_USER:
       // we signup the new user using the information in state
       const { email, username, password, passwordConfirm } = store.getState().signup;
-      console.log(email, username, password, passwordConfirm);
       axios.post('/api/signup', {
         email,
         username,
