@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { setBannerDisplay } from '../../actions/campgrounds';
 
 // importing presentational component
 import Home from '../../components/Home';
@@ -17,6 +18,9 @@ const mapStateToProps = (state) => ({
 // if we need to dispatch actions from the store (modify the state)
 const mapDispatchToProps = (dispatch) => ({
   // name of the prop to specify: function which will dispatch the action
+  setBannerDisplay: (value) => {
+    dispatch(setBannerDisplay(value));
+  }
 });
 
 // === creating the assistant

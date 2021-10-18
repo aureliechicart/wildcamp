@@ -10,7 +10,8 @@ const Home = ({
   campgrounds,
   loadingCampgrounds,
   isLoggedIn,
-  bannerDisplayed
+  bannerDisplayed,
+  setBannerDisplay
 }) => {
 
   console.log('isLoggedIn : ', isLoggedIn, 'bannerDisplayed : ', bannerDisplayed);
@@ -18,7 +19,9 @@ const Home = ({
   return (
     <main className="home">
       {(isLoggedIn && bannerDisplayed) &&
-        <div className="success-message">Vous est bien connecté. Publiez vos spots préférés ou commentez ceux publiés par la communauté !</div>
+        <div className="success-message">
+        Vous est bien connecté. Publiez vos spots préférés ou commentez ceux publiés par la communauté !
+        <span className="skip-message-button" onClick={() => {setBannerDisplay(false)}}>Ignorer</span></div>
       }
       <h1 className="home-title">Bienvenue dans Wildcamp</h1>
       <p className="home-subtitle">Découvrez les meilleurs spots de camping sauvage partagés par la communauté Wildcamp :</p>

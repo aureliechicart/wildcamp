@@ -12,7 +12,7 @@ import App from './containers/App';
 ReactDOM.render(
   <React.StrictMode>
   <Provider store={store}>
-    <Router>
+    <Router >
       <App />
     </Router>
     </Provider>

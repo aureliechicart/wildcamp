@@ -44,7 +44,7 @@
     }
 
     .form {
-      width: 20%;
+      width: 30%;
       margin: 0 auto;
 
       .label {
@@ -84,15 +84,15 @@
 
       .actions {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         margin-top: 2rem;
+        width: 100%;
 
         input[type=submit],
         input[type=button] {
           font-family: inherit;
           width: 150px;
           padding: 0.7rem 1rem;
-          margin-right: 2rem;
           border: none;
           background-color: $darkColor;
           color: #ffffff;

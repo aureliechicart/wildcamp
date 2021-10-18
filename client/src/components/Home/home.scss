@@ -15,8 +15,22 @@
     background-color: $mediumColor;
     color: white;
     padding: 1rem;
-    margin: 1rem auto;
+    margin: 0 auto;
     width: 50%;
+    display: flex;
+    font-size: 1.2rem;
+    border-radius: 4px;
+
+    .skip-message-button {
+      display: inline-block;
+      text-align: right;
+      background-color: whitesmoke;
+      color: $darkColor;
+      padding: 0.7rem 2rem;
+      margin-left: 2rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
   }
 
   .home-title {
@@ -58,6 +72,8 @@
       border-radius: 1em;
       overflow: hidden;
       background-color: white;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
       @media screen and (max-width: 1200px) {
         width: 40%;
@@ -68,10 +84,6 @@
       }
 
       @media screen and (max-width: 680px) {
-        width: 90%;
-      }
-
-      @media screen and (max-width: 480px) {
         width: 90%;
       }
 
