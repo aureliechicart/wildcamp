@@ -1,6 +1,6 @@
 import {
   UPDATE_SIGNUP_FIELD,
-  TOGGLE_USER_CREATED,
+  SET_IS_USER_CREATED,
   TOGGLE_CLEAR_SIGNUP,
   SET_ERROR,
   TOGGLE_ALREADY_REGISTERED,
@@ -29,10 +29,10 @@ function signupReducer(state = initialState, action) {
         [action.fieldName]: action.newValue,
       }
 
-    case TOGGLE_USER_CREATED:
+    case SET_IS_USER_CREATED:
       return {
         ...state,
-        isUserCreated: true
+        isUserCreated: action.value
       }
 
     case TOGGLE_CLEAR_SIGNUP:

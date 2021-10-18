@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 // import PropTypes from 'prop-types';
 
@@ -14,9 +14,14 @@ const SignupForm = ({
   changeField,
   submitNewUser,
   isUserCreated,
+  setIsUserCreated,
   errors,
   setError
 }) => {
+
+  useEffect(() => {
+    setIsUserCreated(false);
+  }, [setIsUserCreated]);
 
   // Redirect for cancel button
   const history = useHistory();
@@ -34,9 +39,10 @@ const SignupForm = ({
     return valid;
   }
 
+
   return (
     <div className="signup-form">
-      <h2 className="heading">Inscrivez-vous pour partager des spots de camping sauvage</h2>
+      <h2 className="heading">Création de compte</h2>
       <div className="content" >
         {isUserCreated && (
           <div className="message">Vous êtes bien inscrit. Veuillez vous <Link className="message-link" to="/login">connecter</Link>
@@ -61,6 +67,7 @@ const SignupForm = ({
               type="text"
               value={email}
               name="email"
+              placeholder="Votre adresse email..."
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
                 const isEmailValid = validate(email);
@@ -81,9 +88,11 @@ const SignupForm = ({
           <label htmlFor="username" className="label">
             Pseudo*&nbsp;:
             <input
+              required
               type="text"
               value={username}
               name="username"
+              placeholder="Le pseudo que vous souhaitez utiliser..."
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
               }}
@@ -92,13 +101,15 @@ const SignupForm = ({
           <label htmlFor="password" className="label">
             Mot de passe*&nbsp;:
             <input
+              required
               type="password"
               value={password}
               name="password"
+              placeholder="Mot de passe de plus de 5 caractères..."
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
-                if (password.length < 6) {
-                  setError(event.target.name, "Le mot de passe doit contenir au minimum 6 caractères");
+                if (password.length < 5) {
+                  setError(event.target.name, "Le mot de passe doit contenir au minimum 5 caractères");
                 } else {
                   setError(event.target.name, '');
                 }
@@ -110,9 +121,11 @@ const SignupForm = ({
           <label htmlFor="passwordConfirm" className="label">
             Confirmation du mot de passe*&nbsp;:
             <input
+              required
               type="password"
               value={passwordConfirm}
               name="passwordConfirm"
+              placeholder="Confirmez le mot de passe..."
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
               }}

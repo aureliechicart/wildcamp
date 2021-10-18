@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import {
   SUBMIT_NEW_USER,
-  toggleUserCreated,
+  setIsUserCreated,
   toggleClearSignup,
   toggleAlreadyRegistered,
   togglePasswordDiffer
@@ -26,7 +26,7 @@ const signupMiddleware = (store) => (next) => (action) => {
           // we save it in state
           if (response.data.id) {
             // we togg:e boolean to display confirmation message
-            store.dispatch(toggleUserCreated());
+            store.dispatch(setIsUserCreated(true));
             // we reset the inputs and errors
             store.dispatch(toggleClearSignup());
           }

@@ -1,7 +1,7 @@
 // === action types
 export const UPDATE_SIGNUP_FIELD = 'UPDATE_SIGNUP_FIELD';
 export const SUBMIT_NEW_USER = 'SUBMIT_NEW_USER';
-export const TOGGLE_USER_CREATED = 'TOGGLE_USER_CREATED';
+export const SET_IS_USER_CREATED = 'SET_IS_USER_CREATED';
 export const TOGGLE_CLEAR_SIGNUP = 'TOGGLE_CLEAR_SIGNUP';
 export const SET_ERROR = 'SET_ERROR';
 export const TOGGLE_ALREADY_REGISTERED = 'TOGGLE_ALREADY_REGISTERED';
@@ -19,8 +19,9 @@ export const submitNewuser = () => ({
   type: SUBMIT_NEW_USER,
 });
 
-export const toggleUserCreated = () => ({
-  type: TOGGLE_USER_CREATED,
+export const setIsUserCreated = (value) => ({
+  type: SET_IS_USER_CREATED,
+  value: value
 });
 
 export const toggleClearSignup = () => ({

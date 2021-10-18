@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import {
   updateSignupField,
   submitNewuser,
-  setError
+  setError,
+  setIsUserCreated
 } from '../../actions/signup';
 
 // importing presentational component
@@ -32,8 +33,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(submitNewuser());
   },
   setError: (fieldName, error) => {
-    console.log('error : ', fieldName, error);
     dispatch(setError(fieldName, error));
+  },
+  setIsUserCreated: (value) => {
+    dispatch(setIsUserCreated(value));
   }
 });
 
