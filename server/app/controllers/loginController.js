@@ -69,7 +69,7 @@ doLogin: async (req, res) => {
 
     // if user doesn't exist, we send a message
     if (!user) {
-      res.status(400).json({ message: 'No user found with this email' });
+      res.status(400).json({ noUserFound: true, message: 'No user found with this email' });
       return;
     }
     // we compare the password provided and the hash in db using bcrypt
@@ -77,7 +77,7 @@ doLogin: async (req, res) => {
 
     // if the password validation fails, we send a message
     if (!isPwdValid) {
-      res.status(400).json({ message: 'Incorrect password' });
+      res.status(400).json({ incorrectPassword: true, message: 'Incorrect password' });
       return;
     }
 
@@ -87,6 +87,12 @@ doLogin: async (req, res) => {
 
     // we add the new refresh token to the array
     loginController.refreshTokens.push(refreshToken);
+
+    // we add the refresh token in an httpOnly cookie
+    res.cookie('refresh_token', refreshToken, {
+      httpOnly: true,
+      secure: false
+    });
 
     // we send the user info and tokens
     res.status(202).json({
@@ -137,12 +143,38 @@ refreshToken: async (req, res) => {
     // we push the new refresh token in our array
     loginController.refreshTokens.push(newRefreshToken);
 
+    // we add the refresh token in an httpOnly cookie
+    res.cookie('refresh_token', newRefreshToken, {
+      httpOnly: true,
+      secure: false
+    });
+
     // we send back the new access token and refresh token
     res.status(200).json({
       accessToken: newAccessToken,
       refreshToken: newRefreshToken,
     });
   });
+},
+
+/**
+   * Controls endpoint GET /api/auth/user
+   */
+getUserFromCookie: async (req, res) => {
+  const cookie = req.cookies.refresh_token;
+
+  const claims = jwt.verify(cookie, process.env.JWT_REFRESH_SECRET);
+
+  if(!claims) {
+    return res.status(401).json({message: 'Unauthenticated'});
+  }
+
+  const user = await User.findOne(claims.id);
+
+  // we return all the user info, except the password
+  const {password, ...data} = user;
+
+  res.json(data);
 },
 
 /**

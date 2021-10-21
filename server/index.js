@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 5000;
 const path = require('path');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 
 // Helmet helps protect the app from some well-known web vulnerabilities by setting HTTP headers appropriately
 app.use(helmet());
@@ -13,15 +14,18 @@ app.use(helmet());
 // HTTP request logging with Morgan
 app.use(morgan('tiny'));
 
+//Middleware for parsing cookies on incoming requests
+app.use(cookieParser());
+
 const router = require('./app/router');
 
-app.use(function (req, res, next) {
-  res.setHeader(
-    'Content-Security-Policy',
-    "default-src *;  img-src 'self' 'unsafe-inline' 'unsafe-eval' *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src 'self' 'unsafe-inline' *"
-  );
-  next();
-});
+// app.use(function (req, res, next) {
+//   res.setHeader(
+//     'Content-Security-Policy',
+//     "default-src *;  img-src 'self' 'unsafe-inline' 'unsafe-eval' *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src 'self' 'unsafe-inline' *"
+//   );
+//   next();
+// });
 
 // Middleware which parses incoming requests with JSON payloads
 app.use(express.json());

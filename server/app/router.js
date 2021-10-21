@@ -43,6 +43,13 @@ router.post('/login', loginController.doLogin);
 router.post('/refresh', loginController.refreshToken);
 
 /**
+* Returns the user based on the token in cookie
+* @route GET /api/auth/user
+* @group Login
+*/
+router.get('/auth/user', loginController.getUserFromCookie);
+
+/**
 * Returns new access token and new refresh token
 * @route POST /api/logout
 * @param {string} token.path.required - the refresh token

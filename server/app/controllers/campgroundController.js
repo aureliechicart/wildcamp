@@ -115,7 +115,10 @@ const campgroundController = {
           res.status(200).json({ message: 'Campground successfully deleted' });
         } else {
           // if the logged in user is not the author, we return an error
-          res.status(403).json({ message: "User is not allowed to delete a campground posted by another user" });
+          res.status(403).json({
+            notAuthor: true,
+            message: "User is not allowed to delete a campground posted by another user"
+          });
         }
       } else {
         res.status(404).json({ message: 'Campground not found' });
