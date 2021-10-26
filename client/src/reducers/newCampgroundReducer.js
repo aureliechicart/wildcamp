@@ -1,7 +1,8 @@
 import {
   UPDATE_CAMPGROUND_FIELD,
   SAVE_CAMPGROUND_ID,
-  TOGGLE_LOADING_CAMPGROUND_ID
+  TOGGLE_LOADING_CAMPGROUND_ID,
+  CLEAR_ADD_CAMPGROUND_FORM
 } from '../actions/newCampground'
 
 const initialState = {
@@ -13,7 +14,7 @@ const initialState = {
   loadingCampgroundId: true,
 };
 
-function newCampgroundReducer (state = initialState, action) {
+function newCampgroundReducer(state = initialState, action) {
   switch (action.type) {
     case UPDATE_CAMPGROUND_FIELD:
       return {
@@ -36,6 +37,17 @@ function newCampgroundReducer (state = initialState, action) {
       return {
         ...state,
         loadingCampgroundId: !state.loadingCampgroundId,
+      }
+
+    case CLEAR_ADD_CAMPGROUND_FORM:
+      return {
+        ...state,
+        title: '',
+        image: '',
+        description: '',
+        country: '',
+        campgroundId: '',
+        loadingCampgroundId: true,
       }
 
     default:

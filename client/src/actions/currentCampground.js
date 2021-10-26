@@ -15,7 +15,9 @@ export const UPDATE_EDIT_FIELD = 'UPDATE_EDIT_FIELD';
 
 // campground deleting
 export const DELETE_SELECTED_CAMPGROUND = 'DELETE_SELECTED_CAMPGROUND';
-export const TOGGLE_CAMPGROUND_DELETED = 'TOGGLE_CAMPGROUND_DELETED';
+export const SET_NOT_AUTHOR = 'SET_NOT_AUTHOR';
+export const CLEAR_SELECTED_CAMPGROUND = 'CLEAR_SELECTED_CAMPGROUND';
+
 
 // campground comment edition
 export const UPDATE_EDIT_COMMENT_FIELD = 'UPDATE_EDIT_COMMENT_FIELD';
@@ -31,6 +33,7 @@ export const TOGGLE_ADD_COMMENT_EDITING = 'TOGGLE_ADD_COMMENT_EDITING';
 export const UPDATE_ADD_COMMENT_FIELD = 'UPDATE_ADD_COMMENT_FIELD';
 export const SUBMIT_NEW_COMMENT = 'SUBMIT_NEW_COMMENT';
 export const ADD_COMMENT = 'ADD_COMMENT';
+
 
 
 // === action creators
@@ -131,6 +134,11 @@ export const deleteSelectedCampground = (campgroundId) => ({
   campgroundId: campgroundId
 });
 
-export const toggleCampgroundDeleted = () => ({
-  type: TOGGLE_CAMPGROUND_DELETED,
+export const setNotAuthor = (value) => ({
+  type: SET_NOT_AUTHOR,
+  value
+});
+
+export const clearSelectedCampground = () => ({
+  type: CLEAR_SELECTED_CAMPGROUND
 });

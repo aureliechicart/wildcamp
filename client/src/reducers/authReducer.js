@@ -1,18 +1,25 @@
 import {
   UPDATE_LOGIN_FIELD,
   SET_LOGIN_ERROR,
-  SET_IS_LOGGED_IN,
   CLEAR_LOGIN,
+  SAVE_USER,
+  SET_INCORRECT_PASSWORD,
+  SET_USER_NOT_FOUND,
+  SET_IS_AUTHENTICATED,
+  CLEAR_USER,
+  SAVE_AUTO_CHECKED_USER
 } from '../actions/auth'
 
 const initialState = {
   email: '',
   password: '',
-  isLoggedIn: false,
-  hasLoggedOutMessage: false,
+  isAuthenticated: false,
+  loggedInUser: {},
   errors: {
     email: '',
-    password: ''
+    password: '',
+    incorrectPassword: false,
+    userNotFound: false
   }
 };
 
@@ -33,12 +40,6 @@ function authReducer(state = initialState, action) {
         }
       }
 
-    case SET_IS_LOGGED_IN:
-      return {
-        ...state,
-        isLoggedIn: action.value
-      }
-
     case CLEAR_LOGIN:
       return {
         ...state,
@@ -46,15 +47,65 @@ function authReducer(state = initialState, action) {
         password: '',
         errors: {
           email: '',
-          password: ''
+          password: '',
+          incorrectPassword: false,
+          userNotFound: false
         }
       }
 
-      // case LOG_OUT:
-      //   return {
-      //     ...state,
-      //     hasLoggedOutMessage: true
-      //   }
+    case SAVE_USER:
+      return {
+        ...state,
+        loggedInUser: { ...action.user },
+        isAuthenticated: true
+      }
+
+    case SAVE_AUTO_CHECKED_USER:
+      return {
+        ...state,
+        loggedInUser: {
+          ...state.loggedInUser,
+          ...action.user
+        },
+        isAuthenticated: true
+      }
+
+    case SET_INCORRECT_PASSWORD:
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          incorrectPassword: action.value
+        }
+      }
+
+    case SET_USER_NOT_FOUND:
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          userNotFound: action.value
+        },
+        isAuthenticated: false
+      }
+
+      case SET_IS_AUTHENTICATED:
+        return {
+          ...state,
+          isAuthenticated: action.value
+        }
+
+        case CLEAR_USER:
+          return {
+            ...state,
+            loggedInUser: {},
+            errors: {
+              email: '',
+              password: '',
+              incorrectPassword: false,
+              userNotFound: false
+            }
+          }
 
     default:
       return state;

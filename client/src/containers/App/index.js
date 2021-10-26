@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 
 import { fetchCampgrounds } from '../../actions/campgrounds';
+import { checkUser } from '../../actions/auth';
 
 // we import the presentational component
 import App from '../../components/App';
@@ -14,6 +15,9 @@ const mapDispatchToProps = (dispatch) => ({
   loadCampgrounds: () => {
     dispatch(fetchCampgrounds());
   },
+  checkUser: () => {
+    dispatch(checkUser());
+  }
 });
 
 // === creating assistant

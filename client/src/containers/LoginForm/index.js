@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import {
   updateLoginField,
   submitLogin,
-  setLoginError,
-  setIsLoggedIn
+  setLoginError
 } from '../../actions/auth';
 
 // importing presentational component
@@ -16,7 +15,7 @@ const mapStateToProps = (state) => ({
   // name of the prop to specify: element to get from the state
   email: state.auth.email,
   password: state.auth.password,
-  isLoggedIn: state.auth.isLoggedIn,
+  isAuthenticated: state.auth.isAuthenticated,
   errors: state.auth.errors
 });
 
@@ -32,9 +31,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setLoginError: (fieldName, error) => {
     dispatch(setLoginError(fieldName, error));
-  },
-  setIsLoggedIn: (value) => {
-    dispatch(setIsLoggedIn(value));
   }
 });
 

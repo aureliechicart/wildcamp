@@ -6,7 +6,13 @@ import './app.scss';
 import Navbar from '../../containers/Navbar';
 import Page from '../../containers/Page';
 
-const App = ({ loadCampgrounds }) => {
+const App = ({ loadCampgrounds, checkUser }) => {
+
+  
+   // we check if user is authenticated after each rendering of the component
+   useEffect(() => {
+    checkUser();
+  });
 
   useEffect(() => {
     loadCampgrounds();

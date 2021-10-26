@@ -11,8 +11,9 @@ import {
   TOGGLE_ADD_COMMENT_EDITING,
   UPDATE_ADD_COMMENT_FIELD,
   ADD_COMMENT,
-  TOGGLE_CAMPGROUND_DELETED,
-  SET_CAMPGROUND_NOT_FOUND
+  SET_CAMPGROUND_NOT_FOUND,
+  SET_NOT_AUTHOR,
+  CLEAR_SELECTED_CAMPGROUND
 } from '../actions/currentCampground'
 
 const initialState = {
@@ -26,7 +27,9 @@ const initialState = {
   editedCommentId: '',
   addCommentEditing: false,
   newCommentValue: '',
-  campgroundDeleted: false
+  errors: {
+    notAuthor: false
+  }
 };
 
 function currentCampgroundReducer(state = initialState, action) {
@@ -125,11 +128,20 @@ function currentCampgroundReducer(state = initialState, action) {
         newCommentValue: ''
       }
 
-    case TOGGLE_CAMPGROUND_DELETED:
+    case SET_NOT_AUTHOR:
       return {
         ...state,
-        campgroundDeleted: true
+        errors: {
+          ...state.errors,
+          notAuthor: true,
+        }
       }
+
+      case CLEAR_SELECTED_CAMPGROUND:
+        return {
+          ...state,
+          selectedCampground: {},
+        }
 
     default:
       return state;

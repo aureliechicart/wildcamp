@@ -15,7 +15,7 @@ export const updateSignupField = (newValue, fieldName) => ({
   fieldName: fieldName,
 });
 
-export const submitNewuser = () => ({
+export const submitNewUser = () => ({
   type: SUBMIT_NEW_USER,
 });
 

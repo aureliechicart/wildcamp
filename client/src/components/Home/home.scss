@@ -33,6 +33,47 @@
     }
   }
 
+  .login-cta {
+    background-color: $mediumColor;
+    color: white;
+    padding: 1rem;
+    margin: 0 auto;
+    width: 50%;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+
+    .login-cta-container {
+
+      .login-cta-link {
+        color: $darkColor;
+        font-weight: 700;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+
+
+    }
+
+    .skip-message-button {
+      display: flex;
+      align-self: auto;
+      text-align: right;
+      background-color: whitesmoke;
+      color: $darkColor;
+      padding: 0.7rem 2rem;
+      margin-left: 2rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+  }
+
   .home-title {
     font-size: 3rem;
     font-weight: 900;
@@ -62,7 +103,8 @@
 
   .campgrounds-small {
     display: flex;
-    justify-content: space-around;
+    justify-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     padding: 2rem;
 

@@ -23,8 +23,8 @@ const signupMiddleware = (store) => (next) => (action) => {
         .then((response) => {
           // once we get the id of the new user from the database
           // we save it in state
-          if (response.data.id) {
-            // we togg:e boolean to display confirmation message
+          if (response.data.user.id) {
+            // we togglea a boolean to display confirmation message
             store.dispatch(setIsUserCreated(true));
             // we reset the inputs and errors
             store.dispatch(toggleClearSignup());

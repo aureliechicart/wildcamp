@@ -1,4 +1,5 @@
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
 import {
   FETCH_SELECTED_CAMPGROUND,
@@ -15,8 +16,8 @@ import {
   addComment,
   toggleAddCommentEditing,
   DELETE_SELECTED_CAMPGROUND,
-  toggleCampgroundDeleted,
-  setCampgroundNotFound
+  setCampgroundNotFound,
+  setNotAuthor
 } from '../actions/currentCampground';
 
 import {
@@ -28,7 +29,56 @@ import {
   updateCampgroundsAfterDelete
 } from '../actions/campgrounds';
 
+import {
+  saveUser
+} from '../actions/auth';
+
 const campgroundsMiddleware = (store) => (next) => (action) => {
+
+  // Function which calls the refresh to update the refresh token
+  const refreshToken = async () => {
+    console.log('****Time to refresh the token!****');
+    console.log('loggedInUser from state : ', store.getState().auth.loggedInUser);
+    try {
+      const res = await axios.post("/api/refresh", {
+        token: store.getState().auth.loggedInUser.refreshToken
+      });
+
+      store.dispatch(saveUser({
+        ...store.getState().auth.loggedInUser,
+        accessToken: res.data.accessToken,
+        refreshToken: res.data.refreshToken
+      }));
+      const user = JSON.parse(localStorage.getItem('user'));
+      const newUser = {
+        id: user.id,
+        jwt: res.data.refreshToken
+      }
+      localStorage.setItem('user', JSON.stringify(newUser));
+      console.log('saved in localStorage : ', JSON.parse(localStorage.getItem('user')));
+      return res.data;
+    } catch (error) {
+      console.log('refresh route - error from catch : ', error);
+    }
+  };
+
+  // adding headers to axios calls (POST calls, except /login)
+  const axiosJWT = axios.create();
+  axiosJWT.interceptors.request.use(
+    async (config) => {
+      console.log('****config axios auth****');
+      const decodedToken = jwt_decode(store.getState().auth.loggedInUser.accessToken);
+      console.log('decoded token : ', decodedToken);
+      // we refresh the token at each axios call to keep the right info in state
+      const data = await refreshToken();
+      config.headers["authorization"] = "Bearer " + data.accessToken;
+      console.log('config axios : ', config);
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
 
   switch (action.type) {
     case FETCH_SELECTED_CAMPGROUND:
@@ -42,15 +92,15 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
           return axios.get(`/api/campgrounds/${action.id}/comments`);
         })
         .then((thirdResponse) => {
-          if (thirdResponse.data) {
             store.dispatch(saveComments(thirdResponse.data));
-          }
         })
         .catch((error) => {
-          if (error.response.status === 404 && error.response.data.message === 'No campground found with this id') {
+          if (error.response.data.campgroundNotFound) {
             store.dispatch(setCampgroundNotFound(true));
+          } else if (error.response.data.noComments) {
+            store.dispatch(saveComments([]));
           } else {
-            console.log(error.response);
+            console.log(error);
           }
         })
         .finally(() => {
@@ -60,15 +110,17 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
 
     case SUBMIT_EDITED_CAMPGROUND:
       // we send a put request using the information in state
-      axios.put(`/api/campgrounds/${action.campgroundId}`, {
-        title: store.getState().currentCampground.selectedCampground.title,
-        image: store.getState().currentCampground.selectedCampground.image,
-        description: store.getState().currentCampground.selectedCampground.description,
-        country: store.getState().currentCampground.selectedCampground.country,
-        // user_id: only the user who posted this record can change it
-        // this means the user_id won't change and is not relevant here
+      const { title, image, description, country } = store.getState().currentCampground.selectedCampground;
+      console.log('edited campground - access from state : ', store.getState().auth.loggedInUser.accessToken);
+
+      axiosJWT.put(`/api/campgrounds/${action.campgroundId}`, {
+        title,
+        image,
+        description,
+        country
       })
         .then((response) => {
+          console.log(response.data);
           // once we get the id of the edited campground from the database
           // we save it in state
           // (here, receiving the id represents the fact the record has been updated in db)
@@ -85,9 +137,10 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
       break;
 
     case SUBMIT_EDITED_COMMENT:
+      console.log(store.getState().auth.loggedInUser);
       const comments = store.getState().currentCampground.comments;
       const comment = comments.find((comment) => comment.id === action.commentId);
-      axios.put(`/api/comments/${action.commentId}`, {
+      axiosJWT.put(`/api/comments/${action.commentId}`, {
         text: comment.text
       })
         .then((response) => {
@@ -95,11 +148,13 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
         })
         .catch((error) => {
           console.log(error.response);
-        })
+        });
       break;
 
     case DELETE_COMMENT:
-      axios.delete(`/api/comments/${action.commentId}`)
+      console.log('access token from state : ', store.getState().auth.loggedInUser);
+
+      axiosJWT.delete(`/api/comments/${action.commentId}`)
         .then((response) => {
           console.log(response.data);
         })
@@ -108,22 +163,27 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
         })
         .finally(() => {
           store.dispatch(removeComment(action.commentId));
-        })
+        });
       break;
 
     case SUBMIT_NEW_COMMENT:
-      axios.post(`/api/campgrounds/${action.campgroundId}/comments`, {
-        text: store.getState().currentCampground.newCommentValue,
-        // TODO: get the logged user when login feature is ready
-        // user_id hard-coded for now
-        user_id: 1
+
+      const text = store.getState().currentCampground.newCommentValue;
+      const user_id = store.getState().auth.loggedInUser.id;
+      const author = store.getState().auth.loggedInUser.username;
+
+      console.log('token from state : ', store.getState().auth.loggedInUser);
+
+      axiosJWT.post(`/api/campgrounds/${action.campgroundId}/comments`, {
+        text,
+        user_id
       })
         .then((response) => {
-          // I will need to get the username in the state once the login feature is up and running
-          // I will then create the comment structure I want to add to the comments array in state
-          // username is hard-coded for now
-          const fullComment = { ...response.data, author: 'carrot' };
-
+          const fullComment = {
+            ...response.data,
+            author
+          };
+          console.log(fullComment);
           // Now I can dispatch the action with the proper comment structure
           store.dispatch(addComment(fullComment));
           store.dispatch(toggleAddCommentEditing());
@@ -134,21 +194,28 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
       break;
 
     case DELETE_SELECTED_CAMPGROUND:
-      axios.delete(`/api/campgrounds/${action.campgroundId}`)
+      axiosJWT.delete(`/api/campgrounds/${action.campgroundId}`)
         .then((response) => {
+          console.log(response);
           if (response.status !== 200) {
-            console.log(response.data);
+            console.log(response);
           } else {
-            // acts on a boolean which helps redirect to home page after deletion
-            store.dispatch(toggleCampgroundDeleted());
             //  used to remove the deleted campground from campgroundsList in state
             store.dispatch(updateCampgroundsAfterDelete(parseInt(action.campgroundId)));
           }
         })
         .catch((error) => {
-          console.log(error.response);
+          console.log(error);
+          if (error.reponse) {
+            if (error.response.data.notAuthor) {
+              store.dispatch(setNotAuthor(true));
+            } else {
+              console.log(error);
+            }
+          }
         });
       break;
+
 
     default:
   }

@@ -6,6 +6,8 @@ export const SAVE_CAMPGROUND_ID = 'SAVE_CAMPGROUND_ID';
 
 export const TOGGLE_LOADING_CAMPGROUND_ID = 'TOGGLE_LOADING_CAMPGROUND_ID';
 
+export const CLEAR_ADD_CAMPGROUND_FORM = 'CLEAR_ADD_CAMPGROUND_FORM';
+
 
 
 // === action creators
@@ -27,4 +29,8 @@ export const saveCampgroundId = (campgroundId) => ({
 
 export const toggleLoadingCampgroundId = () => ({
   type: TOGGLE_LOADING_CAMPGROUND_ID,
+});
+
+export const clearAddCamgroundForm = () => ({
+  type: CLEAR_ADD_CAMPGROUND_FORM,
 });

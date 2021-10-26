@@ -1,26 +1,34 @@
 import React from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import './home.scss';
 import CampgroundSmall from './CampgroundSmall';
 import Spinner from '../Spinner';
-import { Link } from 'react-router-dom';
 
 const Home = ({
   campgrounds,
   loadingCampgrounds,
-  isLoggedIn,
+  isAuthenticated,
   bannerDisplayed,
-  setBannerDisplay
+  setBannerDisplay,
+  clearAddCamgroundForm
 }) => {
 
-  console.log('isLoggedIn : ', isLoggedIn, 'bannerDisplayed : ', bannerDisplayed);
+  const history = useHistory();
 
   return (
     <main className="home">
-      {(isLoggedIn && bannerDisplayed) &&
+      {(isAuthenticated && bannerDisplayed) &&
         <div className="success-message">
-        Vous est bien connecté. Publiez vos spots préférés ou commentez ceux publiés par la communauté !
+        Vous êtes bien connecté. Publiez vos spots préférés ou commentez ceux publiés par la communauté !
+        <span className="skip-message-button" onClick={() => {setBannerDisplay(false)}}>Ignorer</span></div>
+      }
+      {(!isAuthenticated && bannerDisplayed) &&
+        <div className="login-cta">
+        <p className="login-cta-container">
+        <Link className="login-cta-link" to="/signup">Créez un compte</Link> ou <Link className="login-cta-link" to="/login">connectez-vous</Link> pour profiter de toutes les possibilités de publication. 
+        </p>
         <span className="skip-message-button" onClick={() => {setBannerDisplay(false)}}>Ignorer</span></div>
       }
       <h1 className="home-title">Bienvenue dans Wildcamp</h1>
@@ -39,12 +47,15 @@ const Home = ({
 
       <div className="add-campground">
         <p className="add-campground-subtitle">Vous avez découvert un spot unique et vous souhaitez le partager&nbsp;? C'est par ici&nbsp;!</p>
-        <Link
+        <button
           className="add-campground-button"
-          to="/new-campground"
+          onClick={() => {
+            clearAddCamgroundForm();
+            history.push('/new-campground');
+          }}
         >
           Ajouter un spot
-        </Link>
+        </button>
       </div>
     </main>
   );

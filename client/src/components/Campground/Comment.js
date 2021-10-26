@@ -15,7 +15,9 @@ const Comment = ({
   toggleCommentEditing,
   submitEditedComment,
   changeCommentField,
-  deleteComment
+  deleteComment,
+  isAuthenticated,
+  loggedInUser
 }) => {
 
   const textAreaRef = useRef();
@@ -60,53 +62,57 @@ const Comment = ({
             <p
               className="comment-text"
               onDoubleClick={() => {
-                // TODO: add following conditions
-                // if loggedUser === author > toggle commentEditing
-                // else > display an error message stating the user cannot edit ohter users'comments
-                toggleCommentEditing(id.toString());
+                // Only the author can edit their own comment
+                if (isAuthenticated && loggedInUser.username === author) {
+                  toggleCommentEditing(id.toString());
+                }
               }}>
               {text}
             </p>
             {/* TODO: add a condition to check loggedUser is author */}
-            <p className="edit-hint">Double-cliquez pour modifier</p>
+            {isAuthenticated && loggedInUser.username === author &&
+              <p className="edit-hint">Double-cliquez pour modifier</p>
+            }
           </div>
         }
 
         {/* TODO: add conditional display for this icon group
           if logged username is triple equal to comment author, display the button group */}
-        <div className="icon-group">
+        {isAuthenticated && loggedInUser.username === author &&
+          <div className="icon-group">
 
-          {(selectedCommentId === id.toString()) && commentEditing
-            ?
-            <React.Fragment>
+            {(selectedCommentId === id.toString()) && commentEditing
+              ?
+              <React.Fragment>
+                <FontAwesomeIcon
+                  icon={faSave}
+                  title="Enregistrer"
+                  className="comment-icon"
+                  onClick={() => {
+                    submitEditedComment(id);
+                  }}
+                />
+                <FontAwesomeIcon
+                  icon={faWindowClose}
+                  title="Annuler"
+                  className="comment-icon"
+                  onClick={() => {
+                    toggleCommentEditing(id.toString());
+                  }}
+                />
+              </React.Fragment>
+              :
               <FontAwesomeIcon
-                icon={faSave}
-                title="Enregistrer"
+                icon={faTrash}
                 className="comment-icon"
+                title="Supprimer"
                 onClick={() => {
-                  submitEditedComment(id);
+                  deleteComment(id);
                 }}
               />
-              <FontAwesomeIcon
-                icon={faWindowClose}
-                title="Annuler"
-                className="comment-icon"
-                onClick={() => {
-                  toggleCommentEditing(id.toString());
-                }}
-              />
-            </React.Fragment>
-            :
-            <FontAwesomeIcon
-              icon={faTrash}
-              className="comment-icon"
-              title="Supprimer"
-              onClick={() => {
-                deleteComment(id);
-              }}
-            />
-          }
-        </div>
+            }
+          </div>
+        }
       </div>
 
     </div >

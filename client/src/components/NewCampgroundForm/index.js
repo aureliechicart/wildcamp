@@ -17,16 +17,17 @@ const NewCampgroundForm = ({
 
   const history = useHistory();
   const routeChange = () => {
-    const path = `/`;
-    history.push(path);
+    history.goBack();
   }
+
 
   useEffect(() => {
     if (!loadingCampgroundId) {
       const path = `/campground/${campgroundId}`;
       history.push(path);
     }
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadingCampgroundId]);
 
   return (
     <div className="campground-form">
@@ -87,7 +88,7 @@ const NewCampgroundForm = ({
             <input
               type="button"
               value="Annuler"
-              title="Revenir à la page d'accueil"
+              title="Revenir à la page précédente"
               onClick={routeChange}
             />
             <input

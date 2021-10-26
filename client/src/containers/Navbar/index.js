@@ -9,7 +9,7 @@ import Navbar from '../../components/Navbar';
 // if we need to read information from the state
 const mapStateToProps = (state) => ({
   // name of the prop to specify: element to get from the state
-  isLoggedIn: state.auth.isLoggedIn,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 // === mapDispatchToProps
@@ -20,7 +20,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(submitLogout());
   },
   setBannerDisplay: (value) => {
-    console.log(value);
     dispatch(setBannerDisplay(value));
   }
 });

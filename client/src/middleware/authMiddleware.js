@@ -1,54 +1,177 @@
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
 import {
   SUBMIT_LOGIN,
-  setIsLoggedIn,
   clearLogin,
   setUserNotFound,
   setIncorrectPassword,
-  SUBMIT_LOGOUT
+  SUBMIT_LOGOUT,
+  saveUser,
+  CHECK_USER,
+  setIsAuthenticated,
+  clearUser,
+  saveAutoCheckedUser
 } from '../actions/auth';
+
 import { setBannerDisplay } from '../actions/campgrounds';
 
 const authMiddleware = (store) => (next) => (action) => {
 
+  // Function which calls the refresh to update the refresh token
+  const refreshToken = async () => {
+    console.log('****Time to refresh the token!****');
+    console.log('loggedInUser from state : ', store.getState().auth.loggedInUser);
+    try {
+      const res = await axios.post("/api/refresh", {
+        token: store.getState().auth.loggedInUser.refreshToken
+      });
+      const user = JSON.parse(localStorage.getItem('user'));
+      console.log('check if user in state : ', store.getState().auth.loggedInUser);
+      store.dispatch(saveUser({
+        ...store.getState().auth.loggedInUser,
+        accessToken: res.data.accessToken,
+        refreshToken: res.data.refreshToken,
+        id: user.id
+      }));
+
+      const newUser = {
+        id: user.id,
+        jwt: res.data.refreshToken
+      }
+      localStorage.setItem('user', JSON.stringify(newUser));
+      console.log('saved in localStorage : ', JSON.parse(localStorage.getItem('user')));
+      return res.data;
+    } catch (error) {
+      console.log('refresh route - error from catch : ', error);
+    }
+  };
+
+  // adding headers to axios calls (POST calls, except /login)
+  const axiosJWT = axios.create();
+  axiosJWT.interceptors.request.use(
+    async (config) => {
+      console.log('****config axios auth****');
+      console.log('accessToken dans state : ', store.getState().auth.loggedInUser);
+      let currentDate = new Date();
+      const decodedToken = jwt_decode(store.getState().auth.loggedInUser.accessToken);
+      console.log('decoded token : ', decodedToken);
+      // we refresh the token at each axios call to keep the right info in state
+      if (decodedToken.exp * 1000 < currentDate.getTime()) {
+        const data = await refreshToken();
+        config.headers["authorization"] = "Bearer " + data.accessToken;
+        console.log('config axios : ', config);
+      }
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+
   switch (action.type) {
     case SUBMIT_LOGIN:
+      console.log('***submit login****');
       // we signup the new user using the information in state
       const { email, password } = store.getState().auth;
       axios.post('/api/login', {
         email,
         password
-      })
+      },
+        { withCredentials: true }
+      )
         .then((response) => {
-          // once we get the id of the new user from the database
-          // we save it in state
-          console.log(response.data);
-          if (response.data.user.id) {
-            // we toggle boolean to display confirmation message
-            store.dispatch(setBannerDisplay(true));
-            store.dispatch(setIsLoggedIn(true));
-            // we reset the inputs and errors
-            store.dispatch(clearLogin());
-            
+          // we toggle boolean to display confirmation message
+          store.dispatch(setBannerDisplay(true));
+          // we reset the inputs and errors
+          store.dispatch(clearLogin());
+          // we save the user
+          store.dispatch(saveUser(response.data.user));
+
+          const user = {
+            id: response.data.user.id,
+            jwt: response.data.user.refreshToken
           }
+          localStorage.setItem("user", JSON.stringify(user));
+          console.log('saved in localStorage : ', JSON.parse(localStorage.getItem('user')));
         })
         .catch((error) => {
-          console.log(error.response);
           if (error.response.data.noUserFound) {
             store.dispatch(setUserNotFound(true));
           } else if (error.response.data.incorrectPassword) {
             store.dispatch(setIncorrectPassword(true));
           }
+
+          console.log('submit login - error from catch : ', error.response);
         });
       break;
 
-      case SUBMIT_LOGOUT:
-        console.log("action logout dans middleware");
-        // axios.post('api/logout',
-        // {token: ''})
-        // if it works toggle isLoggedIn and display confirmation message
-        store.dispatch(setIsLoggedIn(false));
+    case SUBMIT_LOGOUT:
+      console.log("****logout*****");
+      const user = JSON.parse(localStorage.getItem("user"));
+      axiosJWT.post('/api/logout',
+        { token: user.jwt },
+        {
+          withCredentials: true
+        })
+        .then((response) => {
+          console.log('response logout: ', response);
+          // if it works toggle isAuthenticated and display confirmation message
+          store.dispatch(setIsAuthenticated(false));
+          // we reset the user saved in state
+          store.dispatch(clearUser());
+          // we clear localStorage
+          localStorage.clear();
+          console.log('length of localstorage : ', window.localStorage.length);
+        })
+        .catch((error) => {
+          console.log('logout - error from catch : ', error);
+        });
+      break;
+
+    case CHECK_USER:
+      console.log('****Check user****');
+      axios.get('/api/auth/user', {
+        withCredentials: true
+      })
+        .then((response) => {
+          console.log(`checking user based on cookie : `, response.data);
+          // we save the authenticated user in state
+          store.dispatch(saveAutoCheckedUser(response.data));
+
+          const user = JSON.parse(localStorage.getItem("user"));
+          console.log('user from localstorage : ', user);
+          if (user) {
+            return axios.post('/api/refresh',
+              { token: user.jwt });
+          }
+        })
+        .then((secondResponse) => {
+          console.log('response from /refresh : ', secondResponse.data);
+          const user = JSON.parse(localStorage.getItem('user'));
+          store.dispatch(saveAutoCheckedUser({
+            ...store.getState().auth.loggedInUser,
+            ...secondResponse.data,
+            id: user.id
+          }));
+          console.log('test avec tokens : ', ({
+            ...store.getState().auth.loggedInUser,
+            ...secondResponse.data,
+            id: user.id
+          }));
+
+          const newUser = {
+            id: user.id,
+            jwt: secondResponse.data.refreshToken
+          }
+          localStorage.setItem('user', JSON.stringify(newUser));
+          console.log('user saved in localStorage : ', JSON.parse(localStorage.getItem('user')));
+        })
+        .catch((error) => {
+          console.log('checkuser - error from catch : ', error.message);
+          // store.dispatch(setIsAuthenticated(false));
+        })
       break;
 
 

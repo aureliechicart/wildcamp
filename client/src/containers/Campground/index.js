@@ -9,8 +9,13 @@ import {
   toggleAddCommentEditing,
   updateAddCommentField,
   submitNewComment,
-  deleteSelectedCampground
+  deleteSelectedCampground,
+  clearSelectedCampground
 } from '../../actions/currentCampground';
+
+import {
+  clearAddCamgroundForm
+} from '../../actions/newCampground'
 
 // importing presentational component
 import Campground from '../../components/Campground';
@@ -27,8 +32,10 @@ const mapStateToProps = (state) => ({
   selectedCommentId: state.currentCampground.selectedCommentId,
   addCommentEditing: state.currentCampground.addCommentEditing,
   newCommentValue: state.currentCampground.newCommentValue,
-  campgroundDeleted: state.currentCampground.campgroundDeleted,
-  campgroundNotFound: state.currentCampground.campgroundNotFound
+  campgroundNotFound: state.currentCampground.campgroundNotFound,
+  errors: state.currentCampground.errors,
+  loggedInUser: state.auth.loggedInUser,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 // === mapDispatchToProps
@@ -61,6 +68,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   deleteCampground: (campgroundId) => {
     dispatch(deleteSelectedCampground(campgroundId));
+  },
+  clearAddCamgroundForm: () => {
+    dispatch(clearAddCamgroundForm());
+  },
+  clearSelectedCampground: () => {
+    dispatch(clearSelectedCampground());
   }
 
 });

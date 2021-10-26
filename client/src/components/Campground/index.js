@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
-import { useParams, Link, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
@@ -27,10 +27,18 @@ const Campground = ({
   changeAddCommentField,
   submitNewComment,
   deleteCampground,
-  campgroundDeleted,
-  campgroundNotFound
+  campgroundNotFound,
+  errors,
+  clearAddCamgroundForm,
+  clearSelectedCampground,
+  isAuthenticated,
+  loggedInUser
 }) => {
   const { id } = useParams();
+
+  // useEffect(() => {
+  //   console.log('loggedInUser.id vs user_id : ', loggedInUser.id, selectedCampground.user_id);
+  // }, [loggedInUser, selectedCampground]);
 
   const history = useHistory();
   const editRouteChange = () => {
@@ -49,18 +57,8 @@ const Campground = ({
     if (campgroundNotFound) {
       history.push('/404');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [campgroundNotFound]);
-  
-  // on campground deletion: if the value of campgroundDeleted
-  // changes and turns to true, we redirect to the home page
-  useEffect(() => {
-    if (campgroundDeleted) {
-      history.push('/');
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [campgroundDeleted]);
-
+  }, [campgroundNotFound]);
 
 
   return (
@@ -91,24 +89,35 @@ const Campground = ({
                     Partagé par : <span className="author-name">{author}</span>
                   </p>
                   {/* TODO: add conditional display for this button group
-                  if logged username is triple equal to author, display the button group */}
-                  <div className="button-group">
-                    <button
-                      className="edit-button"
-                      onClick={editRouteChange}
-                    >
-                      Modifier
-                    </button>
-                    <button
-                      className="delete-button"
-                      onClick={() => {
-                        deleteCampground(id);
-                      }}
-                    >
-                      Supprimer
-                    </button>
-                  </div>
+                  if logged username is triple equal to author, display the button group */
+
+
+                  }
+                  {isAuthenticated && (loggedInUser.id === selectedCampground.user_id) && (
+                    <div className="button-group">
+                      <button
+                        className="edit-button"
+                        onClick={editRouteChange}
+                      >
+                        Modifier
+                      </button>
+                      <button
+                        className="delete-button"
+                        onClick={() => {
+                          deleteCampground(id);
+                          clearSelectedCampground();
+                          history.push('/');
+                        }}
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+
+                  )}
                 </div>
+                {errors.notAuthor &&
+                  <div className="error">Suppression impossible : seul l'auteur de cette publication peut la supprimer</div>
+                }
               </div>
             </div>
 
@@ -118,13 +127,20 @@ const Campground = ({
                   <button
                     className="comment-button"
                     onClick={() => {
-                      toggleAddCommentEditing();
+                      if (!isAuthenticated) {
+                        // set error: please log in to add comments (login link)
+                        console.log('You must be logged in to comment');
+                      } else {
+                        toggleAddCommentEditing();
+                      }
                     }}
                   >
                     Ajouter un commentaire
                   </button>
                 </div>
               }
+              {!isAuthenticated &&
+                <div>Vous devez être connecté pour ajouté un commentaire. <Link to="/login">Connectez-vous</Link></div>}
               {addCommentEditing &&
                 <div className="add-comment-container">
                   <label className="add-comment-label" htmlFor="add-comment">
@@ -174,6 +190,8 @@ const Campground = ({
                       submitEditedComment={submitEditedComment}
                       changeCommentField={changeCommentField}
                       deleteComment={deleteComment}
+                      isAuthenticated={isAuthenticated}
+                      loggedInUser={loggedInUser}
                     />
                   ))}
                 {!comments.length && (
@@ -183,12 +201,15 @@ const Campground = ({
             </div>
 
             <div className="button-container">
-              <Link
+              <button
                 className="add-campground-button"
-                to="/new-campground"
+                onClick={() => {
+                  clearAddCamgroundForm();
+                  history.push('/new-campground');
+                }}
               >
                 Ajouter un nouveau spot
-              </Link>
+              </button>
             </div>
           </div>
         )}

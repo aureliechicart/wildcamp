@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { setBannerDisplay } from '../../actions/campgrounds';
+import { clearAddCamgroundForm } from '../../actions/newCampground';
 
 // importing presentational component
 import Home from '../../components/Home';
@@ -10,7 +11,7 @@ const mapStateToProps = (state) => ({
   // name of the prop to specify: element to get from the state
   campgrounds: state.campgrounds.campgroundsList,
   loadingCampgrounds: state.campgrounds.loadingCampgrounds,
-  isLoggedIn: state.auth.isLoggedIn,
+  isAuthenticated: state.auth.isAuthenticated,
   bannerDisplayed: state.campgrounds.bannerDisplayed
 });
 
@@ -20,6 +21,9 @@ const mapDispatchToProps = (dispatch) => ({
   // name of the prop to specify: function which will dispatch the action
   setBannerDisplay: (value) => {
     dispatch(setBannerDisplay(value));
+  },
+  clearAddCamgroundForm: () => {
+    dispatch(clearAddCamgroundForm());
   }
 });
 

@@ -10,7 +10,9 @@ import NewCampgroundForm from "../../containers/NewCampgroundForm";
 import EditCampgroundForm from "../../containers/EditCampgroundForm";
 import NotFound from "../../containers/NotFound";
 
+
 const Page = () => {
+ 
 
   return (
     <div className="page">

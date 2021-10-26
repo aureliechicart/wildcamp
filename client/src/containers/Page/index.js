@@ -14,6 +14,7 @@ const mapStateToProps = (state) => ({
 // if we need to dispatch actions from the store (modify the state)
 const mapDispatchToProps = (dispatch) => ({
   // name of the prop to specify: function which will dispatch the action
+  
 });
 
 // === creating the assistant

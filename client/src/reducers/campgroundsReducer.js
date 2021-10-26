@@ -10,7 +10,7 @@ import {
 const initialState = {
   campgroundsList: [],
   loadingCampgrounds: true,
-  bannerDisplayed: false
+  bannerDisplayed: true
 };
 
 function campgroundsReducer(state = initialState, action) {

@@ -13,7 +13,7 @@ const LoginForm = ({
   changeField,
   submitLogin,
   setLoginError,
-  isLoggedIn
+  isAuthenticated
 }) => {
 
 
@@ -34,11 +34,11 @@ const LoginForm = ({
   }
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isAuthenticated) {
       history.push('/');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn]);
+  }, [isAuthenticated]);
 
 
   return (
@@ -75,8 +75,8 @@ const LoginForm = ({
                 }
               }}
             />
-            {errors.email.length > 0 &&
-              <span className='error'>{errors.email}</span>
+            {errors.userNotFound &&
+              <span className='error'>Adresse email inconnue. Veuillez vérifier votre saisie</span>
             }
             {errors.alreadyRegistered &&
               <span className='error'>Un utilisateur possédant cette adresse email est déjà enregistré</span>
@@ -99,8 +99,8 @@ const LoginForm = ({
                 }
               }}
             />
-            {errors.password.length > 0 &&
-              <span className='error'>{errors.password}</span>}
+            {errors.incorrectPassword &&
+              <span className='error'>Le mot de passe est incorrect</span>}
           </label>
 
           <div className="actions">
