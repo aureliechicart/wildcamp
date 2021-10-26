@@ -23,14 +23,22 @@ const loginController = {
 
       // if user exists, we send a message saying they are already registered
       if (user) {
-        res.status(400).json({ message: 'A user will this email is already registered' });
+        res.status(400).json({
+          success: false,
+          alreadyRegistered: true,
+          message: 'A user will this email is already registered'
+        });
         return;
       }
 
       // we check that password and passwordConfirm are identical
       // if not we send a message
       if (password !== passwordConfirm) {
-        res.status(400).json({ message: 'The password and password confirmation are different' });
+        res.status(400).json({
+          success: false,
+          passwordsDiffer: true,
+          message: 'The password and password confirmation are different'
+        });
         return;
       }
 
@@ -46,7 +54,14 @@ const loginController = {
       });
       await newUser.save();
 
-      res.status(200).json(newUser);
+      res.status(200).json({
+        success: true,
+        user: {
+          email: newUser.email,
+          username: newUser.username,
+          id: newUser.id
+        }
+      });
 
     } catch (err) {
       response.status(500).json(err.message);
@@ -69,7 +84,11 @@ const loginController = {
 
       // if user doesn't exist, we send a message
       if (!user) {
-        res.status(400).json({ noUserFound: true, message: 'No user found with this email' });
+        res.status(400).json({
+          success: false,
+          noUserFound: true,
+          message: 'No user found with this email'
+        });
         return;
       }
       // we compare the password provided and the hash in db using bcrypt
@@ -77,7 +96,11 @@ const loginController = {
 
       // if the password validation fails, we send a message
       if (!isPwdValid) {
-        res.status(400).json({ incorrectPassword: true, message: 'Incorrect password' });
+        res.status(400).json({
+          success: false,
+          incorrectPassword: true,
+          message: 'Incorrect password'
+        });
         return;
       }
 
@@ -96,6 +119,7 @@ const loginController = {
 
       // we send the user info and tokens
       res.status(202).json({
+        success: true,
         message: 'User successfully logged in',
         user: {
           id: user.id,

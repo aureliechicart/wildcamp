@@ -46,19 +46,25 @@ const commentController = {
       // We check if that campground exists in databse
       const campground = await Campground.findOne(campgroundId);
       if (!campground) {
-        res.status(404).json({ message: 'Campground not found' });
+        res.status(404).json({
+          campgroundNotFound: true,
+          message: 'Campground not found'
+        });
       } else {
         // we get all the comments for this specific campground
         const theComments = await Comment.findByCampground(campgroundId);
         if (!theComments.length) {
-          res.status(404).json({ message: 'No comments found for this campground' })
+          res.status(404).json({
+            noComments: true,
+            message: 'No comments found for this campground'
+          })
         } else {
           res.status(200).json(theComments);
         }
       }
 
     } catch (err) {
-      res.status(404).json(err.message);
+      res.status(500).json(err.message);
     }
   },
 
@@ -144,7 +150,7 @@ const commentController = {
       } else {
         // If found, we delete the comment
         await comment.delete();
-        res.status(200).json({message: 'Comment successfully deleted'});
+        res.status(200).json({ message: 'Comment successfully deleted' });
       }
 
     } catch (err) {

@@ -36,7 +36,7 @@ class Campground {
      */
   static async findAll() {
     try {
-      const { rows } = await db.query('SELECT * FROM campground;');
+      const { rows } = await db.query('SELECT * FROM campground ORDER BY id ASC;');
       if (rows) {
         return rows.map(row => new Campground(row));
       } else {

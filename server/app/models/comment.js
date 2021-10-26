@@ -104,7 +104,7 @@ class Comment {
       try {
         const { rows } = await db.query(`UPDATE comment
         SET text=$1, campground_id=$2, user_id=$3
-        WHERE id=$4 RETURNING id;`, [
+        WHERE id=$4 RETURNING id, created_at, modified_at;`, [
           this.text,
           this.campground_id,
           this.user_id,
@@ -112,7 +112,7 @@ class Comment {
         ]);
 
         this.id = rows[0].id;
-        return this.id;
+        return this;
 
       } catch (err) {
         throw new Error(err.detail);
@@ -123,14 +123,16 @@ class Comment {
         const { rows } = await db.query(`INSERT INTO comment
         (text, campground_id, user_id)
         VALUES ($1, $2, $3)
-        RETURNING id;`, [
+        RETURNING id, created_at, modified_at;`, [
           this.text,
           this.campground_id,
           this.user_id
         ]);
 
         this.id = rows[0].id;
-        return this.id;
+        this.created_at = rows[0].created_at;
+        this.modified_at = rows[0].modified_at;
+        return this;
 
       } catch (err) {
         throw new Error(err.detail);
