@@ -55,9 +55,6 @@
           text-decoration: underline;
         }
       }
-
-
-
     }
 
     .skip-message-button {
@@ -78,7 +75,8 @@
     font-size: 3rem;
     font-weight: 900;
     text-align: center;
-    padding: 3rem;
+    padding: 2rem;
+    border-bottom: 1px rgba(77, 77, 77, 0.5) solid;
 
     @media screen and (max-width: 360px) {
       font-size: 2rem;
@@ -88,9 +86,9 @@
   .home-subtitle {
     text-align: center;
     font-size: 2rem;
-    margin-bottom: 1rem;
     width: 50%;
     margin: 0 auto;
+    padding-top: 2rem;
 
     @media screen and (max-width: 960px) {
       width: 90%;
@@ -103,19 +101,23 @@
 
   .campgrounds-small {
     display: flex;
-    justify-items: center;
-    align-items: flex-start;
+    justify-content: space-between;
     flex-wrap: wrap;
     padding: 2rem;
 
     .campground-small {
       width: 20%;
-      margin: 1rem;
-      border-radius: 1em;
+      background-color: $darkColor;
+      margin: 0 1rem 1.5rem 1rem;
       overflow: hidden;
-      background-color: white;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+      transition: box-shadow .5s ease-out;
+      outline: rgba(8, 105, 97, 0.5) solid .5px;
+
+      &:hover {
+        box-shadow: 1px 12px 40px 0 rgba(90, 77, 86, 0.8);
+        transition: box-shadow .5s ease-in;
+      }
 
       @media screen and (max-width: 1200px) {
         width: 40%;
@@ -127,6 +129,9 @@
 
       @media screen and (max-width: 680px) {
         width: 90%;
+      }
+      .campground-small-link {
+        background-color: $darkColor;
       }
 
       img {
@@ -151,8 +156,9 @@
 
       .campground-small-content {
         padding: 0.8rem;
-        color: $darkColor;
         height: 20%;
+        background-color: $darkColor;
+        color: whitesmoke;
 
         h2 {
           font-size: 1.2rem;
@@ -160,7 +166,6 @@
 
         &:hover {
           text-decoration: underline;
-          color: $mediumColor;
         }
       }
     }
@@ -169,6 +174,8 @@
   .add-campground {
     display: flex;
     flex-direction: column;
+    border-top: 1px rgba(77, 77, 77, 0.5) solid;
+    padding-top: 1rem;
 
     .add-campground-subtitle {
       text-align: center;

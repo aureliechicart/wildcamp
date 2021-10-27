@@ -78,8 +78,8 @@ const LoginForm = ({
             {errors.userNotFound &&
               <span className='error'>Adresse email inconnue. Veuillez vérifier votre saisie</span>
             }
-            {errors.alreadyRegistered &&
-              <span className='error'>Un utilisateur possédant cette adresse email est déjà enregistré</span>
+            {errors.email &&
+              <span className='error'>L'adresse email n'est pas valide. Veuillez vérifier votre saisie</span>
             }
           </label>
           <label htmlFor="password" className="label">

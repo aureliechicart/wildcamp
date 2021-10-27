@@ -2,7 +2,7 @@ import {
   SAVE_SELECTED_CAMPGROUND,
   SAVE_AUTHOR,
   SAVE_COMMENTS,
-  TOGGLE_LOADING_SELECTED_CAMPGROUND,
+  SET_LOADING_SELECTED_CAMPGROUND,
   UPDATE_EDIT_FIELD,
   TOGGLE_COMMENT_EDITING,
   UPDATE_EDIT_COMMENT_FIELD,
@@ -59,10 +59,10 @@ function currentCampgroundReducer(state = initialState, action) {
         comments: action.comments,
       };
 
-    case TOGGLE_LOADING_SELECTED_CAMPGROUND:
+    case SET_LOADING_SELECTED_CAMPGROUND:
       return {
         ...state,
-        loadingSelectedCampground: false
+        loadingSelectedCampground: action.value
       };
 
     case UPDATE_EDIT_FIELD:

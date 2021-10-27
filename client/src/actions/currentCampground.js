@@ -7,7 +7,7 @@ export const SET_CAMPGROUND_NOT_FOUND = 'SET_CAMPGROUND_NOT_FOUND';
 export const SAVE_AUTHOR = 'SAVE_AUTHOR';
 export const SAVE_COMMENTS = 'SAVE_COMMENTS';
 
-export const TOGGLE_LOADING_SELECTED_CAMPGROUND = 'TOGGLE_LOADING_SELECTED_CAMPGROUND';
+export const SET_LOADING_SELECTED_CAMPGROUND = 'SET_LOADING_SELECTED_CAMPGROUND';
 
 // campground edition
 export const SUBMIT_EDITED_CAMPGROUND = 'SUBMIT_EDITED_CAMPGROUND';
@@ -63,8 +63,9 @@ export const saveComments = (comments) => ({
   comments: comments,
 });
 
-export const toggleLoadingSelectedCampground = () => ({
-  type: TOGGLE_LOADING_SELECTED_CAMPGROUND,
+export const setLoadingSelectedCampground = (value) => ({
+  type: SET_LOADING_SELECTED_CAMPGROUND,
+  value: value
 });
 
 export const updateEditField = (newValue, fieldName) => ({

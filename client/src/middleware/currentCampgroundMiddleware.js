@@ -6,7 +6,7 @@ import {
   saveSelectedCampground,
   saveAuthor,
   saveComments,
-  toggleLoadingSelectedCampground,
+  setLoadingSelectedCampground,
   SUBMIT_EDITED_CAMPGROUND,
   SUBMIT_EDITED_COMMENT,
   saveEditedCommentId,
@@ -104,7 +104,7 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
           }
         })
         .finally(() => {
-          store.dispatch(toggleLoadingSelectedCampground());
+          store.dispatch(setLoadingSelectedCampground(false));
         })
       break;
 

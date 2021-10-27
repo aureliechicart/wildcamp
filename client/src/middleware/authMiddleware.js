@@ -169,8 +169,10 @@ const authMiddleware = (store) => (next) => (action) => {
           console.log('user saved in localStorage : ', JSON.parse(localStorage.getItem('user')));
         })
         .catch((error) => {
-          console.log('checkuser - error from catch : ', error.message);
-          // store.dispatch(setIsAuthenticated(false));
+          console.log('checkuser - verify jwt error : ', error.response);
+          if (error.response.status === 401) {
+            store.dispatch(setIsAuthenticated(false));
+          }
         })
       break;
 
