@@ -1,0 +1,5 @@
+%syntax-version=1.0.0
+%project=wildcamp
+
+init 2021-09-27T15:29:41Z ,,, <aurelie@LAPTOP-0LNESCTU> # creating tables
+comment_not_unique 2021-10-30T21:46:17Z ,,, <aurelie@LAPTOP-0LNESCTU> # removing unique constraint on comment's text
