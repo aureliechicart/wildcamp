@@ -20,6 +20,8 @@
     display: flex;
     font-size: 1.2rem;
     border-radius: 4px;
+    position: relative;
+    top: 1rem;
 
     .skip-message-button {
       display: inline-block;
@@ -43,6 +45,8 @@
     border-radius: 4px;
     display: flex;
     justify-content: center;
+    position: relative;
+    top: 1rem;
 
     .login-cta-container {
 
@@ -108,9 +112,9 @@
     .campground-small {
       width: 20%;
       background-color: $darkColor;
-      margin: 0 1rem 1.5rem 1rem;
+      margin: 0 1rem 2rem 1rem;
       overflow: hidden;
-      box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+      box-shadow: 1px 6px 20px 0 rgba(0, 0, 0, 0.5);
       transition: box-shadow .5s ease-out;
       outline: rgba(8, 105, 97, 0.5) solid .5px;
 
@@ -161,7 +165,7 @@
         color: whitesmoke;
 
         h2 {
-          font-size: 1.2rem;
+          font-size: 1rem;
         }
 
         &:hover {
