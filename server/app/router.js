@@ -10,6 +10,11 @@ const userController = require('./controllers/userController');
 // Middleware
 const verifyJwt = require('./middleware/verifyJwtMiddleware');
 
+// Schemas
+const { validateBody } = require('./services/validator');
+const campgroundSchema = require('./schemas/campgroundSchema');
+const commentSchema = require('./schemas/commentSchema');
+
 /*****************LOGIN *******************/
 
 /**
@@ -107,7 +112,7 @@ router.get('/campgrounds/:id', campgroundController.getOneCampground);
  * @param {number} userId.path.required - the id of the user who posted the campground
  * @returns {<New Campground>} 201 - An instance of new campground
  */
-router.post('/campgrounds', verifyJwt, campgroundController.addNewCampground);
+router.post('/campgrounds', verifyJwt, validateBody(campgroundSchema.newCampground), campgroundController.addNewCampground);
 
 /**
  * Edits a specific campground in the database
@@ -118,7 +123,7 @@ router.post('/campgrounds', verifyJwt, campgroundController.addNewCampground);
  * @param {string} description- the description
  * @returns {<Camground>} 200 - thee updated instance of the campground
  */
-router.put('/campgrounds/:id', verifyJwt, campgroundController.editCampground);
+router.put('/campgrounds/:id', verifyJwt, validateBody(campgroundSchema.updateCampground), campgroundController.editCampground);
 
 /**
  * Deletes a specific campground in the database
@@ -165,7 +170,7 @@ router.get('/campgrounds/:campgroundId/comments', commentController.getAllByCamp
 * @param {number} userId.path.required - the id of the user who posted the comment
 * @returns {<New Comment>} 201 - An instance of new comment
 */
-router.post('/campgrounds/:campgroundId/comments', verifyJwt, commentController.addComment);
+router.post('/campgrounds/:campgroundId/comments', verifyJwt, validateBody(commentSchema.newComment), commentController.addComment);
 
 /**
 * Edits a specific comment in the database
@@ -175,7 +180,7 @@ router.post('/campgrounds/:campgroundId/comments', verifyJwt, commentController.
 * @param {string} text - the text
 * @returns {<Comment>} 200 - thee updated instance of the comment
 */
-router.put('/comments/:id', verifyJwt, commentController.editComment);
+router.put('/comments/:id', verifyJwt, validateBody(commentSchema.updateComment), commentController.editComment);
 
 /**
 * Deletes a specific comment in the database

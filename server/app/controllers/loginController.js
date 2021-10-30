@@ -192,7 +192,10 @@ const loginController = {
 
       if (!claims) {
         console.log('coucou erreur du jwt verify');
-        return res.status(401).json({ message: 'Unauthenticated' });
+        return res.status(401).json({ 
+          success: false,
+          message: 'Unauthenticated'
+        });
       }
 
       const user = await User.findOne(claims.id);
@@ -204,7 +207,10 @@ const loginController = {
 
     } catch (err) {
       // if there is no cookie set, verify method throws an error
-      return res.status(401).json({ message: 'Unauthenticated' });
+      return res.status(401).json({ 
+        success: false,
+        message: 'Unauthenticated (no cookie set yet)'
+      });
     }
   },
 
