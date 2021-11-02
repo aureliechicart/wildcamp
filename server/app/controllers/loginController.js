@@ -147,6 +147,7 @@ const loginController = {
       return res.status(401).json({ message: "User is not authenticated" });
     }
 
+    console.log('array refreshTokens : ', loginController.refreshTokens);
     // we send an error if the refreshToken doen't appear in our array
     if (!loginController.refreshTokens.includes(refreshToken)) {
       return res.status(403).json({ message: "Refresh token is not valid" });
@@ -189,7 +190,7 @@ const loginController = {
       const cookie = req.cookies['refresh_token'];
 
       const claims = jwt.verify(cookie, process.env.JWT_REFRESH_SECRET);
-
+      console.log(claims);
       if (!claims) {
         console.log('coucou erreur du jwt verify');
         return res.status(401).json({ 

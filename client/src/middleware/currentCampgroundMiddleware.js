@@ -71,7 +71,7 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
       console.log('decoded token : ', decodedToken);
       // we refresh the token at each axios call to keep the right info in state
       const data = await refreshToken();
-      config.headers["authorization"] = "Bearer " + data.accessToken;
+      config.headers["x-access-token"] = data.accessToken;
       console.log('config axios : ', config);
       return config;
     },

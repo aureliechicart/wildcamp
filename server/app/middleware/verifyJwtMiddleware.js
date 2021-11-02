@@ -2,12 +2,9 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
 const verifyJwtMiddleware = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-
+  const token = req.headers["x-access-token"];
   // if the request has an authorization header, we get its value, extract the token and verify it
-  if (authHeader) {
-    const token = authHeader.split(" ")[1];
-
+  if (token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
       if (err) {
         return res.status(403).json("Token is not valid");
