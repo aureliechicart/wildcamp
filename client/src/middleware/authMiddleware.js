@@ -49,14 +49,22 @@ const authMiddleware = (store) => (next) => (action) => {
     async (config) => {
       console.log('****auth - Time to refresh the token!****');
       let currentDate = new Date();
-      const decodedToken = jwt_decode(store.getState().auth.loggedInUser.accessToken);
-      console.log('decoded token : ', decodedToken);
-      // if the token is expired, we refresh it
-      if (decodedToken.exp * 1000 < currentDate.getTime()) {
-        console.log("d'après l'axios interceptor, mon accessToken est expiré, je relance un refresh");
-        const data = await refreshToken();
-        config.headers["x-access-token"] = data.accessToken;
-        console.log('config axios : ', config);
+
+      // if the user has not logged in yet
+      if (!store.getState().auth.loggedInUser.accessToken) {
+        store.dispatch(setIsAuthenticated(false));
+      } else {
+        const decodedToken = jwt_decode(store.getState().auth.loggedInUser.accessToken);
+        console.log('decoded token : ', decodedToken);
+        // if the token is expired, we refresh it
+        if (decodedToken.exp * 1000 < currentDate.getTime()) {
+          console.log("d'après l'axios interceptor, mon accessToken est expiré, je relance un refresh");
+          const data = await refreshToken();
+          config.headers["x-access-token"] = data.accessToken;
+          console.log('config axios : ', config);
+        } else {
+          config.headers["x-access-token"] = store.getState().auth.loggedInUser.accessToken;
+        }
       }
       return config;
     },
