@@ -7,6 +7,7 @@ import "./navbar.scss";
 const Navbar = ({
   isAuthenticated,
   submitLogout,
+  loggedInUser,
   setBannerDisplay
 }) => (
   <nav className="nav">
@@ -20,19 +21,23 @@ const Navbar = ({
         <div className="nav-brand">Wildcamp</div>
       </NavLink>
       <div className="nav-items">
-
         {isAuthenticated
           ?
-          <div
-            onClick={() => {
-              submitLogout();
-              setBannerDisplay(false);
-            }}
-            className="nav-item"
-          > Déconnexion
+          <div className="nav-items loggedin">
+            <span className="nav-item username">
+            {loggedInUser.username}
+            </span>
+            <div
+              onClick={() => {
+                submitLogout();
+                setBannerDisplay(false);
+              }}
+              className="nav-item"
+            > Déconnexion
+            </div>
           </div>
           :
-          <>
+          <div className="nav-items loggedout">
             <NavLink
               to="/signup"
               className="nav-item"
@@ -46,7 +51,7 @@ const Navbar = ({
               activeClassName="nav-item-active"
             > Connexion
             </NavLink>
-          </>
+          </div>
         }
 
       </div>

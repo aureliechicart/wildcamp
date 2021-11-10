@@ -10,6 +10,7 @@ import Navbar from '../../components/Navbar';
 const mapStateToProps = (state) => ({
   // name of the prop to specify: element to get from the state
   isAuthenticated: state.auth.isAuthenticated,
+  loggedInUser: state.auth.loggedInUser
 });
 
 // === mapDispatchToProps
