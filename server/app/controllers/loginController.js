@@ -84,24 +84,22 @@ const loginController = {
 
       // if user doesn't exist, we send a message
       if (!user) {
-        res.status(400).json({
+        return res.status(404).json({
           success: false,
           noUserFound: true,
           message: 'No user found with this email'
         });
-        return;
       }
       // we compare the password provided and the hash in db using bcrypt
       const isPwdValid = await bcrypt.compareSync(password, user.password);
 
       // if the password validation fails, we send a message
       if (!isPwdValid) {
-        res.status(400).json({
+        return res.status(401).json({
           success: false,
           incorrectPassword: true,
           message: 'Incorrect password'
         });
-        return;
       }
 
       //  we generate an access token and a refresh token
@@ -110,6 +108,7 @@ const loginController = {
 
       // we add the new refresh token to the array
       loginController.refreshTokens.push(refreshToken);
+      console.log('array refreshTokens : ', loginController.refreshTokens);
 
       // we add the refresh token in an httpOnly cookie
       res.cookie('refresh_token', refreshToken, {
@@ -144,26 +143,38 @@ const loginController = {
 
     //we send an error if there is no token or it is invalid
     if (!refreshToken) {
-      return res.status(401).json({ message: "User is not authenticated" });
+      return res.status(403).json({ message: "Refresh Token is required" });
     }
 
     console.log('array refreshTokens : ', loginController.refreshTokens);
-    // we send an error if the refreshToken doen't appear in our array
+    // we send an error if the refreshToken doesn't appear in our array
     if (!loginController.refreshTokens.includes(refreshToken)) {
       return res.status(403).json({ message: "Refresh token is not valid" });
     }
 
+    let currentDate = new Date();
+
     // we then verify the token
-    jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, user) => {
+    jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, decoded) => {
       // in case of error, we log the error
-      err && console.log(err);
+      err && console.log('jwt verify error in refresh route', err);
+      console.log('decoded : ', decoded);
+
+      // if the refreshToken is expired, we require a new login
+      if (decoded.exp * 1000 < currentDate.getTime()) {
+        // we clear the cookie by resetting it with zero age 
+        res.cookie('refresh_token', '', { maxAge: 0 });
+        // we clear localStorage
+        localStorage.clear();
+        return res.status(403).json({ message: 'Refresh token was expired. Please make a new login request' });
+      }
 
       // if the token is successfully validated, we remove it from our array
       loginController.refreshTokens = loginController.refreshTokens.filter((token) => token !== refreshToken);
 
       // we create a new access token and a new refresh token 
-      const newAccessToken = generateAccessToken(user);
-      const newRefreshToken = generateRefreshToken(user);
+      const newAccessToken = generateAccessToken(decoded);
+      const newRefreshToken = generateRefreshToken(decoded);
 
       // we push the new refresh token in our array
       loginController.refreshTokens.push(newRefreshToken);
@@ -175,7 +186,7 @@ const loginController = {
       });
 
       // we send back the new access token and refresh token
-      res.status(200).json({
+      return res.status(200).json({
         accessToken: newAccessToken,
         refreshToken: newRefreshToken,
       });
@@ -193,7 +204,7 @@ const loginController = {
       console.log(claims);
       if (!claims) {
         console.log('coucou erreur du jwt verify');
-        return res.status(401).json({ 
+        return res.status(401).json({
           success: false,
           message: 'Unauthenticated'
         });
@@ -208,7 +219,7 @@ const loginController = {
 
     } catch (err) {
       // if there is no cookie set, verify method throws an error
-      return res.status(401).json({ 
+      return res.status(401).json({
         success: false,
         message: 'Unauthenticated (no cookie set yet)'
       });

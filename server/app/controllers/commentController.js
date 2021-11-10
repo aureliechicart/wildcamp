@@ -69,7 +69,7 @@ const commentController = {
   },
 
   /**
-   * Controls endpoint POST /api/campground/:campgroundId/comments
+   * Controls endpoint POST /api/campgrounds/:campgroundId/comments
    */
   addComment: async (req, res) => {
 
