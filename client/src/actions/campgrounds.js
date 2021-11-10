@@ -9,8 +9,6 @@ export const UPDATE_CAMPGROUNDS_AFTER_ADD = 'UPDATE_CAMPGROUNDS_AFTER_ADD';
 export const UPDATE_CAMPGROUNDS_AFTER_DELETE = 'UPDATE_CAMPGROUNDS_AFTER_DELETE';
 
 
-export const SET_BANNER_DISPLAY = 'SET_BANNER_DISPLAY';
-
 // === action creators
 export const fetchCampgrounds = () => ({
   type: FETCH_CAMPGROUNDS,
@@ -37,8 +35,5 @@ export const updateCampgroundsAfterDelete = (campgroundId) => ({
   campgroundId: campgroundId
 });
 
-export const setBannerDisplay = (value) => ({
-  type: SET_BANNER_DISPLAY,
-  value: value
-})
+
 

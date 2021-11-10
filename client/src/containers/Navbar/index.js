@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { submitLogout } from '../../actions/auth';
-import { setBannerDisplay } from '../../actions/campgrounds';
+import { setBannerDisplay } from '../../actions/auth';
 
 // importing presentational component
 import Navbar from '../../components/Navbar';

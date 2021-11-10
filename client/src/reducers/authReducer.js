@@ -7,7 +7,8 @@ import {
   SET_USER_NOT_FOUND,
   SET_IS_AUTHENTICATED,
   CLEAR_USER,
-  SAVE_AUTO_CHECKED_USER
+  SAVE_AUTO_CHECKED_USER,
+  SET_BANNER_DISPLAY
 } from '../actions/auth'
 
 const initialState = {
@@ -20,7 +21,8 @@ const initialState = {
     password: '',
     incorrectPassword: false,
     userNotFound: false
-  }
+  },
+  bannerDisplayed: true
 };
 
 function authReducer(state = initialState, action) {
@@ -105,6 +107,12 @@ function authReducer(state = initialState, action) {
           incorrectPassword: false,
           userNotFound: false
         }
+      }
+
+    case SET_BANNER_DISPLAY:
+      return {
+        ...state,
+        bannerDisplayed: action.value
       }
 
     default:

@@ -2,6 +2,7 @@
 
 .home {
   width: 80%;
+  margin: 0 auto;
 
   @media screen and (max-width: 960px) {
     width: 80%;
@@ -9,70 +10,6 @@
 
   @media screen and (max-width: 480px) {
     width: 90%;
-  }
-
-  .success-message {
-    background-color: $mediumColor;
-    color: white;
-    padding: 1rem;
-    margin: 0 auto;
-    width: 50%;
-    display: flex;
-    font-size: 1.2rem;
-    border-radius: 4px;
-    position: relative;
-    top: 1rem;
-
-    .skip-message-button {
-      display: inline-block;
-      text-align: right;
-      background-color: whitesmoke;
-      color: $darkColor;
-      padding: 0.7rem 2rem;
-      margin-left: 2rem;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-  }
-
-  .login-cta {
-    background-color: $mediumColor;
-    color: white;
-    padding: 1rem;
-    margin: 0 auto;
-    width: 50%;
-    font-size: 1.2rem;
-    border-radius: 4px;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    top: 1rem;
-
-    .login-cta-container {
-
-      .login-cta-link {
-        color: $darkColor;
-        font-weight: 700;
-        cursor: pointer;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-
-    .skip-message-button {
-      display: flex;
-      align-self: auto;
-      text-align: right;
-      background-color: whitesmoke;
-      color: $darkColor;
-      padding: 0.7rem 2rem;
-      margin-left: 2rem;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
   }
 
   .home-title {

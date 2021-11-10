@@ -2,15 +2,13 @@ import {
   SAVE_CAMPGROUNDS,
   TOGGLE_LOADING_CAMPGROUNDS,
   UPDATE_CAMPGROUNDS_AFTER_ADD,
-  UPDATE_CAMPGROUNDS_AFTER_DELETE,
-  SET_BANNER_DISPLAY
+  UPDATE_CAMPGROUNDS_AFTER_DELETE
 
 } from '../actions/campgrounds'
 
 const initialState = {
   campgroundsList: [],
   loadingCampgrounds: true,
-  bannerDisplayed: true
 };
 
 function campgroundsReducer(state = initialState, action) {
@@ -41,11 +39,6 @@ function campgroundsReducer(state = initialState, action) {
         )
       }
 
-      case SET_BANNER_DISPLAY:
-        return {
-          ...state,
-          bannerDisplayed: action.value
-        }
 
     default:
       return state;

@@ -11,10 +11,9 @@ import {
   CHECK_USER,
   setIsAuthenticated,
   clearUser,
-  saveAutoCheckedUser
+  saveAutoCheckedUser,
+  setBannerDisplay
 } from '../actions/auth';
-
-import { setBannerDisplay } from '../actions/campgrounds';
 
 const authMiddleware = (store) => (next) => (action) => {
 
