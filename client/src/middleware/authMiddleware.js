@@ -20,14 +20,11 @@ const authMiddleware = (store) => (next) => (action) => {
 
   // Function which calls the refresh to update the refresh token
   const refreshToken = async () => {
-    console.log('****Time to refresh the token!****');
-    console.log('loggedInUser from state : ', store.getState().auth.loggedInUser);
     try {
       const res = await axios.post("/api/refresh", {
         token: store.getState().auth.loggedInUser.refreshToken
       });
       const user = JSON.parse(localStorage.getItem('user'));
-      console.log('check if user in state : ', store.getState().auth.loggedInUser);
       store.dispatch(saveUser({
         ...store.getState().auth.loggedInUser,
         accessToken: res.data.accessToken,
@@ -40,10 +37,9 @@ const authMiddleware = (store) => (next) => (action) => {
         jwt: res.data.refreshToken
       }
       localStorage.setItem('user', JSON.stringify(newUser));
-      console.log('saved in localStorage : ', JSON.parse(localStorage.getItem('user')));
       return res.data;
     } catch (error) {
-      console.log('refresh route - error from catch : ', error);
+      console.log('auth - refresh route - error from catch : ', error);
     }
   };
 
@@ -51,12 +47,11 @@ const authMiddleware = (store) => (next) => (action) => {
   const axiosJWT = axios.create();
   axiosJWT.interceptors.request.use(
     async (config) => {
-      console.log('****config axios auth****');
-      console.log('accessToken dans state : ', store.getState().auth.loggedInUser.accessToken);
+      console.log('****auth - Time to refresh the token!****');
       let currentDate = new Date();
       const decodedToken = jwt_decode(store.getState().auth.loggedInUser.accessToken);
       console.log('decoded token : ', decodedToken);
-      // we refresh the token at each axios call to keep the right info in state
+      // if the token is expired, we refresh it
       if (decodedToken.exp * 1000 < currentDate.getTime()) {
         console.log("d'après l'axios interceptor, mon accessToken est expiré, je relance un refresh");
         const data = await refreshToken();
@@ -93,7 +88,6 @@ const authMiddleware = (store) => (next) => (action) => {
             jwt: response.data.user.refreshToken
           }
           localStorage.setItem("user", JSON.stringify(user));
-          console.log('saved in localStorage : ', JSON.parse(localStorage.getItem('user')));
         })
         .catch((error) => {
           if (error.response.data.noUserFound) {
@@ -119,7 +113,6 @@ const authMiddleware = (store) => (next) => (action) => {
           store.dispatch(clearUser());
           // we clear localStorage
           localStorage.clear();
-          console.log('length of localstorage : ', window.localStorage.length);
         })
         .catch((error) => {
           console.log('logout - error from catch : ', error);
@@ -138,9 +131,6 @@ const authMiddleware = (store) => (next) => (action) => {
           // but the last refresh token is available in localStorage
 
           const user = JSON.parse(localStorage.getItem("user"));
-          console.log('user from localstorage : ', user);
-          console.log('loggedInUser dans le state : ', store.getState().auth.loggedInUser);
-
           // if we have the user item in localStorage, we call the refresh endpoint to get a new accessToken and refreshToken
           if (user) {
             return axios.post('/api/refresh',
@@ -163,13 +153,10 @@ const authMiddleware = (store) => (next) => (action) => {
           }
           // we update the user item in localStorage with the new refresh token
           localStorage.setItem('user', JSON.stringify(newUser));
-          console.log('user saved in localStorage : ', JSON.parse(localStorage.getItem('user')));
         })
         .catch((error) => {
-          console.log('checkuser - verify jwt error : ', error.response);
-          if (error.response.status === 401) {
-            store.dispatch(setIsAuthenticated(false));
-          }
+          console.log('checkuser - check user or verify jwt error : ', error.response);
+          store.dispatch(setIsAuthenticated(false));
         })
       break;
 

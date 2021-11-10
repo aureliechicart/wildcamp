@@ -37,28 +37,27 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
 
   // Function which calls the refresh to update the refresh token
   const refreshToken = async () => {
-    console.log('****Time to refresh the token!****');
-    console.log('loggedInUser from state : ', store.getState().auth.loggedInUser);
     try {
       const res = await axios.post("/api/refresh", {
         token: store.getState().auth.loggedInUser.refreshToken
       });
+      const user = JSON.parse(localStorage.getItem('user'));
 
       store.dispatch(saveUser({
         ...store.getState().auth.loggedInUser,
         accessToken: res.data.accessToken,
-        refreshToken: res.data.refreshToken
+        refreshToken: res.data.refreshToken,
+        id: user.id
       }));
-      const user = JSON.parse(localStorage.getItem('user'));
+
       const newUser = {
         id: user.id,
         jwt: res.data.refreshToken
       }
       localStorage.setItem('user', JSON.stringify(newUser));
-      console.log('saved in localStorage : ', JSON.parse(localStorage.getItem('user')));
       return res.data;
     } catch (error) {
-      console.log('refresh route - error from catch : ', error);
+      console.log('currentCampground - refresh route - error from catch : ', error);
     }
   };
 
@@ -66,13 +65,21 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
   const axiosJWT = axios.create();
   axiosJWT.interceptors.request.use(
     async (config) => {
-      console.log('****config axios auth****');
+      console.log('****currentCampground - Time to refresh the token!****');
+      let currentDate = new Date();
       const decodedToken = jwt_decode(store.getState().auth.loggedInUser.accessToken);
       console.log('decoded token : ', decodedToken);
-      // we refresh the token at each axios call to keep the right info in state
-      const data = await refreshToken();
-      config.headers["x-access-token"] = data.accessToken;
-      console.log('config axios : ', config);
+      // if the token is expired, we refresh it
+      console.log(decodedToken.exp * 1000);
+      console.log(currentDate.getTime());
+      if (decodedToken.exp * 1000 < currentDate.getTime()) {
+        console.log("d'après l'axios interceptor, mon accessToken est expiré, je relance un refresh");
+        const data = await refreshToken();
+        config.headers["x-access-token"] = data.accessToken;
+        console.log('config axios : ', config);
+      } else {
+        config.headers["x-access-token"] = store.getState().auth.loggedInUser.accessToken;
+      }
       return config;
     },
     (error) => {
@@ -92,7 +99,7 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
           return axios.get(`/api/campgrounds/${action.id}/comments`);
         })
         .then((thirdResponse) => {
-            store.dispatch(saveComments(thirdResponse.data));
+          store.dispatch(saveComments(thirdResponse.data));
         })
         .catch((error) => {
           if (error.response.data.campgroundNotFound) {

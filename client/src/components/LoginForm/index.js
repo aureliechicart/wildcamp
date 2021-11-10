@@ -50,7 +50,6 @@ const LoginForm = ({
           onSubmit={(event) => {
             event.preventDefault();
             if (validateForm(errors)) {
-              console.info('Valid Form');
               submitLogin();
             } else {
               console.error('Invalid Form')

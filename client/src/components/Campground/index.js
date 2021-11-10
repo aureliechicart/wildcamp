@@ -36,10 +36,6 @@ const Campground = ({
 }) => {
   const { id } = useParams();
 
-  // useEffect(() => {
-  //   console.log('loggedInUser.id vs user_id : ', loggedInUser.id, selectedCampground.user_id);
-  // }, [loggedInUser, selectedCampground]);
-
   const history = useHistory();
   const editRouteChange = () => {
     const path = `/edit-campground/${selectedCampground.id}`;

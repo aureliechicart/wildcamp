@@ -89,23 +89,23 @@ function authReducer(state = initialState, action) {
         isAuthenticated: false
       }
 
-      case SET_IS_AUTHENTICATED:
-        return {
-          ...state,
-          isAuthenticated: action.value
-        }
+    case SET_IS_AUTHENTICATED:
+      return {
+        ...state,
+        isAuthenticated: action.value
+      }
 
-        case CLEAR_USER:
-          return {
-            ...state,
-            loggedInUser: {},
-            errors: {
-              email: '',
-              password: '',
-              incorrectPassword: false,
-              userNotFound: false
-            }
-          }
+    case CLEAR_USER:
+      return {
+        ...state,
+        loggedInUser: {},
+        errors: {
+          email: '',
+          password: '',
+          incorrectPassword: false,
+          userNotFound: false
+        }
+      }
 
     default:
       return state;

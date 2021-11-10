@@ -53,7 +53,6 @@ const SignupForm = ({
           onSubmit={(event) => {
             event.preventDefault();
             if (validateForm(errors)) {
-              console.info('Valid Form');
               submitNewUser();
             } else {
               console.error('Invalid Form')
