@@ -14,6 +14,8 @@ const verifyJwt = require('./middleware/verifyJwtMiddleware');
 const { validateBody } = require('./services/validator');
 const campgroundSchema = require('./schemas/campgroundSchema');
 const commentSchema = require('./schemas/commentSchema');
+const signupSchema = require('./schemas/signupSchema');
+const loginSchema = require('./schemas/loginSchema');
 
 /*****************LOGIN *******************/
 
@@ -27,7 +29,7 @@ const commentSchema = require('./schemas/commentSchema');
 * @param {string} passwordConfirm.path.required - the confirmation of the password
 * @returns {<User>} 200 - An instance of a user
 */
-router.post('/signup', loginController.doSignup);
+router.post('/signup', validateBody(signupSchema.newSignup), loginController.doSignup);
 
 /**
 * Returns the logged user from the database
@@ -37,7 +39,7 @@ router.post('/signup', loginController.doSignup);
 * @param {string} password.path.required - the password
 * @returns {<User>} 200 - An instance of a user
 */
-router.post('/login', loginController.doLogin);
+router.post('/login', validateBody(loginSchema.newLogin),loginController.doLogin);
 
 /**
 * Returns new access token and new refresh token
