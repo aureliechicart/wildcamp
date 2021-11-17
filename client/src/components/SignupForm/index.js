@@ -59,7 +59,7 @@ const SignupForm = ({
             if (validateForm(errors)) {
               submitNewUser();
             } else {
-              console.error('Invalid Form')
+              console.error('Invalid Form');
             }
           }}
         >
