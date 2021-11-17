@@ -130,6 +130,40 @@ const Campground = ({
               }
 
 
+
+
+              <div className="comments">
+                {comments &&
+                  comments.map((comment) => (
+                    <Comment
+                      key={comment.id}
+                      {...comment}
+                      commentEditing={commentEditing}
+                      toggleCommentEditing={toggleCommentEditing}
+                      selectedCommentId={selectedCommentId}
+                      submitEditedComment={submitEditedComment}
+                      changeCommentField={changeCommentField}
+                      deleteComment={deleteComment}
+                      isAuthenticated={isAuthenticated}
+                      loggedInUser={loggedInUser}
+                    />
+                  ))}
+                {!comments.length && (
+                  <p>Soyez le ou la première à partager un commentaire !</p>
+                )}
+              </div>
+              {!addCommentEditing && isAuthenticated &&
+                <div className="comment-button-container">
+                  <button
+                    className="comment-button"
+                    onClick={() => {
+                      toggleAddCommentEditing();
+                    }}
+                  >
+                    Ajouter un commentaire
+                  </button>
+                </div>
+              }
               {addCommentEditing &&
                 <div className="add-comment-container">
                   <label className="add-comment-label" htmlFor="add-comment">
@@ -163,39 +197,6 @@ const Campground = ({
                       />
                     </React.Fragment>
                   </div>
-                </div>
-              }
-
-              <div className="comments">
-                {comments &&
-                  comments.map((comment) => (
-                    <Comment
-                      key={comment.id}
-                      {...comment}
-                      commentEditing={commentEditing}
-                      toggleCommentEditing={toggleCommentEditing}
-                      selectedCommentId={selectedCommentId}
-                      submitEditedComment={submitEditedComment}
-                      changeCommentField={changeCommentField}
-                      deleteComment={deleteComment}
-                      isAuthenticated={isAuthenticated}
-                      loggedInUser={loggedInUser}
-                    />
-                  ))}
-                {!comments.length && (
-                  <p>Soyez le ou la première à partager un commentaire !</p>
-                )}
-              </div>
-              {!addCommentEditing && isAuthenticated &&
-                <div className="comment-button-container">
-                  <button
-                    className="comment-button"
-                    onClick={() => {
-                      toggleAddCommentEditing();
-                    }}
-                  >
-                    Ajouter un commentaire
-                  </button>
                 </div>
               }
             </div>

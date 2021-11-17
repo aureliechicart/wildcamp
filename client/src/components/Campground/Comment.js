@@ -30,20 +30,44 @@ const Comment = ({
 
   // Calculating how long ago the comment was posted
   const msInADay = 1000 * 60 * 60 * 24;
+  const msInAnHour = 1000 * 60 * 60;
+  const msInAMinute = 1000 * 60;
   const diffDays = Math.floor((Date.now() - new Date(modified_at)) / msInADay);
+  const diffHours = Math.floor((Date.now() - new Date(modified_at)) / msInAnHour);
+  const diffMinutes = Math.floor((Date.now() - new Date(modified_at)) / msInAMinute);
 
   return (
     <div className="comment" >
       <div className="comment-info">
         <p className="comment-author">{author}</p>
-        {diffDays <= 1 &&
+        {(diffDays > 1) &&
+          <span className="comment-date">
+            il y a {diffDays} jours
+          </span>
+        }
+        {(diffDays === 1) &&
           <span className="comment-date">
             il y a {diffDays} jour
           </span>
         }
-        {diffDays > 1 &&
+        {(diffDays < 1) && (diffHours > 1) &&
           <span className="comment-date">
-            il y a {diffDays} jours
+            il y a {diffHours} heures
+          </span>
+        }
+        {(diffDays < 1) && (diffHours === 1) &&
+          <span className="comment-date">
+            il y a {diffHours} heure
+          </span>
+        }
+        {(diffDays < 1) && (diffHours < 1) && (diffMinutes > 1) &&
+          <span className="comment-date">
+            il y a {diffMinutes} minutes
+          </span>
+        }
+        {(diffMinutes <= 1) &&
+          <span className="comment-date">
+            il y a {diffMinutes} minute
           </span>
         }
       </div>
