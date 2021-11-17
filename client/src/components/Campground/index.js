@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSave, faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { faSave, faWindowClose, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 import "./campground.scss";
 
@@ -84,11 +84,7 @@ const Campground = ({
                   <p className="author">
                     Partagé par : <span className="author-name">{author}</span>
                   </p>
-                  {/* TODO: add conditional display for this button group
-                  if logged username is triple equal to author, display the button group */
 
-
-                  }
                   {isAuthenticated && (loggedInUser.id === selectedCampground.user_id) && (
                     <div className="button-group">
                       <button
@@ -118,25 +114,22 @@ const Campground = ({
             </div>
 
             <div className="comments-container">
-              {!addCommentEditing &&
-                <div className="comment-button-container">
-                  <button
-                    className="comment-button"
-                    onClick={() => {
-                      if (!isAuthenticated) {
-                        // set error: please log in to add comments (login link)
-                        console.log('You must be logged in to comment');
-                      } else {
-                        toggleAddCommentEditing();
-                      }
-                    }}
-                  >
-                    Ajouter un commentaire
-                  </button>
+              {!isAuthenticated &&
+                <div className="comment-login-cta">
+                  <Link to="/login" className="comment-login-cta-link">
+                    <FontAwesomeIcon
+                      icon={faInfoCircle}
+                      title="Information"
+                      className="info-icon"
+                    />
+                    <p className="comment-login-cta-description">
+                      Connectez-vous pour ajouter un commentaire
+                    </p>
+                  </Link>
                 </div>
               }
-              {!isAuthenticated &&
-                <div>Vous devez être connecté pour ajouté un commentaire. <Link to="/login">Connectez-vous</Link></div>}
+
+
               {addCommentEditing &&
                 <div className="add-comment-container">
                   <label className="add-comment-label" htmlFor="add-comment">
@@ -172,7 +165,6 @@ const Campground = ({
                   </div>
                 </div>
               }
-              <hr />
 
               <div className="comments">
                 {comments &&
@@ -194,22 +186,41 @@ const Campground = ({
                   <p>Soyez le ou la première à partager un commentaire !</p>
                 )}
               </div>
-            </div>
-
-            <div className="button-container">
-              <button
-                className="add-campground-button"
-                onClick={() => {
-                  clearAddCamgroundForm();
-                  history.push('/new-campground');
-                }}
-              >
-                Ajouter un nouveau spot
-              </button>
+              {!addCommentEditing && isAuthenticated &&
+                <div className="comment-button-container">
+                  <button
+                    className="comment-button"
+                    onClick={() => {
+                      toggleAddCommentEditing();
+                    }}
+                  >
+                    Ajouter un commentaire
+                  </button>
+                </div>
+              }
             </div>
           </div>
         )}
       </div>
+
+      <div className="buttons-container">
+        <button
+          className="button"
+          onClick={() => {
+            clearAddCamgroundForm();
+            history.push('/new-campground');
+          }}
+        >
+          Ajouter un nouveau spot
+        </button>
+        <Link
+          to="/"
+          className="button"
+        >
+          Revenir à l'accueil
+        </Link>
+      </div>
+
     </main>
   );
 }
