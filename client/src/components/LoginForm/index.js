@@ -16,6 +16,9 @@ const LoginForm = ({
   isAuthenticated
 }) => {
 
+  useEffect(() => {
+    document.title = `wildcamp - Connexion`;
+  }, []);
 
   // Redirect for cancel button
   const history = useHistory();

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -11,6 +11,10 @@ const Home = ({
   loadingCampgrounds,
   clearAddCamgroundForm
 }) => {
+
+  useEffect(() => {
+    document.title = `wildcamp`;
+  }, []);
 
   const history = useHistory();
 

@@ -15,6 +15,10 @@ const NewCampgroundForm = ({
   loadingCampgroundId
 }) => {
 
+  useEffect(() => {
+    document.title = `wildcamp - Ajout d'un nouveau spot`;
+  }, []);
+
   const history = useHistory();
   const routeChange = () => {
     history.goBack();

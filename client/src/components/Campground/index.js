@@ -41,11 +41,12 @@ const Campground = ({
     const path = `/edit-campground/${selectedCampground.id}`;
     history.push(path);
   }
-
+  
   // if the id in params of the url changes, we load the corresponding
   // campground from db
   useEffect(() => {
     loadSelectedCampground(id);
+    document.title = `wildcamp - ${selectedCampground.title}`;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 

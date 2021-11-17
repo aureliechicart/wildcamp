@@ -19,7 +19,6 @@ const Comment = ({
   isAuthenticated,
   loggedInUser
 }) => {
-
   const textAreaRef = useRef();
 
   // when the user double-clicked on a comment, it changes the comment into an editable mode

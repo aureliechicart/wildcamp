@@ -20,6 +20,10 @@ const SignupForm = ({
 }) => {
 
   useEffect(() => {
+    document.title = `wildcamp - Création de compte`;
+  }, []);
+
+  useEffect(() => {
     setIsUserCreated(false);
   }, [setIsUserCreated]);
 
