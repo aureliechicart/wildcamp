@@ -5,6 +5,7 @@ import './app.scss';
 
 import Navbar from '../../containers/Navbar';
 import Page from '../../containers/Page';
+import Footer from '../Footer';
 
 const App = ({ loadCampgrounds, checkUser }) => {
 
@@ -20,9 +21,10 @@ const App = ({ loadCampgrounds, checkUser }) => {
   }, []);
 
   return (
-    <div className="App">
+    <div className="app">
       <Navbar />
       <Page />
+     <Footer />
     </div>
   );
 }

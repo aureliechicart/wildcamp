@@ -1,0 +1,25 @@
+@import 'src/styles/_reset.scss';
+@import 'src/styles/_vars.scss';
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $darkColor;
+  color: white;
+  border-top: 1px rgba(77, 77, 77, 0.5) solid;
+  width: 100%;
+  padding-top: 1rem;
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 1.2rem;
+  padding-bottom: 1rem;
+  line-height: 1.2;
+
+  @media screen and (max-width: 960px) {
+    font-size: 0.8rem;
+  }
+
+  &-contact:hover {
+    color: $mediumColor;
+  }
+}

@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 import "./newcampgroundform.scss";
+import Divider from '../Divider';
 
 const NewCampgroundForm = ({
   title,
@@ -34,8 +35,9 @@ const NewCampgroundForm = ({
   }, [loadingCampgroundId]);
 
   return (
-    <div className="campground-form">
+    <div className="add-campground-form">
       <h2 className="heading">Ajouter un spot de camping sauvage</h2>
+      <Divider />
       <div className="content" >
         <form
           className="form"
@@ -72,6 +74,7 @@ const NewCampgroundForm = ({
               value={description}
               name="description"
               placeholder="Décrivez le spot..."
+              rows="4"
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
               }}

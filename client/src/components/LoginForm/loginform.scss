@@ -2,10 +2,11 @@
 
 .login-form {
   padding: 0.8rem;
-  margin-bottom: 3rem;
+  margin: 0 auto;;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 40%;
 
   .heading {
     color: $darkColor;
@@ -13,15 +14,11 @@
     font-weight: 900;
     text-align: center;
     padding: 2rem;
-    border-bottom: 1px solid $darkColor;
     margin-bottom: 1rem;
-    width: 80%;
     margin: 0 auto;
   }
 
   .content {
-    padding: 1rem;
-    clear: both;
     font-size: 1.2rem;
     display: flex;
     flex-direction: column;
@@ -43,8 +40,8 @@
     }
 
     .form {
-      width: 30%;
-      margin: 0 auto;
+      width: 60%;
+      margin: 1rem auto 2rem auto;
 
       .label {
         display: block;
@@ -111,7 +108,6 @@
       display: flex;
       flex-direction: column;
       margin: 2rem auto;
-      width: 30%;
 
       &-text {
         text-align: center;

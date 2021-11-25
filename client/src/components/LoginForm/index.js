@@ -5,6 +5,7 @@ import { useHistory, Link } from "react-router-dom";
 import { validate } from 'react-email-validator';
 
 import "./loginform.scss";
+import Divider from '../Divider';
 
 const LoginForm = ({
   email,
@@ -47,6 +48,7 @@ const LoginForm = ({
   return (
     <div className="login-form">
       <h2 className="heading">Connexion à votre compte</h2>
+      <Divider />
       <div className="content">
         <form
           className="form"
@@ -119,7 +121,7 @@ const LoginForm = ({
             />
           </div>
         </form>
-
+        <Divider />
         <div className="no-account">
           <p className="no-account-text">Vous n'avez pas encore de compte ?<br /> Cliquez ci-dessous pour vous inscrire&nbsp;!
           </p>

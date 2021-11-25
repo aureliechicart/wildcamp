@@ -5,6 +5,7 @@ import { useHistory, Link } from "react-router-dom";
 import { validate } from 'react-email-validator';
 
 import "./signup.scss";
+import Divider from '../Divider';
 
 const SignupForm = ({
   email,
@@ -47,6 +48,7 @@ const SignupForm = ({
   return (
     <div className="signup-form">
       <h2 className="heading">Création de compte</h2>
+      <Divider />
       <div className="content" >
         {isUserCreated && (
           <div className="message">Vous êtes bien inscrit. Veuillez vous <Link className="message-link" to="/login">connecter</Link>

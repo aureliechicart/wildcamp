@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 
 import "./editcampgroundform.scss";
+import Divider from '../Divider';
 
 const EditCampgroundForm = ({
   loadSelectedCampground,
@@ -34,8 +35,9 @@ const EditCampgroundForm = ({
 
 
   return (
-    <div className="campground-form">
+    <div className="edit-campground-form">
       <h2 className="heading">Modifier les informations sur le spot</h2>
+      <Divider />
       <div className="content" >
         <form
           className="form"
@@ -69,6 +71,7 @@ const EditCampgroundForm = ({
             <textarea
               value={selectedCampground.description}
               name="description"
+              rows="4"
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
               }}

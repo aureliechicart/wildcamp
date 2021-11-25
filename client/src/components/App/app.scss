@@ -2,12 +2,16 @@
 @import 'src/styles/_vars.scss';
 
 
-body {
+.app {
   font-family: 'Alegreya Sans', sans-serif;
   background: $lightColor;
   width: 100%;
+  min-height: 100vh;
   box-sizing: border-box;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  justify-content: space-between;
 }
 
 

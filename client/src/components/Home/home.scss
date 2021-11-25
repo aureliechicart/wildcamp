@@ -17,7 +17,6 @@
     font-weight: 900;
     text-align: center;
     padding: 2rem;
-    border-bottom: 1px rgba(77, 77, 77, 0.5) solid;
 
     @media screen and (max-width: 360px) {
       font-size: 2rem;
@@ -71,6 +70,7 @@
       @media screen and (max-width: 680px) {
         width: 90%;
       }
+
       .campground-small-link {
         background-color: $darkColor;
       }
@@ -114,9 +114,13 @@
 
   .add-campground {
     display: flex;
-    flex-direction: column;
-    border-top: 1px rgba(77, 77, 77, 0.5) solid;
+    flex-direction: row;
+    align-items: center;
     padding-top: 1rem;
+
+    @media screen and (max-width: 1050px) {
+      flex-direction: column;
+    }
 
     .add-campground-subtitle {
       text-align: center;
@@ -134,8 +138,9 @@
       }
     }
 
-    .add-campground-button {
+    button {
       width: 200px;
+      height: 50px;
       font-family: inherit;
       background-color: $darkColor;
       color: #ffffff;
@@ -146,9 +151,14 @@
       border-radius: 4px;
       margin: 1rem auto;
       border: none;
+
+      @media screen and (max-width: 1050px) {
+        width: 150px;
+        height: 40px;
+      }
     }
 
-    .add-campground-button:hover {
+    button:hover {
       background-color: $mediumColor;
     }
   }

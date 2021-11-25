@@ -1,0 +1,28 @@
+@import "src/styles/_vars.scss";
+
+.tree-divider {
+  border-bottom: 2px solid rgba(28, 64, 64, 0.5);
+  width: 100%;
+  height: 0px;
+}
+
+.tree-one,
+.tree-two,
+.tree-three {
+  color: $darkColor;
+  opacity: 0.7;
+  text-align: right;
+  position: relative;
+  top: -1.1rem;
+  font-size: 1.2rem;
+}
+
+.tree-two {
+  font-size: 1.5rem;
+  top: -1.4rem;
+  left: 0.5rem;
+}
+
+.tree-three {
+  left: 1.1rem;
+}

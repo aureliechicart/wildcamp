@@ -8,6 +8,7 @@ import "./campground.scss";
 
 import Comment from './Comment';
 import Spinner from '../Spinner';
+import Divider from '../Divider';
 
 const Campground = ({
   loadingSelectedCampground,
@@ -38,10 +39,11 @@ const Campground = ({
 
   const history = useHistory();
   const editRouteChange = () => {
+    console.log(`/edit-campground/${selectedCampground.id}`);
     const path = `/edit-campground/${selectedCampground.id}`;
     history.push(path);
   }
-  
+
   // if the id in params of the url changes, we load the corresponding
   // campground from db
   useEffect(() => {
@@ -62,6 +64,7 @@ const Campground = ({
     <main className="main">
       <div className="campground">
         <h1 className="campground-heading">Spot Wildcamp</h1>
+        <Divider />
         {loadingSelectedCampground && <Spinner />}
 
         {!loadingSelectedCampground && (
@@ -205,6 +208,8 @@ const Campground = ({
         )}
       </div>
 
+      <Divider />
+      
       <div className="buttons-container">
         <button
           className="button"
