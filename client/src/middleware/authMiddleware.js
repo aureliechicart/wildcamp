@@ -83,8 +83,8 @@ const authMiddleware = (store) => (next) => (action) => {
         password
       })
         .then((response) => {
-          // we toggle boolean to display confirmation message
-          store.dispatch(setBannerDisplay(true));
+          // we toggle boolean to hide login CTA
+          store.dispatch(setBannerDisplay(false));
           // we reset the inputs and errors
           store.dispatch(clearLogin());
           // we save the user

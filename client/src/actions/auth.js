@@ -79,4 +79,4 @@ export const saveAutoCheckedUser = (user) => ({
 export const setBannerDisplay = (value) => ({
   type: SET_BANNER_DISPLAY,
   value: value
-})
+});

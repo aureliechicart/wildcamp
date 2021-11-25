@@ -8,6 +8,7 @@ import LoginForm from "../../containers/LoginForm";
 import Campground from "../../containers/Campground";
 import NewCampgroundForm from "../../containers/NewCampgroundForm";
 import EditCampgroundForm from "../../containers/EditCampgroundForm";
+import ProtectedRoute from "../../containers/ProtectedRoute";
 import NotFound from "../../containers/NotFound";
 
 
@@ -43,12 +44,15 @@ const Page = ({
         <Route path="/campground/:id">
           <Campground />
         </Route>
-        <Route path="/new-campground">
+        <ProtectedRoute
+        path="/new-campground"
+        component={NewCampgroundForm}>
           <NewCampgroundForm />
-        </Route>
-        <Route path="/edit-campground/:id">
+        </ProtectedRoute>
+        <ProtectedRoute path="/edit-campground/:id"
+        component={EditCampgroundForm}>
           <EditCampgroundForm />
-        </Route>
+        </ProtectedRoute>
         <Route>
           <NotFound />
         </Route>

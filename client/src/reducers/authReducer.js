@@ -22,7 +22,8 @@ const initialState = {
     incorrectPassword: false,
     userNotFound: false
   },
-  bannerDisplayed: true
+  bannerDisplayed: true,
+  focused: false
 };
 
 function authReducer(state = initialState, action) {

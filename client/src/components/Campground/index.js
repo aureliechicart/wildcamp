@@ -209,17 +209,19 @@ const Campground = ({
       </div>
 
       <Divider />
-      
+
       <div className="buttons-container">
-        <button
-          className="button"
-          onClick={() => {
-            clearAddCamgroundForm();
-            history.push('/new-campground');
-          }}
-        >
-          Ajouter un nouveau spot
-        </button>
+        {isAuthenticated &&
+          <button
+            className="button"
+            onClick={() => {
+              clearAddCamgroundForm();
+              history.push('/new-campground');
+            }}
+          >
+            Ajouter un nouveau spot
+          </button>
+        }
         <Link
           to="/"
           className="button"
