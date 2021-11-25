@@ -59,7 +59,7 @@ const EditCampgroundForm = ({
           <label htmlFor="image" className="label">
             URL de l'image* :
             <input
-              type="text"
+              type="url"
               value={selectedCampground.image}
               name="image"
               onChange={(event) => {

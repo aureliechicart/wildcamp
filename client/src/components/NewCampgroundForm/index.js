@@ -60,7 +60,7 @@ const NewCampgroundForm = ({
           <label htmlFor="image" className="label">
             URL de l'image* :
             <input
-              type="text"
+              type="url"
               value={image}
               name="image"
               placeholder="Saisissez l'URL d'une image..."

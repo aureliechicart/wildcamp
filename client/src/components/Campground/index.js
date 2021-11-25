@@ -173,6 +173,8 @@ const Campground = ({
                   <label className="add-comment-label" htmlFor="add-comment">
                     <textarea
                       className="add-comment-textarea"
+                      type="text"
+                      rows="4"
                       value={newCommentValue}
                       title="add-comment"
                       placeholder="Ajoutez un commentaire..."

@@ -27,7 +27,7 @@ const Home = ({
 
       <Divider />
 
-      <p className="home-subtitle">Découvrez les meilleurs spots de camping sauvage partagés par la communauté Wildcamp :</p>
+      <p className="home-subtitle">Découvrez les meilleurs spots de camping sauvage partagés par la communauté Wildcamp&nbsp;:</p>
       {loadingCampgrounds && <Spinner />}
       {!loadingCampgrounds &&
         <div className="campgrounds-small">
@@ -37,42 +37,48 @@ const Home = ({
         </div>
       }
       <Divider />
-      {isAuthenticated
-        ?
-        <div className="add-campground">
-          <p className="add-campground-subtitle">Vous avez découvert un spot unique et vous souhaitez le partager&nbsp;? C'est par ici&nbsp;!</p>
-          <button
-            className="add-campground-button"
-            onClick={() => {
-              clearAddCamgroundForm();
-              history.push('/new-campground');
-            }}
-          >
-            Ajouter un spot
-          </button>
-        </div>
-        :
-        <div className="add-campground">
-          <p className="add-campground-subtitle">Vous souhaitez partager un spot&nbsp;?<br />Créez un compte ou connectez&#160;vous dès maintenant&nbsp;!</p>
-          <button
-            className="signup-button"
-            onClick={() => {
-              history.push('/signup');
-            }}
-          >
-            S'inscrire
-          </button>
-          <button
-            className="login-button"
-            onClick={() => {
-              history.push('/login');
-            }}
-          >
-            Se connecter
-          </button>
-        </div>
+      {
+        isAuthenticated
+          ?
+          <div className="add-campground">
+            <p className="add-campground-subtitle">Vous avez découvert un spot unique et vous souhaitez le partager&nbsp;?<br /> C'est par ici&nbsp;!</p>
+            <div className="button-wrapper">
+              <button
+                className="add-campground-button"
+                onClick={() => {
+                  clearAddCamgroundForm();
+                  history.push('/new-campground');
+                }}
+              >
+                Ajouter un spot
+              </button>
+            </div>
+          </div>
+          :
+          <div className="add-campground">
+            <p className="add-campground-subtitle">Vous souhaitez partager un spot&nbsp;?<br />Créez un compte ou connectez&#160;vous dès maintenant&nbsp;!</p>
+            <div className="button-wrapper">
+
+              <button
+                className="signup-button"
+                onClick={() => {
+                  history.push('/signup');
+                }}
+              >
+                S'inscrire
+              </button>
+              <button
+                className="login-button"
+                onClick={() => {
+                  history.push('/login');
+                }}
+              >
+                Se connecter
+              </button>
+            </div>
+          </div>
       }
-    </main>
+    </main >
   );
 }
 

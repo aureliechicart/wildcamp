@@ -18,6 +18,10 @@
     text-align: center;
     padding: 2rem;
 
+    @media screen and (max-width: 960px) {
+      font-size: 2.5rem;
+    }
+
     @media screen and (max-width: 360px) {
       font-size: 2rem;
     }
@@ -32,21 +36,29 @@
 
     @media screen and (max-width: 960px) {
       width: 90%;
+      font-size: 1.5rem;
     }
 
     @media screen and (max-width: 360px) {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
   }
 
+
   .campgrounds-small {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: space-evenly;
     flex-wrap: wrap;
-    padding: 2rem;
+    padding: 2rem 0;
+
+    @media screen and (max-width: 960px) {
+      // padding: 0;
+      margin: 1rem auto;
+    }
 
     .campground-small {
-      width: 20%;
+      width: 25%;
       background-color: $darkColor;
       margin: 0 1rem 2rem 1rem;
       overflow: hidden;
@@ -59,7 +71,7 @@
         transition: box-shadow .5s ease-in;
       }
 
-      @media screen and (max-width: 1200px) {
+      @media screen and (max-width: 1300px) {
         width: 40%;
       }
 
@@ -68,7 +80,7 @@
       }
 
       @media screen and (max-width: 680px) {
-        width: 90%;
+        width: 80%;
       }
 
       .campground-small-link {
@@ -112,54 +124,61 @@
     }
   }
 
-  .add-campground {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding-top: 1rem;
 
-    @media screen and (max-width: 1050px) {
-      flex-direction: column;
-    }
+  .add-campground {
+    padding-top: 1rem;
+    margin: 0 auto;
 
     .add-campground-subtitle {
       text-align: center;
       font-size: 2rem;
-      margin-bottom: 1rem;
-      width: 50%;
+      width: 60%;
       margin: 1rem auto;
 
       @media screen and (max-width: 960px) {
         width: 90%;
       }
 
-      @media screen and (max-width: 360px) {
+      @media screen and (max-width: 600px) {
         font-size: 1.2rem;
       }
     }
 
-    button {
-      width: 200px;
-      height: 50px;
-      font-family: inherit;
-      background-color: $darkColor;
-      color: #ffffff;
-      padding: 0.7rem 1rem;
-      font-size: 1rem;
-      font-weight: 400;
-      text-align: center;
-      border-radius: 4px;
-      margin: 1rem auto;
-      border: none;
+    .button-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      width: 80%;
+      margin: 0 auto;
 
-      @media screen and (max-width: 1050px) {
-        width: 150px;
-        height: 40px;
+      @media screen and (max-width: 450px) {
+        flex-direction: column;
       }
-    }
 
-    button:hover {
-      background-color: $mediumColor;
+      button {
+        width: 200px;
+        height: 50px;
+        font-family: inherit;
+        background-color: $darkColor;
+        color: #ffffff;
+        padding: 0.7rem 1rem;
+        font-size: 1rem;
+        font-weight: 400;
+        text-align: center;
+        border-radius: 4px;
+        margin: 1rem auto;
+        border: none;
+
+        @media screen and (max-width: 1050px) {
+          width: 150px;
+          height: 40px;
+          margin: 0.7rem auto;
+        }
+      }
+
+      button:hover {
+        background-color: $mediumColor;
+      }
     }
   }
 

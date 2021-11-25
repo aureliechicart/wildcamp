@@ -30,6 +30,7 @@
       }
 
       input[type=text],
+      input[type=url],
       textarea {
         font-family: inherit;
         font-size: 1rem;
@@ -43,7 +44,8 @@
         box-shadow: 0 0 2rem 0.2rem rgba(0, 0, 0, 0.06);
       }
 
-      input[type=text] {
+      input[type=text],
+      input[type=url] {
         height: 2rem;
       }
 
@@ -54,6 +56,7 @@
       }
 
       input[type=text]:focus,
+      input[type=url]:focus,
       textarea:focus {
         border: 2px solid black;
       }
