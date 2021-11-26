@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import { validate } from 'react-email-validator';
 
@@ -160,6 +160,16 @@ const SignupForm = ({
 };
 
 SignupForm.propTypes = {
+  email: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  passwordConfirm: PropTypes.string.isRequired,
+  changeField: PropTypes.func.isRequired,
+  submitNewUser: PropTypes.func.isRequired,
+  isUserCreated: PropTypes.bool.isRequired,
+  setIsUserCreated: PropTypes.func.isRequired,
+  errors: PropTypes.array.isRequired,
+  setError: PropTypes.func.isRequired
 };
 
 export default SignupForm;

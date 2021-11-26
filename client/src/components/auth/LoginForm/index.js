@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import { validate } from 'react-email-validator';
 
@@ -134,6 +134,13 @@ const LoginForm = ({
 };
 
 LoginForm.propTypes = {
+  email: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  errors: PropTypes.object.isRequired,
+  changeField: PropTypes.func.isRequired,
+  submitLogin: PropTypes.func.isRequired,
+  setLoginError: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired
 };
 
 export default LoginForm;

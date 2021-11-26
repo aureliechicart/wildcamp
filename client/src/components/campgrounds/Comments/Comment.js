@@ -145,8 +145,22 @@ const Comment = ({
 }
 
 Comment.propTypes = {
+  id: PropTypes.number.isRequired,
   author: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
+  modified_at: PropTypes.string.isRequired,
+  commentEditing: PropTypes.bool.isRequired,
+  selectedCommentId: PropTypes.string.isRequired,
+  toggleCommentEditing: PropTypes.func.isRequired,
+  submitEditedComment: PropTypes.func.isRequired,
+  changeCommentField: PropTypes.func.isRequired,
+  deleteComment: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  loggedInUser: PropTypes.shape({
+    id: PropTypes.number,
+    email: PropTypes.string,
+    username: PropTypes.string
+  })
 };
 
 export default Comment;

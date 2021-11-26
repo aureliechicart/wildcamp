@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faWindowClose, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -116,7 +117,32 @@ const Comments = ({
 }
 
 Comments.propTypes = {
-
+  selectedCampground: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    image: PropTypes.string,
+    description: PropTypes.string,
+    country: PropTypes.string,
+    user_id: PropTypes.number
+  }),
+  comments: PropTypes.array.isRequired,
+  commentEditing: PropTypes.bool.isRequired,
+  toggleCommentEditing: PropTypes.func.isRequired,
+  selectedCommentId: PropTypes.string.isRequired,
+  submitEditedComment: PropTypes.func.isRequired,
+  changeCommentField: PropTypes.func.isRequired,
+  deleteComment: PropTypes.func.isRequired,
+  addCommentEditing: PropTypes.bool.isRequired,
+  toggleAddCommentEditing: PropTypes.func.isRequired,
+  newCommentValue: PropTypes.string.isRequired,
+  changeAddCommentField: PropTypes.func.isRequired,
+  submitNewComment: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  loggedInUser: PropTypes.shape({
+    id: PropTypes.number,
+    email: PropTypes.string,
+    username: PropTypes.string
+  })
 };
 
 export default Comments;

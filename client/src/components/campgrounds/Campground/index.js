@@ -25,7 +25,6 @@ const Campground = ({
 
   const history = useHistory();
   const editRouteChange = () => {
-    console.log(`/edit-campground/${selectedCampground.id}`);
     const path = `/edit-campground/${selectedCampground.id}`;
     history.push(path);
   }
@@ -37,7 +36,7 @@ const Campground = ({
   // if the id in params of the url changes, we load the corresponding
   // campground from db and we update document title
   useEffect(() => {
-    loadSelectedCampground(id);
+    loadSelectedCampground(parseInt(id), 10);
     document.title = `wildcamp - ${selectedCampground.title}`;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
@@ -139,15 +138,27 @@ const Campground = ({
 
 Campground.propTypes = {
   loadingSelectedCampground: PropTypes.bool.isRequired,
-  loadSelectedCampground: PropTypes.func.isRequired,
   selectedCampground: PropTypes.shape({
+    id: PropTypes.number,
     title: PropTypes.string,
     image: PropTypes.string,
     description: PropTypes.string,
     country: PropTypes.string,
+    user_id: PropTypes.number,
   }),
+  loadSelectedCampground: PropTypes.func.isRequired,
   author: PropTypes.string.isRequired,
-  comments: PropTypes.array,
+  deleteCampground: PropTypes.func.isRequired,
+  campgroundNotFound: PropTypes.bool.isRequired,
+  errors: PropTypes.object.isRequired,
+  clearAddCamgroundForm: PropTypes.func.isRequired,
+  clearSelectedCampground: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  loggedInUser: PropTypes.shape({
+    id: PropTypes.number,
+    email: PropTypes.string,
+    username: PropTypes.string
+  })
 };
 
 export default Campground;

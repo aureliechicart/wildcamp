@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 // == Import
 import './notfound.scss';
@@ -27,6 +28,10 @@ const NotFound = ({
       </div>
     </div>
   );
+}
+
+NotFound.proprTypes = {
+  setCampgroundNotFound: PropTypes.func.isRequired
 }
 
 // == Export

@@ -1,4 +1,5 @@
 import { Route, Switch, Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 import "./page.scss";
 
@@ -60,5 +61,11 @@ const Page = ({
     </div>
   );
 };
+
+Page.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  bannerDisplayed: PropTypes.bool.isRequired,
+  setBannerDisplay: PropTypes.func.isRequired
+}
 
 export default Page;

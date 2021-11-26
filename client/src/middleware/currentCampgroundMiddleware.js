@@ -112,7 +112,7 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
           } else if (error.response.data.noComments) {
             store.dispatch(saveComments([]));
           } else {
-            console.log(error);
+            console.log(error.response.data);
           }
         })
         .finally(() => {
@@ -132,7 +132,6 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
         country
       })
         .then((response) => {
-          console.log(response.data);
           // once we get the id of the edited campground from the database
           // we save it in state
           // (here, receiving the id represents the fact the record has been updated in db)

@@ -21,17 +21,17 @@ const NewCampgroundForm = ({
   }, []);
 
   const history = useHistory();
+
   const routeChange = () => {
     history.goBack();
   }
-
 
   useEffect(() => {
     if (!loadingCampgroundId) {
       const path = `/campground/${campgroundId}`;
       history.push(path);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadingCampgroundId]);
 
   return (
@@ -115,7 +115,11 @@ NewCampgroundForm.propTypes = {
   description: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
   changeField: PropTypes.func.isRequired,
-  // submitCamgpround: PropTypes.func.isRequired
+  submitCampground: PropTypes.func.isRequired,
+  campgroundId: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number]),
+  loadingCampgroundId: PropTypes.bool.isRequired
 };
 
 export default NewCampgroundForm;

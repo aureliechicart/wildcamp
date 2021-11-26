@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 
@@ -7,31 +6,16 @@ import "./editcampgroundform.scss";
 import Divider from '../../UI/Divider';
 
 const EditCampgroundForm = ({
-  loadSelectedCampground,
   selectedCampground,
   changeField,
-  submitEditedCampground,
-  // state info returned after submitting edited campground
-  loadingCampgroundId
+  submitEditedCampground
 }) => {
-  const { id } = useParams();
 
   const history = useHistory();
   const routeChange = () => {
     const path = `/campground/${selectedCampground.id}`;
     history.push(path);
   }
-  useEffect(() => {
-    loadSelectedCampground(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
-
-  useEffect(() => {
-    if (!loadingCampgroundId) {
-      const path = `/campground/${id}`;
-      history.push(path);
-    }
-  });
 
 
   return (
@@ -44,6 +28,8 @@ const EditCampgroundForm = ({
           onSubmit={(event) => {
             event.preventDefault();
             submitEditedCampground(selectedCampground.id);
+            const path = `/campground/${selectedCampground.id}`;
+            history.push(path);
           }}
         >
           <label htmlFor="title" className="label">
@@ -109,13 +95,15 @@ const EditCampgroundForm = ({
 EditCampgroundForm.propTypes = {
   loadSelectedCampground: PropTypes.func.isRequired,
   selectedCampground: PropTypes.shape({
+    id: PropTypes.number,
     title: PropTypes.string,
     image: PropTypes.string,
     description: PropTypes.string,
     country: PropTypes.string,
+    user_id: PropTypes.number
   }),
   changeField: PropTypes.func.isRequired,
-  submitEditedCamgpround: PropTypes.func,
+  submitEditedCampground: PropTypes.func.isRequired,
   loadingCampgroundId: PropTypes.bool.isRequired
 };
 

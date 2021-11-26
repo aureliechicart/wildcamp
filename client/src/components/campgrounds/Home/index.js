@@ -91,6 +91,9 @@ Home.propTypes = {
       country: PropTypes.string.isRequired,
     }).isRequired,
   ).isRequired,
+  loadingCampgrounds: PropTypes.bool.isRequired,
+  clearAddCamgroundForm: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired
 };
 
 export default Home;

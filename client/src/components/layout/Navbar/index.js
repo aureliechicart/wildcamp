@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 import logo from "./logo.png";
 import "./navbar.scss";
@@ -58,5 +59,16 @@ const Navbar = ({
     </div>
   </nav>
 );
+
+Navbar.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  submitLogout: PropTypes.func.isRequired,
+  loggedInUser: PropTypes.shape({
+    id: PropTypes.number,
+    email: PropTypes.string,
+    username: PropTypes.string
+  }),
+  setBannerDisplay: PropTypes.func.isRequired
+}
 
 export default Navbar;

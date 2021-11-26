@@ -2,7 +2,11 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
-const CampgroundSmall = ({ id, image, title }) => (
+const CampgroundSmall = ({ 
+  id,
+  image,
+  title
+ }) => (
   <article className="campground-small">
     <Link className="campground-small-link" to={`/campground/${id}`} title="Afficher le spot">
       <img

@@ -1,16 +1,13 @@
 import React from "react";
 import { Route, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const ProtectedRoute = ({ component: Component, isAuthenticated, ...rest }) => {
-  console.log(isAuthenticated);
+const ProtectedRoute = ({ component: Component, isAuthenticated }) => {
   return (
     <Route render={(props) => {
-      console.log('hello');
       if (isAuthenticated) {
-        console.log(props);
         return <Component {...props} />
       } else {
-        console.log('coucou');
         return (
           <Redirect to={{
             pathname: "/login",
@@ -25,5 +22,9 @@ const ProtectedRoute = ({ component: Component, isAuthenticated, ...rest }) => {
     />
   )
 };
+
+ProtectedRoute.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired
+}
 
 export default ProtectedRoute;
