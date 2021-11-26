@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 
 import "./editcampgroundform.scss";
-import Divider from '../Divider';
+import Divider from '../../UI/Divider';
 
 const EditCampgroundForm = ({
   loadSelectedCampground,

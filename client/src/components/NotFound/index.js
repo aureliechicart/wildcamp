@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 // == Import
 import './notfound.scss';
-import logo from '../Navbar/logo.png';
+import logo from '../layout/Navbar/logo.png';
 // == Component
 const NotFound = ({
   setCampgroundNotFound

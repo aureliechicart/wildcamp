@@ -5,7 +5,7 @@ import './app.scss';
 
 import Navbar from '../../containers/Navbar';
 import Page from '../../containers/Page';
-import Footer from '../Footer';
+import Footer from '../layout/Footer';
 
 const App = ({ loadCampgrounds, checkUser }) => {
 

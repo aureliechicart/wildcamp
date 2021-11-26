@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { setBannerDisplay } from '../../actions/auth';
 
 // importing presentational component
-import Page from '../../components/Page';
+import Page from '../../components/layout/Page';
 
 // === mapStateToProps
 // if we need to read information from the state

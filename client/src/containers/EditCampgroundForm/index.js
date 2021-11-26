@@ -7,7 +7,7 @@ import {
  } from '../../actions/currentCampground'
 
 // importing presentational component
-import EditCampgroundForm from '../../components/EditCampgroundForm';
+import EditCampgroundForm from '../../components/campgrounds/EditCampgroundForm';
 
 // === mapStateToProps
 // if we need to read information from the state

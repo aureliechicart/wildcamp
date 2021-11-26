@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faTrash, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
-import useOutsideClick from "../../hooks/useOutsideClick";
+import useOutsideClick from "../../../hooks/useOutsideClick";
 
 const Comment = ({
   id,

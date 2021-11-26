@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 
 import './home.scss';
 import CampgroundSmall from './CampgroundSmall';
-import Divider from '../Divider';
-import Spinner from '../Spinner';
+import Divider from '../../UI/Divider';
+import Spinner from '../../UI/Spinner';
 
 const Home = ({
   campgrounds,

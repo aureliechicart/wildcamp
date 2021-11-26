@@ -2,14 +2,14 @@ import { Route, Switch, Link } from "react-router-dom";
 
 import "./page.scss";
 
-import Home from "../../containers/Home";
-import SignupForm from "../../containers/SignupForm";
-import LoginForm from "../../containers/LoginForm";
-import Campground from "../../containers/Campground";
-import NewCampgroundForm from "../../containers/NewCampgroundForm";
-import EditCampgroundForm from "../../containers/EditCampgroundForm";
-import ProtectedRoute from "../../containers/ProtectedRoute";
-import NotFound from "../../containers/NotFound";
+import Home from "../../../containers/Home";
+import SignupForm from "../../../containers/SignupForm";
+import LoginForm from "../../../containers/LoginForm";
+import Campground from "../../../containers/Campground";
+import NewCampgroundForm from "../../../containers/NewCampgroundForm";
+import EditCampgroundForm from "../../../containers/EditCampgroundForm";
+import ProtectedRoute from "../../../containers/ProtectedRoute";
+import NotFound from "../../../containers/NotFound";
 
 
 const Page = ({

@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 import "./newcampgroundform.scss";
-import Divider from '../Divider';
+import Divider from '../../UI/Divider';
 
 const NewCampgroundForm = ({
   title,

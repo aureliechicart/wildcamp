@@ -8,7 +8,7 @@ import {
 } from '../../actions/signup';
 
 // importing presentational component
-import SignupForm from '../../components/SignupForm';
+import SignupForm from '../../components/auth/SignupForm';
 
 // === mapStateToProps
 // if we need to read information from the state

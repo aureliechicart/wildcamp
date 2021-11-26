@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { submitCampground, updateCampgroundField } from '../../actions/newCampground';
 
 // importing presentational component
-import NewCampgroundForm from '../../components/NewCampgroundForm';
+import NewCampgroundForm from '../../components/campgrounds/NewCampgroundForm';
 
 // === mapStateToProps
 // if we need to read information from the state

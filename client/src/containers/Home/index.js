@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { clearAddCamgroundForm } from '../../actions/newCampground';
 
 // importing presentational component
-import Home from '../../components/Home';
+import Home from '../../components/campgrounds/Home';
 
 // === mapStateToProps
 // if we need to read information from the state

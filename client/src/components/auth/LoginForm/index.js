@@ -5,7 +5,7 @@ import { useHistory, Link } from "react-router-dom";
 import { validate } from 'react-email-validator';
 
 import "./loginform.scss";
-import Divider from '../Divider';
+import Divider from '../../UI/Divider';
 
 const LoginForm = ({
   email,
