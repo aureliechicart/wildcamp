@@ -154,6 +154,12 @@ const SignupForm = ({
             />
           </div>
         </form>
+        <Divider />
+        <div className="has-account">
+          <p className="has-account-text">Vous possédez déjà un compte&nbsp;?<br /> Cliquez ci-dessous pour vous connecter&nbsp;!
+          </p>
+          <Link className="login-button" to="/login">Se connecter</Link>
+        </div>
       </div>
     </div>
   )

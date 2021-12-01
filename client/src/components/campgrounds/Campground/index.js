@@ -57,7 +57,7 @@ const Campground = ({
         {loadingSelectedCampground && <Spinner />}
 
         {!loadingSelectedCampground && (
-          <div>
+          <div className="campground-item">
             <div className="campground-thumbnail">
               <img
                 className="campground-image"
@@ -106,22 +106,22 @@ const Campground = ({
               </div>
             </div>
             <Comments />
+            <Divider />
           </div>
         )}
       </div>
 
-      <Divider />
-
       <div className="buttons-container">
         {isAuthenticated &&
           <button
+            type="button"
             className="button"
             onClick={() => {
               clearAddCamgroundForm();
               history.push('/new-campground');
             }}
           >
-            Ajouter un nouveau spot
+            Ajouter un spot
           </button>
         }
         <Link

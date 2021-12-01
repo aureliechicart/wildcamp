@@ -123,7 +123,7 @@ const LoginForm = ({
         </form>
         <Divider />
         <div className="no-account">
-          <p className="no-account-text">Vous n'avez pas encore de compte ?<br /> Cliquez ci-dessous pour vous inscrire&nbsp;!
+          <p className="no-account-text">Vous n'avez pas encore de compte&nbsp;?<br /> Cliquez ci-dessous pour vous inscrire&nbsp;!
           </p>
           <Link className="signup-button" to="/signup">Créer un compte</Link>
         </div>

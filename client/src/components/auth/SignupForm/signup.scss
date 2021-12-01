@@ -2,11 +2,28 @@
 
 .signup-form {
   padding: 0.8rem;
-  margin: 0 auto;;
+  margin: 0 auto;
+  ;
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 40%;
+
+  @media screen and (max-width: 1400px) {
+    width: 60%;
+  }
+
+  @media screen and (max-width: 1000px) {
+    width: 80%;
+  }
+
+  @media screen and (max-width: 750px) {
+    width: 90%;
+  }
+
+  @media screen and (max-width: 400px) {
+    width: 100%;
+  }
 
   .heading {
     color: $darkColor;
@@ -15,8 +32,16 @@
     text-align: center;
     padding: 2rem;
     margin-bottom: 1rem;
-    width: 80%;
     margin: 0 auto;
+
+
+    @media screen and (max-width: 460px) {
+      font-size: 2.5rem;
+    }
+
+    @media screen and (max-width: 360px) {
+      font-size: 2rem;;
+    }
   }
 
   .content {
@@ -24,6 +49,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    @media screen and (max-width: 360px) {
+      font-size: 1rem;;
+    }
 
     .message {
       background-color: $mediumColor;
@@ -36,13 +65,21 @@
       text-decoration: underline;
     }
 
-    .message-link:hover{
+    .message-link:hover {
       color: $darkColor;
     }
 
     .form {
       width: 60%;
       margin: 1rem auto 2rem auto;
+
+      @media screen and (max-width: 600px) {
+        width: 80%;
+      }
+
+      @media screen and (max-width: 500px) {
+        width: 90%;
+      }
 
       .label {
         display: block;
@@ -75,7 +112,7 @@
         display: block;
         color: whitesmoke;
         font-size: 0.9rem;
-        padding: 0.3rem; 
+        padding: 0.3rem;
         background-color: $errorColor;
       }
 
@@ -84,6 +121,13 @@
         justify-content: space-between;
         margin-top: 2rem;
         width: 100%;
+
+        @media screen and (max-width: 500px) {
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
+        }
 
         input[type=submit],
         input[type=button] {
@@ -105,6 +149,37 @@
         }
       }
 
+    }
+
+    .has-account {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 2rem auto;
+
+      &-text {
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+
+      .login-button {
+        font-family: inherit;
+        width: 150px;
+        padding: 0.7rem 1rem;
+        border: none;
+        background-color: $darkColor;
+        color: #ffffff;
+        font-size: 1rem;
+        font-weight: 400;
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: center;
+        height: 40px;
+      }
+
+      .login-button:hover {
+        background-color: $mediumColor;
+      }
     }
   }
 }

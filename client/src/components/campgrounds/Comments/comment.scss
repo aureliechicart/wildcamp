@@ -1,9 +1,8 @@
 @import "../../../styles/vars";
 
 .comments-container {
-  min-height: 3rem;
   padding: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem auto 2rem auto;
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
@@ -49,54 +48,85 @@
 
     .comment-button {
       font-family: inherit;
-      width: 200px;
-      background-color: $darkColor;
+      background-color: $mediumColor;
       color: #ffffff;
-      display: inline-block;
-      padding: 0.5rem 1rem;
+      padding: 0.3rem 0.9rem;
       font-size: 1rem;
       font-weight: 400;
       text-align: center;
       border-radius: 4px;
       border: none;
+
+      @media screen and (max-width: 400px) {
+        font-size: 0.8rem;
+      }
     }
 
     .comment-button:hover {
-      background-color: $mediumColor;
+      background-color: $darkColor;
     }
   }
 
   .comment-login-cta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     .comment-login-cta-link {
+      display: inline-flex;
+      align-items: center;
+      color: $darkColor;
+      background-color: rgb(189, 195, 189);
+      padding: 0.3rem 0.5rem;
+      border-radius: 4px;
+
+      @media screen and (max-width: 450px) {
+        font-size: 0.8rem;
+      }
+
+      .info-icon {
+        display: inline-flex;
+        align-items: center;
+        margin-right: 0.5rem;
+      }
+    }
+
+    &-description {
+      color: $darkColor;
+      text-align: center;
+    }
+
+    &-description:hover {
+      color: #000000;
+    }
+  }
+
+  .comments {
+    margin-top: 1rem;
+
+    // Comment component starts here
+    .no-comment-info {
       display: flex;
-      flex-direction: row;
       justify-content: center;
       color: $darkColor;
       background-color: rgb(189, 195, 189);
       padding: 0.3rem 0.5rem;
       border-radius: 4px;
-      margin-bottom: 0.8rem;
+      margin: 0 auto;
+
+      @media screen and (max-width: 500px) {
+        font-size: 0.8rem;
+      }
+
+      .no-comment-info-description {
+        // display: inline-block;
+      }
 
       .info-icon {
         margin-right: 0.5rem;
       }
-
-
-      &-description {
-        color: #fff;
-        text-align: center;
-      }
-
-      &-description:hover {
-        color: #000000;
-      }
     }
-  }
 
-  .comments {
-
-    // Comment component starts here
     .comment {
       padding-bottom: 0.8rem;
 
@@ -112,6 +142,10 @@
         .comment-date {
           text-align: right;
           font-size: 0.9rem;
+
+          @media screen and (max-width: 350px) {
+            font-size: 0.7rem;
+          }
         }
       }
 

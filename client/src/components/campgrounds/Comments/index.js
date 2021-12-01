@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faWindowClose, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
@@ -36,9 +36,9 @@ const Comments = ({
               title="Information"
               className="info-icon"
             />
-            <p className="comment-login-cta-description">
+            <span className="comment-login-cta-description">
               Connectez-vous pour ajouter un commentaire
-            </p>
+            </span>
           </Link>
         </div>
       }
@@ -59,13 +59,21 @@ const Comments = ({
               loggedInUser={loggedInUser}
             />
           ))}
-        {!comments.length && (
-          <p>Soyez le ou la première à partager un commentaire !</p>
+        {!comments.length && isAuthenticated && (
+          <div className="no-comment-info">
+            <FontAwesomeIcon
+              icon={faInfoCircle}
+              title="Information"
+              className="info-icon"
+            />
+            <span className="no-comment-info-description">Soyez le ou la première à partager un commentaire&nbsp;!</span>
+          </div>
         )}
       </div>
-      {!addCommentEditing && isAuthenticated &&
+      {!commentEditing && !addCommentEditing && isAuthenticated &&
         <div className="comment-button-container">
           <button
+            type="button"
             className="comment-button"
             onClick={() => {
               toggleAddCommentEditing();
