@@ -42,7 +42,7 @@ const Page = ({
         <Route path="/login">
           <LoginForm />
         </Route>
-        <Route path="/campground/:id">
+        <Route exact path="/campground/:id">
           <Campground />
         </Route>
         <ProtectedRoute
