@@ -23,6 +23,7 @@ const NewCampgroundForm = ({
   const history = useHistory();
 
   const routeChange = () => {
+    console.log('ananas');
     history.goBack();
   }
 

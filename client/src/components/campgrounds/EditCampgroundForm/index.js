@@ -20,7 +20,7 @@ const EditCampgroundForm = ({
 
   return (
     <div className="edit-campground-form">
-      <h2 className="heading">Modifier les informations sur le spot</h2>
+      <h2 className="heading">Modifier les informations</h2>
       <Divider />
       <div className="content" >
         <form
