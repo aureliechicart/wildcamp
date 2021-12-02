@@ -107,6 +107,7 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
           store.dispatch(saveComments(thirdResponse.data));
         })
         .catch((error) => {
+          console.log('coucou je suis dans le fetch campground ', error.response.data);
           if (error.response.data.campgroundNotFound) {
             store.dispatch(setCampgroundNotFound(true));
           } else if (error.response.data.noComments) {

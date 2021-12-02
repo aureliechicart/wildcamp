@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 
@@ -107,4 +107,4 @@ EditCampgroundForm.propTypes = {
   loadingCampgroundId: PropTypes.bool.isRequired
 };
 
-export default EditCampgroundForm;
+export default withRouter(EditCampgroundForm);

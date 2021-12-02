@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 import "./newcampgroundform.scss";
@@ -123,4 +123,4 @@ NewCampgroundForm.propTypes = {
   loadingCampgroundId: PropTypes.bool.isRequired
 };
 
-export default NewCampgroundForm;
+export default withRouter(NewCampgroundForm);

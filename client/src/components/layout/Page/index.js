@@ -46,11 +46,10 @@ const Page = ({
           <Campground />
         </Route>
         <ProtectedRoute
-        path="/new-campground"
-        component={NewCampgroundForm}>
+          path="/new-campground">
+          <NewCampgroundForm />
         </ProtectedRoute>
-        <ProtectedRoute path="/edit-campground/:id"
-        component={EditCampgroundForm}>
+        <ProtectedRoute exact path="/edit-campground/:id">
           <EditCampgroundForm />
         </ProtectedRoute>
         <Route>
