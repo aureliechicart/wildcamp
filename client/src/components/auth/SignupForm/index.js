@@ -75,9 +75,11 @@ const SignupForm = ({
               placeholder="Votre adresse email..."
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
+              }}
+              onBlur={(event)=> {
                 const isEmailValid = validate(email);
                 if (!isEmailValid) {
-                  setError(event.target.name, "L'adresse email n'est pas valide");
+                  setError(event.target.name, "L'adresse email n'est pas valide. Veuillez vérifier votre saisie");
                 } else {
                   setError(event.target.name, '');
                 }
@@ -101,7 +103,18 @@ const SignupForm = ({
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
               }}
+              onBlur={(event)=> {
+                console.log(username.length);
+                if (username.length === 0) {
+                  setError(event.target.name, "Le champ Pseudo est requis");
+                } else {
+                  setError(event.target.name, '');
+                }
+              }}
             />
+            {errors.username &&
+              <span className='error'>{errors.username}</span>
+            }
           </label>
           <label htmlFor="password" className="label">
             Mot de passe*&nbsp;:

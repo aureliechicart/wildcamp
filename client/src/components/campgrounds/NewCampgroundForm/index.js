@@ -28,15 +28,6 @@ const NewCampgroundForm = ({
     history.goBack();
   }
 
-  // // Form validation
-  // const validateForm = (errors) => {
-  //   let valid = true;
-  //   if (title.length === 0 || image.length === 0 || description.length === 0 || country.length === 0) {
-  //     valid = false;
-  //   }
-  //   return valid;
-  // }
-
   useEffect(() => {
     if (!loadingCampgroundId) {
       const path = `/campground/${campgroundId}`;
