@@ -13,7 +13,9 @@ const NewCampgroundForm = ({
   changeField,
   submitCampground,
   campgroundId,
-  loadingCampgroundId
+  loadingCampgroundId,
+  errors,
+  setNewCampgroundError
 }) => {
 
   useEffect(() => {
@@ -23,9 +25,17 @@ const NewCampgroundForm = ({
   const history = useHistory();
 
   const routeChange = () => {
-    console.log('ananas');
     history.goBack();
   }
+
+  // // Form validation
+  // const validateForm = (errors) => {
+  //   let valid = true;
+  //   if (title.length === 0 || image.length === 0 || description.length === 0 || country.length === 0) {
+  //     valid = false;
+  //   }
+  //   return valid;
+  // }
 
   useEffect(() => {
     if (!loadingCampgroundId) {
@@ -54,9 +64,19 @@ const NewCampgroundForm = ({
               value={title}
               name="title"
               placeholder="Saisissez un titre..."
+              required
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
+              }}
+              onBlur={(event) => {
+                if (title.length === 0) {
+                  setNewCampgroundError(event.target.name, "Le champ Titre est obligatoire");
+                } else {
+                  setNewCampgroundError(event.target.name, '');
+                }
               }} />
+            {errors.title &&
+              <span className='error'>{errors.title}</span>}
           </label>
           <label htmlFor="image" className="label">
             URL de l'image* :
@@ -65,9 +85,19 @@ const NewCampgroundForm = ({
               value={image}
               name="image"
               placeholder="Saisissez l'URL d'une image..."
+              required
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
+              }}
+              onBlur={(event) => {
+                if (image.length === 0) {
+                  setNewCampgroundError(event.target.name, "Le champ URL de l'image est obligatoire");
+                } else {
+                  setNewCampgroundError(event.target.name, '');
+                }
               }} />
+            {errors.image &&
+              <span className='error'>{errors.image}</span>}
           </label>
           <label htmlFor="description" className="label">
             Description*:
@@ -76,10 +106,19 @@ const NewCampgroundForm = ({
               name="description"
               placeholder="Décrivez le spot..."
               rows="4"
+              required
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
               }}
-            />
+              onBlur={(event) => {
+                if (description.length === 0) {
+                  setNewCampgroundError(event.target.name, "Le champ Description est obligatoire");
+                } else {
+                  setNewCampgroundError(event.target.name, '');
+                }
+              }} />
+            {errors.description &&
+              <span className='error'>{errors.description}</span>}
           </label>
           <label htmlFor="country" className="label">
             Pays*:
@@ -87,9 +126,19 @@ const NewCampgroundForm = ({
               value={country}
               name="country"
               placeholder="Indiquez le pays où se trouve le spot..."
+              required
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
+              }}
+              onBlur={(event) => {
+                if (country.length === 0) {
+                  setNewCampgroundError(event.target.name, "Le champ Pays est obligatoire");
+                } else {
+                  setNewCampgroundError(event.target.name, '');
+                }
               }} />
+            {errors.country &&
+              <span className='error'>{errors.country}</span>}
           </label>
 
           <div className="actions">

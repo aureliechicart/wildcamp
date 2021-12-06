@@ -8,6 +8,7 @@ export const TOGGLE_LOADING_CAMPGROUND_ID = 'TOGGLE_LOADING_CAMPGROUND_ID';
 
 export const CLEAR_ADD_CAMPGROUND_FORM = 'CLEAR_ADD_CAMPGROUND_FORM';
 
+export const SET_NEW_CAMPGROUND_ERROR = 'SET_NEW_CAMPGROUND_ERROR';
 
 
 // === action creators
@@ -33,4 +34,10 @@ export const toggleLoadingCampgroundId = () => ({
 
 export const clearAddCamgroundForm = () => ({
   type: CLEAR_ADD_CAMPGROUND_FORM,
+});
+
+export const setNewCampgroundError = (fieldName, error) => ({
+  type: SET_NEW_CAMPGROUND_ERROR,
+  fieldName: fieldName,
+  error: error
 });

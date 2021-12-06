@@ -1,6 +1,10 @@
 import { connect } from 'react-redux';
 
-import { submitCampground, updateCampgroundField } from '../../actions/newCampground';
+import {
+  submitCampground,
+  updateCampgroundField,
+  setNewCampgroundError
+} from '../../actions/newCampground';
 
 // importing presentational component
 import NewCampgroundForm from '../../components/campgrounds/NewCampgroundForm';
@@ -14,7 +18,8 @@ const mapStateToProps = (state) => ({
   description: state.newCampground.description,
   country: state.newCampground.country,
   campgroundId: state.newCampground.campgroundId,
-  loadingCampgroundId: state.newCampground.loadingCampgroundId
+  loadingCampgroundId: state.newCampground.loadingCampgroundId,
+  errors: state.newCampground.errors
 });
 
 // === mapDispatchToProps
@@ -27,6 +32,9 @@ const mapDispatchToProps = (dispatch) => ({
   submitCampground: () => {
     dispatch(submitCampground());
   },
+  setNewCampgroundError: (fieldName, error) => {
+    dispatch(setNewCampgroundError(fieldName, error));
+  }
 });
 
 // === creating the assistant
