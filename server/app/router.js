@@ -27,7 +27,7 @@ const loginSchema = require('./schemas/loginSchema');
 * @param {string} username.path.required - the username
 * @param {string} password.path.required - the password
 * @param {string} passwordConfirm.path.required - the confirmation of the password
-* @returns {<User>} 200 - An instance of a user
+* @returns {<New User>} 201 - An instance of a user
 */
 router.post('/signup', validateBody(signupSchema.newSignup), loginController.doSignup);
 
@@ -46,6 +46,7 @@ router.post('/login', validateBody(loginSchema.newLogin),loginController.doLogin
 * @route POST /api/refresh
 * @param {string} token.path.required - the refresh token
 * @group Login
+* @returns {<Object>} 200 - An object containing accessToken and refreshToken
 */
 router.post('/refresh', loginController.refreshToken);
 
@@ -53,6 +54,7 @@ router.post('/refresh', loginController.refreshToken);
 * Returns the user based on the token in cookie
 * @route GET /api/auth/user
 * @group Login
+* @returns {<User>} 200 - An instance of a user
 */
 router.get('/auth/user', loginController.getUserFromCookie);
 
@@ -61,6 +63,7 @@ router.get('/auth/user', loginController.getUserFromCookie);
 * @route POST /api/logout
 * @param {string} token.path.required - the refresh token
 * @group Login
+* @returns {<Object>} 200 - A message confirming the logout operation
 */
 router.post('/logout', loginController.doLogout);
 
@@ -121,9 +124,9 @@ router.post('/campgrounds', verifyJwt, validateBody(campgroundSchema.newCampgrou
  * @route PUT /api/campgrounds/{id}
  * @group Campgrounds
  * @param {number} id.path.required - the campground id
- * @param {string} title - the title
- * @param {string} description- the description
- * @returns {<Camground>} 200 - thee updated instance of the campground
+ * @param {string} title - the edited title (optional)
+ * @param {string} description - the edited description (optional)
+ * @returns {<Camground>} 200 - the updated instance of the campground
  */
 router.put('/campgrounds/:id', verifyJwt, validateBody(campgroundSchema.updateCampground), campgroundController.editCampground);
 
@@ -179,7 +182,7 @@ router.post('/campgrounds/:campgroundId/comments', verifyJwt, validateBody(comme
 * @route PUT /api/comments/{id}
 * @group Comments
 * @param {number} id.path.required - the comment id
-* @param {string} text - the text
+* @param {string} text - the edited text
 * @returns {<Comment>} 200 - thee updated instance of the comment
 */
 router.put('/comments/:id', verifyJwt, validateBody(commentSchema.updateComment), commentController.editComment);

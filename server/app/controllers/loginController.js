@@ -54,7 +54,7 @@ const loginController = {
       });
       await newUser.save();
 
-      res.status(200).json({
+      res.status(201).json({
         success: true,
         user: {
           email: newUser.email,

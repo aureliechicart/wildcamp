@@ -2,11 +2,45 @@ require('dotenv').config();
 
 const express = require('express');
 const app = express();
+const expressSwagger = require('express-swagger-generator')(app);
+
 const PORT = process.env.PORT || 5000;
 const path = require('path');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+
+let options = {
+  swaggerDefinition: {
+    info: {
+      description: 'Wildcamp REST API',
+      title: 'Wildcamp API',
+      version: '1.0.0',
+    },
+    host: `localhost:${PORT}`,
+    basePath: '/api/',
+    produces: [
+      "application/json",
+      "application/xml"
+    ],
+    schemes: ['http', 'https'],
+    securityDefinitions: {
+      JWT: {
+        type: 'apiKey',
+        in: 'header',
+        name: 'Authorization',
+        description: "",
+      }
+    }
+  },
+  basedir: __dirname, //app absolute path
+  files: [
+    './app/router.js',
+    './app/models/*.js'
+  ] //Path to the API handle folder
+};
+
+expressSwagger(options);
 
 // Helmet helps protect the app from some well-known web vulnerabilities by setting HTTP headers appropriately
 app.use(helmet());

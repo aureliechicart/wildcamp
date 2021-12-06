@@ -45,7 +45,6 @@ const campgroundController = {
     try {
       // We get the body parameters of the request
       const { title, image, description, country, user_id } = req.body;
-      // TODO check how we get user_id from client
       // we can save this new record in the database
       const newCampground = new Campground({ title, image, description, country, user_id });
       await newCampground.save();
