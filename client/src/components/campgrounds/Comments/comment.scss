@@ -33,6 +33,7 @@
         font-size: 1.2rem;
         color: $mediumColor;
         margin-left: 0.7rem;
+        transition: 0.3s;
       }
 
       .comment-icon:hover {
@@ -56,6 +57,7 @@
       text-align: center;
       border-radius: 4px;
       border: none;
+      transition: 0.3s;
 
       @media screen and (max-width: 400px) {
         font-size: 0.8rem;
@@ -94,6 +96,7 @@
     &-description {
       color: $darkColor;
       text-align: center;
+      transition: 0.3s;
     }
 
     &-description:hover {
@@ -175,6 +178,7 @@
             font-size: 1.2rem;
             color: $mediumColor;
             margin-left: 0.7rem;
+            transition: 0.3s;
           }
 
           .comment-icon:hover {

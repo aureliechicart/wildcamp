@@ -63,6 +63,7 @@
     .message-link {
       font-weight: 700;
       text-decoration: underline;
+      transition: 0.3s;
     }
 
     .message-link:hover {
@@ -140,7 +141,8 @@
           font-size: 1rem;
           font-weight: 400;
           border-radius: 4px;
-          cursor: pointer
+          cursor: pointer;
+          transition: 0.3s;
         }
 
         input[type=submit]:hover,
@@ -175,6 +177,7 @@
         cursor: pointer;
         text-align: center;
         height: 40px;
+        transition: 0.3s;
       }
 
       .login-button:hover {

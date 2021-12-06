@@ -114,8 +114,6 @@ const authMiddleware = (store) => (next) => (action) => {
         { token: user.jwt })
         .then((response) => {
           console.log('response logout: ', response);
-          // if it works toggle isAuthenticated and display confirmation message
-          store.dispatch(setIsAuthenticated(false));
           // we reset the user saved in state
           store.dispatch(clearUser());
           // we clear localStorage

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { submitLogout } from '../../actions/auth';
+import { setIsAuthenticated, submitLogout } from '../../actions/auth';
 import { setBannerDisplay } from '../../actions/auth';
 
 // importing presentational component
@@ -22,6 +22,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setBannerDisplay: (value) => {
     dispatch(setBannerDisplay(value));
+  },
+  setIsAuthenticated: (value) => {
+    dispatch(setIsAuthenticated(value));
   }
 });
 

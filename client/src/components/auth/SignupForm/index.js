@@ -174,7 +174,7 @@ SignupForm.propTypes = {
   submitNewUser: PropTypes.func.isRequired,
   isUserCreated: PropTypes.bool.isRequired,
   setIsUserCreated: PropTypes.func.isRequired,
-  errors: PropTypes.array.isRequired,
+  errors: PropTypes.object.isRequired,
   setError: PropTypes.func.isRequired
 };
 

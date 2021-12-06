@@ -94,6 +94,11 @@
       display: inline-flex;
       justify-content: center;
       align-items: center;
+      transition: 0.3s;
+    }
+
+    .home-button:hover {
+      background-color: $darkColor;
     }
   }
 

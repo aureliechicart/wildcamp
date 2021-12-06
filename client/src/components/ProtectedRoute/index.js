@@ -8,8 +8,8 @@ const ProtectedRoute = ({
   ...restOfProps
 }) => {
   const user = JSON.parse(localStorage.getItem('user'));
-  // I wanted to use the state info isAuthenticated as a condition for Portected Routes,
-  // but if the logged in user refreshes the page, the app loses the state,
+  // I wanted to use the state info isAuthenticated as a condition for Protected Routes,
+  // but if the logged-in user refreshes the page, the app loses the state,
   // isAuthenticated appears false and the user is incorrectly redirected to login then home
   // I will therefore use the info in localStorage because it persists even on refresh
   return (
