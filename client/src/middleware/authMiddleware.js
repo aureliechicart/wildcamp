@@ -138,8 +138,12 @@ const authMiddleware = (store) => (next) => (action) => {
           const user = JSON.parse(localStorage.getItem("user"));
           // if we have the user item in localStorage, we call the refresh endpoint to get a new accessToken and refreshToken
           if (user) {
+            console.log('hello dans chek user 1');
             return axios.post('/api/refresh',
               { token: user.jwt });
+          } else {
+            console.log('hello dans chek user 2');
+
           }
         })
         .then((secondResponse) => {
@@ -161,7 +165,10 @@ const authMiddleware = (store) => (next) => (action) => {
         })
         .catch((error) => {
           console.log('checkuser - check user or verify jwt error : ', error.response);
-          store.dispatch(setIsAuthenticated(false));
+          if (!error.response.data.success) {
+            store.dispatch(setIsAuthenticated(false));
+            store.dispatch(setBannerDisplay(true));
+          }
         })
       break;
 

@@ -47,7 +47,7 @@ const LoginForm = ({
 
   return (
     <div className="login-form">
-      <h2 className="heading">Connexion à votre compte</h2>
+      <h2 className="heading">Connexion</h2>
       <Divider />
       <div className="content">
         <form

@@ -99,8 +99,10 @@
         }
       }
 
-      .username {
+      // since the user profile is not implemented yet, no hover is set for now on username
+      .username:hover {
         cursor: auto;
+        color: $darkColor;
       }
     }
   }

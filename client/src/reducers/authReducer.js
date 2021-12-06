@@ -22,7 +22,7 @@ const initialState = {
     incorrectPassword: false,
     userNotFound: false
   },
-  bannerDisplayed: true,
+  bannerDisplayed: false,
   focused: false
 };
 
