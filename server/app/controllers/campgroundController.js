@@ -25,14 +25,15 @@ const campgroundController = {
 
       const oneCampground = await Campground.findOne(id);
       if (!oneCampground) {
-        res.status(404).json({ message: 'No campground found with this id' });
+        res.status(404).json({
+          campgroundNotFound: true,
+          message: 'No campground found with this id'
+        });
       } else {
         res.status(200).json(oneCampground);
       }
 
-
     } catch (err) {
-      console.log(err);
       res.status(404).json(err.message);
     };
   },

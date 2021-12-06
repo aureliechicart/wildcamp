@@ -48,7 +48,7 @@ const commentController = {
       if (!campground) {
         res.status(404).json({
           campgroundNotFound: true,
-          message: 'Campground not found'
+          message: 'No campground found with this id'
         });
       } else {
         // we get all the comments for this specific campground
