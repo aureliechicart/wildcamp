@@ -67,8 +67,7 @@ const campgroundController = {
 
       if (campground) {
         // if campground exists, we get the body parameters
-        const { title, image, description, country, user_id } = req.body;
-        // TODO check how we get user_id from client
+        const { title, image, description, country } = req.body;
 
         //If a parameter is provided, we update the campground accordingly
         if (title) {

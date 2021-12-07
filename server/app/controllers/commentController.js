@@ -85,7 +85,6 @@ const commentController = {
       } else {
         // We get the body parameters of the request
         const { text, user_id } = req.body;
-        // TODO check later how we get user_id from client
 
         // We create a new comment and save it in the database
         const newComment = new Comment({ text, campground_id: campgroundId, user_id });

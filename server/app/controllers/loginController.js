@@ -108,7 +108,6 @@ const loginController = {
 
       // we add the new refresh token to the array
       loginController.refreshTokens.push(refreshToken);
-      console.log('array refreshTokens : ', loginController.refreshTokens);
 
       // we add the refresh token in an httpOnly cookie
       res.cookie('refresh_token', refreshToken, {
@@ -146,7 +145,6 @@ const loginController = {
       return res.status(403).json({ message: "Refresh Token is required" });
     }
 
-    console.log('array refreshTokens : ', loginController.refreshTokens);
     // we send an error if the refreshToken doesn't appear in our array
     if (!loginController.refreshTokens.includes(refreshToken)) {
       return res.status(403).json({ message: "Refresh token is not valid" });
@@ -158,7 +156,6 @@ const loginController = {
     jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, decoded) => {
       // in case of error, we log the error
       err && console.log('jwt verify error in refresh route', err);
-      console.log('decoded : ', decoded);
 
       // if the refreshToken is expired, we require a new login
       if (decoded.exp * 1000 < currentDate.getTime()) {
@@ -201,9 +198,7 @@ const loginController = {
       const cookie = req.cookies['refresh_token'];
 
       const claims = jwt.verify(cookie, process.env.JWT_REFRESH_SECRET);
-      console.log(claims);
       if (!claims) {
-        console.log('coucou erreur du jwt verify');
         return res.status(401).json({
           success: false,
           message: 'Unauthenticated'
