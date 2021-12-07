@@ -104,7 +104,6 @@ const SignupForm = ({
                 changeField(event.target.value, event.target.name);
               }}
               onBlur={(event)=> {
-                console.log(username.length);
                 if (username.length === 0) {
                   setError(event.target.name, "Le champ Pseudo est requis");
                 } else {

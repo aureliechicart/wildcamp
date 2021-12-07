@@ -46,7 +46,6 @@ const authMiddleware = (store) => (next) => (action) => {
   const axiosJWT = axios.create();
   axiosJWT.interceptors.request.use(
     async (config) => {
-      console.log('****auth - Time to refresh the token!****');
       let currentDate = new Date();
 
       // if the user has not logged in yet
@@ -54,13 +53,10 @@ const authMiddleware = (store) => (next) => (action) => {
         store.dispatch(setIsAuthenticated(false));
       } else {
         const decodedToken = jwt_decode(store.getState().auth.loggedInUser.accessToken);
-        console.log('decoded token : ', decodedToken);
         // if the token is expired, we refresh it
         if (decodedToken.exp * 1000 < currentDate.getTime()) {
-          console.log("d'après l'axios interceptor, mon accessToken est expiré, je relance un refresh");
           const data = await refreshToken();
           config.headers["x-access-token"] = data.accessToken;
-          console.log('config axios : ', config);
         } else {
           config.headers["x-access-token"] = store.getState().auth.loggedInUser.accessToken;
         }
@@ -75,7 +71,6 @@ const authMiddleware = (store) => (next) => (action) => {
 
   switch (action.type) {
     case SUBMIT_LOGIN:
-      console.log('***submit login****');
       // we signup the new user using the information in state
       const { email, password } = store.getState().auth;
       axios.post('/api/login', {
@@ -102,18 +97,14 @@ const authMiddleware = (store) => (next) => (action) => {
           } else if (error.response.data.incorrectPassword) {
             store.dispatch(setIncorrectPassword(true));
           }
-
-          console.log('submit login - error from catch : ', error.response);
         });
       break;
 
     case SUBMIT_LOGOUT:
-      console.log("****logout*****");
       const user = JSON.parse(localStorage.getItem("user"));
       axiosJWT.post('/api/logout',
         { token: user.jwt })
         .then((response) => {
-          console.log('response logout: ', response);
           // we reset the user saved in state
           store.dispatch(clearUser());
           // we clear localStorage
@@ -125,10 +116,8 @@ const authMiddleware = (store) => (next) => (action) => {
       break;
 
     case CHECK_USER:
-      console.log('****Check user****');
       axios.get('/api/auth/user')
         .then((response) => {
-          console.log(`checking user based on cookie : `, response.data);
           // we save the authenticated user in state
           store.dispatch(saveAutoCheckedUser(response.data));
 
@@ -138,16 +127,11 @@ const authMiddleware = (store) => (next) => (action) => {
           const user = JSON.parse(localStorage.getItem("user"));
           // if we have the user item in localStorage, we call the refresh endpoint to get a new accessToken and refreshToken
           if (user) {
-            console.log('hello dans chek user 1');
             return axios.post('/api/refresh',
               { token: user.jwt });
-          } else {
-            console.log('hello dans chek user 2');
-
           }
         })
         .then((secondResponse) => {
-          console.log('response from /refresh : ', secondResponse.data);
           const user = JSON.parse(localStorage.getItem('user'));
           // we add the tokens in state
           store.dispatch(saveAutoCheckedUser({
@@ -164,7 +148,6 @@ const authMiddleware = (store) => (next) => (action) => {
           localStorage.setItem('user', JSON.stringify(newUser));
         })
         .catch((error) => {
-          console.log('checkuser - check user or verify jwt error : ', error.response);
           if (!error.response.data.success) {
             store.dispatch(setIsAuthenticated(false));
             store.dispatch(setBannerDisplay(true));

@@ -19,7 +19,6 @@ const ProtectedRoute = ({
         if (user) {
           return (children);
         } else {
-          console.log('redirect ', isAuthenticated);
           return (
             <Redirect to={{ pathname: '/login', state: { from: location } }}
             />

@@ -47,7 +47,6 @@ const newCampgroundMiddleware = (store) => (next) => (action) => {
   const axiosJWT = axios.create();
   axiosJWT.interceptors.request.use(
     async (config) => {
-      console.log('****newCampground - Time to refresh the token!****');
       let currentDate = new Date();
 
       // if the user has not logged in yet
@@ -55,14 +54,10 @@ const newCampgroundMiddleware = (store) => (next) => (action) => {
         store.dispatch(setIsAuthenticated(false));
       } else {
       const decodedToken = jwt_decode(store.getState().auth.loggedInUser.accessToken);
-      console.log('decoded token : ', decodedToken);
       // if the token is expired, we refresh it
-      console.log(decodedToken.exp * 1000);
       if (decodedToken.exp * 1000 < currentDate.getTime()) {
-        console.log("d'après l'axios interceptor, mon accessToken est expiré, je relance un refresh");
         const data = await refreshToken();
         config.headers["x-access-token"] = data.accessToken;
-        console.log('config axios : ', config);
       } else {
         config.headers["x-access-token"] = store.getState().auth.loggedInUser.accessToken;
       }
@@ -78,11 +73,7 @@ const newCampgroundMiddleware = (store) => (next) => (action) => {
     case SUBMIT_CAMPGROUND: {
       // we post the new campground using the information in state
       const { title, image, description, country } = store.getState().newCampground;
-      const { accessToken } = store.getState().auth.loggedInUser;
       const user_id = store.getState().auth.loggedInUser.id;
-      console.log('user_id in state : ', user_id);
-      console.log('jwt from state : ', accessToken);
-      console.log('info from localStorage : ', JSON.parse(localStorage.getItem('user')));
 
       axiosJWT.post('/api/campgrounds', {
         title,
@@ -92,7 +83,6 @@ const newCampgroundMiddleware = (store) => (next) => (action) => {
         user_id: user_id
       })
         .then((response) => {
-          console.log('campground posté !');
           // once we get the id of the new campground from the database
           // we save it in state
           store.dispatch(saveCampgroundId(response.data.id));

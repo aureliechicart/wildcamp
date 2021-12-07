@@ -93,15 +93,12 @@ const Comment = ({
               }}>
               {text}
             </p>
-            {/* TODO: add a condition to check loggedUser is author */}
             {isAuthenticated && loggedInUser.username === author &&
               <p className="edit-hint">Double-cliquez pour modifier</p>
             }
           </div>
         }
 
-        {/* TODO: add conditional display for this icon group
-          if logged username is triple equal to comment author, display the button group */}
         {isAuthenticated && loggedInUser.username === author &&
           <div className="icon-group">
 

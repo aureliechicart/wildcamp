@@ -66,7 +66,6 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
   const axiosJWT = axios.create();
   axiosJWT.interceptors.request.use(
     async (config) => {
-      console.log('****currentCampground - Time to refresh the token!****');
       let currentDate = new Date();
 
       // if the user has not logged in yet
@@ -74,13 +73,10 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
         store.dispatch(setIsAuthenticated(false));
       } else {
         const decodedToken = jwt_decode(store.getState().auth.loggedInUser.accessToken);
-        console.log('decoded token : ', decodedToken);
         // if the token is expired, we refresh it
         if (decodedToken.exp * 1000 < currentDate.getTime()) {
-          console.log("d'après l'axios interceptor, mon accessToken est expiré, je relance un refresh");
           const data = await refreshToken();
           config.headers["x-access-token"] = data.accessToken;
-          console.log('config axios : ', config);
         } else {
           config.headers["x-access-token"] = store.getState().auth.loggedInUser.accessToken;
         }
@@ -107,7 +103,6 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
           store.dispatch(saveComments(thirdResponse.data));
         })
         .catch((error) => {
-          console.log('coucou je suis dans le fetch campground ', error.response.data);
           if (error.response.data.campgroundNotFound) {
             store.dispatch(setCampgroundNotFound(true));
           } else if (error.response.data.noComments) {
@@ -124,7 +119,6 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
     case SUBMIT_EDITED_CAMPGROUND:
       // we send a put request using the information in state
       const { title, image, description, country } = store.getState().currentCampground.selectedCampground;
-      console.log('edited campground - access from state : ', store.getState().auth.loggedInUser.accessToken);
 
       axiosJWT.put(`/api/campgrounds/${action.campgroundId}`, {
         title,
@@ -149,7 +143,6 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
       break;
 
     case SUBMIT_EDITED_COMMENT:
-      console.log(store.getState().auth.loggedInUser);
       const comments = store.getState().currentCampground.comments;
       const comment = comments.find((comment) => comment.id === action.commentId);
       axiosJWT.put(`/api/comments/${action.commentId}`, {
@@ -164,8 +157,6 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
       break;
 
     case DELETE_COMMENT:
-      console.log('access token from state : ', store.getState().auth.loggedInUser);
-
       axiosJWT.delete(`/api/comments/${action.commentId}`)
         .then((response) => {
           console.log(response.data);
@@ -184,8 +175,6 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
       const user_id = store.getState().auth.loggedInUser.id;
       const author = store.getState().auth.loggedInUser.username;
 
-      console.log('token from state : ', store.getState().auth.loggedInUser);
-
       axiosJWT.post(`/api/campgrounds/${action.campgroundId}/comments`, {
         text,
         user_id
@@ -195,7 +184,6 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
             ...response.data,
             author
           };
-          console.log(fullComment);
           // Now I can dispatch the action with the proper comment structure
           store.dispatch(addComment(fullComment));
           store.dispatch(toggleAddCommentEditing());
@@ -208,7 +196,6 @@ const campgroundsMiddleware = (store) => (next) => (action) => {
     case DELETE_SELECTED_CAMPGROUND:
       axiosJWT.delete(`/api/campgrounds/${action.campgroundId}`)
         .then((response) => {
-          console.log(response);
           if (response.status !== 200) {
             console.log(response);
           } else {
