@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import {
   updateSignupField,
   submitNewUser,
-  setError,
-  setIsUserCreated
+  setError
 } from '../../actions/signup';
 
 // importing presentational component
@@ -18,8 +17,8 @@ const mapStateToProps = (state) => ({
   username: state.signup.username,
   password: state.signup.password,
   passwordConfirm: state.signup.passwordConfirm,
-  isUserCreated: state.signup.isUserCreated,
-  errors: state.signup.errors
+  errors: state.signup.errors,
+  isFormSubmitted: state.signup.isFormSubmitted
 });
 
 // === mapDispatchToProps
@@ -35,9 +34,6 @@ const mapDispatchToProps = (dispatch) => ({
   setError: (fieldName, error) => {
     dispatch(setError(fieldName, error));
   },
-  setIsUserCreated: (value) => {
-    dispatch(setIsUserCreated(value));
-  }
 });
 
 // === creating the assistant

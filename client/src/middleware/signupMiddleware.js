@@ -2,10 +2,10 @@ import axios from 'axios';
 
 import {
   SUBMIT_NEW_USER,
-  setIsUserCreated,
   clearSignupForm,
   toggleAlreadyRegistered,
-  togglePasswordDiffer
+  togglePasswordDiffer,
+  setIsFormSubmitted
 } from '../actions/signup';
 
 const signupMiddleware = (store) => (next) => (action) => {
@@ -22,19 +22,19 @@ const signupMiddleware = (store) => (next) => (action) => {
       })
         .then((response) => {
           // once we get the id of the new user from the database
-          // we save it in state
+          console.log('response fom signup', response);
           if (response.data.user.id) {
-            // we togglea a boolean to display confirmation message
-            store.dispatch(setIsUserCreated(true));
             // we reset the inputs and errors
             store.dispatch(clearSignupForm());
+            // we let the component know the form submission is successful for redirection
+            store.dispatch(setIsFormSubmitted(true));
           }
         })
         .catch((error) => {
-          console.log(error.response);
+          console.log('error from signup', error);
           if (error.response.data.message === 'A user will this email is already registered') {
             store.dispatch(toggleAlreadyRegistered());
-          } else if (error.response.data.message === 'The password and password confirmation are different') {
+          } else if (error.response.data.message === 'The password and password confirmation are different' || error.response.data === '"passwordConfirm" must be [ref:password]') {
             store.dispatch(togglePasswordDiffer());
           }
         });

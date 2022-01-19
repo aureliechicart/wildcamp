@@ -1,10 +1,10 @@
 import {
   UPDATE_SIGNUP_FIELD,
-  SET_IS_USER_CREATED,
   SET_ERROR,
   TOGGLE_ALREADY_REGISTERED,
   TOGGLE_PASSWORD_DIFFER,
-  CLEAR_SIGNUP_FORM
+  CLEAR_SIGNUP_FORM,
+  SET_IS_FORM_SUBMITTED
 } from '../actions/signup';
 
 const initialState = {
@@ -12,7 +12,7 @@ const initialState = {
   username: '',
   password: '',
   passwordConfirm: '',
-  isUserCreated: false,
+  isFormSubmitted: false,
   errors: {
     email: '',
     username: '',
@@ -28,12 +28,6 @@ function signupReducer(state = initialState, action) {
       return {
         ...state,
         [action.fieldName]: action.newValue,
-      }
-
-    case SET_IS_USER_CREATED:
-      return {
-        ...state,
-        isUserCreated: action.value
       }
 
     case CLEAR_SIGNUP_FORM:
@@ -77,6 +71,12 @@ function signupReducer(state = initialState, action) {
           passwordDiffer: true
         }
       }
+
+      case SET_IS_FORM_SUBMITTED:
+        return {
+          ...state,
+          isFormSubmitted: action.value
+        }
 
 
     default:

@@ -59,8 +59,7 @@ function authReducer(state = initialState, action) {
     case SAVE_USER:
       return {
         ...state,
-        loggedInUser: { ...action.user },
-        isAuthenticated: true
+        loggedInUser: { ...action.user }
       }
 
     case SAVE_AUTO_CHECKED_USER:

@@ -48,6 +48,7 @@ const LoginForm = ({
   return (
     <div className="login-form">
       <h2 className="heading">Connexion</h2>
+      <h3 class="description">Identifiez-vous pour pouvoir ajouter des spots et commenter&nbsp;!</h3>
       <Divider />
       <div className="content">
         <form

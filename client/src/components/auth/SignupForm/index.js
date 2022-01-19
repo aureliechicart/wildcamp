@@ -14,25 +14,27 @@ const SignupForm = ({
   passwordConfirm,
   changeField,
   submitNewUser,
-  isUserCreated,
-  setIsUserCreated,
   errors,
-  setError
+  setError,
+  isFormSubmitted
 }) => {
 
   useEffect(() => {
     document.title = `wildcamp - Création de compte`;
   }, []);
 
-  useEffect(() => {
-    setIsUserCreated(false);
-  }, [setIsUserCreated]);
-
   // Redirect for cancel button
   const history = useHistory();
   const routeChange = () => {
     history.push('/');
   }
+
+  // Redirect when form is successfully submitted
+  useEffect(() => {
+    if (isFormSubmitted) {
+      history.push('/login');
+    }
+  });
 
   // Form validation
   const validateForm = (errors) => {
@@ -50,10 +52,6 @@ const SignupForm = ({
       <h2 className="heading">Création de compte</h2>
       <Divider />
       <div className="content" >
-        {isUserCreated && (
-          <div className="message">Vous êtes bien inscrit. Veuillez vous <Link className="message-link" to="/login">connecter</Link>
-          </div>
-        )}
         <form
           className="form"
           onSubmit={(event) => {
@@ -76,7 +74,7 @@ const SignupForm = ({
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
               }}
-              onBlur={(event)=> {
+              onBlur={(event) => {
                 const isEmailValid = validate(email);
                 if (!isEmailValid) {
                   setError(event.target.name, "L'adresse email n'est pas valide. Veuillez vérifier votre saisie");
@@ -103,7 +101,7 @@ const SignupForm = ({
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
               }}
-              onBlur={(event)=> {
+              onBlur={(event) => {
                 if (username.length === 0) {
                   setError(event.target.name, "Le champ Pseudo est requis");
                 } else {
@@ -184,8 +182,6 @@ SignupForm.propTypes = {
   passwordConfirm: PropTypes.string.isRequired,
   changeField: PropTypes.func.isRequired,
   submitNewUser: PropTypes.func.isRequired,
-  isUserCreated: PropTypes.bool.isRequired,
-  setIsUserCreated: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   setError: PropTypes.func.isRequired
 };

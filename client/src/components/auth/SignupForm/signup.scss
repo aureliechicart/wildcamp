@@ -54,22 +54,6 @@
       font-size: 1rem;;
     }
 
-    .message {
-      background-color: $mediumColor;
-      padding: 1rem;
-      margin: 1rem auto;
-    }
-
-    .message-link {
-      font-weight: 700;
-      text-decoration: underline;
-      transition: 0.3s;
-    }
-
-    .message-link:hover {
-      color: $darkColor;
-    }
-
     .form {
       width: 60%;
       margin: 1rem auto 2rem auto;

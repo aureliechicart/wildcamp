@@ -82,8 +82,11 @@ const authMiddleware = (store) => (next) => (action) => {
           store.dispatch(setBannerDisplay(false));
           // we reset the inputs and errors
           store.dispatch(clearLogin());
-          // we save the user
+          // we save the user in state
           store.dispatch(saveUser(response.data.user));
+          // we save it as authenticated
+          store.dispatch(setIsAuthenticated(true));
+
 
           const user = {
             id: response.data.user.id,
