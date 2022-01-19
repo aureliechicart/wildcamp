@@ -15,23 +15,11 @@ import NotFound from "../../../containers/NotFound";
 
 const Page = ({
   isAuthenticated,
-  bannerDisplayed,
-  setBannerDisplay
 }) => {
 
 
   return (
     <div className="page">
-      {(!isAuthenticated && bannerDisplayed) &&
-        <div className="login-cta">
-          <p className="login-cta-description">
-            Pour profiter de toutes les possibilités de publication, n'hésitez pas à vous connecter&nbsp;!</p>
-          <div className="login-cta-buttons">
-            <Link className="button signup" to="/signup">S'inscrire</Link>
-            <Link className="button login" to="/login">Se connecter</Link>
-            <span className="button skip" onClick={() => { setBannerDisplay(false) }}>Ignorer</span></div>
-        </div>
-      }
       <Switch>
         <Route path="/" exact>
           <Home />
@@ -62,8 +50,6 @@ const Page = ({
 
 Page.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
-  bannerDisplayed: PropTypes.bool.isRequired,
-  setBannerDisplay: PropTypes.func.isRequired
 }
 
 export default Page;

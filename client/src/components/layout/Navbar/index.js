@@ -11,7 +11,6 @@ const Navbar = ({
   isAuthenticated,
   submitLogout,
   loggedInUser,
-  setBannerDisplay,
   setIsAuthenticated
 }) => {
   const history = useHistory();
@@ -42,7 +41,6 @@ const Navbar = ({
               <div
                 onClick={() => {
                   submitLogout();
-                  setBannerDisplay(false);
                   setIsAuthenticated(false);
                   history.push("/login");
                 }}
@@ -86,7 +84,6 @@ Navbar.propTypes = {
     email: PropTypes.string,
     username: PropTypes.string
   }),
-  setBannerDisplay: PropTypes.func.isRequired
 }
 
 export default Navbar;

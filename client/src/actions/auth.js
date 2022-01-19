@@ -14,8 +14,6 @@ export const SAVE_AUTO_CHECKED_USER = 'SAVE_AUTO_CHECKED_USER';
 // check if user is authenticated in Page component (has routes)
 export const CHECK_USER = 'CHECK_USER';
 
-export const SET_BANNER_DISPLAY = 'SET_BANNER_DISPLAY';
-
 // === action creators
 
 export const updateLoginField = (newValue, fieldName) => ({
@@ -75,8 +73,3 @@ export const saveAutoCheckedUser = (user) => ({
   type: SAVE_AUTO_CHECKED_USER,
   user: user
 })
-
-export const setBannerDisplay = (value) => ({
-  type: SET_BANNER_DISPLAY,
-  value: value
-});

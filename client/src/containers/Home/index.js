@@ -11,7 +11,6 @@ const mapStateToProps = (state) => ({
   campgrounds: state.campgrounds.campgroundsList,
   loadingCampgrounds: state.campgrounds.loadingCampgrounds,
   isAuthenticated: state.auth.isAuthenticated,
-  bannerDisplayed: state.campgrounds.bannerDisplayed
 });
 
 // === mapDispatchToProps

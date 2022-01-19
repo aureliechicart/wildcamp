@@ -12,7 +12,6 @@ import {
   setIsAuthenticated,
   clearUser,
   saveAutoCheckedUser,
-  setBannerDisplay
 } from '../actions/auth';
 
 const authMiddleware = (store) => (next) => (action) => {
@@ -78,8 +77,6 @@ const authMiddleware = (store) => (next) => (action) => {
         password
       })
         .then((response) => {
-          // we toggle boolean to hide login CTA
-          store.dispatch(setBannerDisplay(false));
           // we reset the inputs and errors
           store.dispatch(clearLogin());
           // we save the user in state
@@ -153,7 +150,6 @@ const authMiddleware = (store) => (next) => (action) => {
         .catch((error) => {
           if (!error.response.data.success) {
             store.dispatch(setIsAuthenticated(false));
-            store.dispatch(setBannerDisplay(true));
           }
         })
       break;
