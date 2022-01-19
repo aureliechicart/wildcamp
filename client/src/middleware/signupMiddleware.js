@@ -3,8 +3,7 @@ import axios from 'axios';
 import {
   SUBMIT_NEW_USER,
   clearSignupForm,
-  toggleAlreadyRegistered,
-  togglePasswordDiffer,
+  setAPIErrorMessage,
   setIsFormSubmitted
 } from '../actions/signup';
 
@@ -14,12 +13,13 @@ const signupMiddleware = (store) => (next) => (action) => {
     case SUBMIT_NEW_USER:
       // we signup the new user using the information in state
       const { email, username, password, passwordConfirm } = store.getState().signup;
-      axios.post('/api/signup', {
-        email,
-        username,
-        password,
-        passwordConfirm
-      })
+      const newUser = {
+        email: email.val,
+        username: username.val,
+        password: password.val,
+        passwordConfirm: passwordConfirm.val
+      }
+      axios.post('/api/signup', newUser)
         .then((response) => {
           // once we get the id of the new user from the database
           console.log('response fom signup', response);
@@ -31,11 +31,11 @@ const signupMiddleware = (store) => (next) => (action) => {
           }
         })
         .catch((error) => {
-          console.log('error from signup', error);
-          if (error.response.data.message === 'A user will this email is already registered') {
-            store.dispatch(toggleAlreadyRegistered());
-          } else if (error.response.data.message === 'The password and password confirmation are different' || error.response.data === '"passwordConfirm" must be [ref:password]') {
-            store.dispatch(togglePasswordDiffer());
+          console.log('error from signup', error.response);
+          if (error.response.data.message) {
+            store.dispatch(setAPIErrorMessage(error.response.data.message));
+          } else {
+            store.dispatch(setAPIErrorMessage(error.response.data));
           }
         });
       break;

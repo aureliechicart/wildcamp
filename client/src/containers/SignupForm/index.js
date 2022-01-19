@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import {
   updateSignupField,
   submitNewUser,
-  setError
+  setIsFormValid,
+  setError,
+  clearValidity
 } from '../../actions/signup';
 
 // importing presentational component
@@ -18,7 +20,9 @@ const mapStateToProps = (state) => ({
   password: state.signup.password,
   passwordConfirm: state.signup.passwordConfirm,
   errors: state.signup.errors,
-  isFormSubmitted: state.signup.isFormSubmitted
+  isFormValid: state.signup.isFormValid,
+  isFormSubmitted: state.signup.isFormSubmitted,
+  apiErrorMessage: state.signup.apiErrorMessage
 });
 
 // === mapDispatchToProps
@@ -34,6 +38,12 @@ const mapDispatchToProps = (dispatch) => ({
   setError: (fieldName, error) => {
     dispatch(setError(fieldName, error));
   },
+  setIsFormValid: (newValue) => {
+    dispatch(setIsFormValid(newValue));
+  },
+  clearValidity: (fieldName) => {
+    dispatch(clearValidity(fieldName));
+  }
 });
 
 // === creating the assistant

@@ -135,6 +135,15 @@
         }
       }
 
+      .api-error {
+        display: block;
+        color: whitesmoke;
+        font-size: 0.9rem;
+        padding: 0.3rem;
+        margin-top: 1rem;
+        background-color: $errorColor;
+      }
+
     }
 
     .has-account {

@@ -14,9 +14,12 @@ const SignupForm = ({
   passwordConfirm,
   changeField,
   submitNewUser,
-  errors,
   setError,
-  isFormSubmitted
+  setIsFormValid,
+  isFormValid,
+  clearValidity,
+  isFormSubmitted,
+  apiErrorMessage
 }) => {
 
   useEffect(() => {
@@ -36,14 +39,50 @@ const SignupForm = ({
     }
   });
 
-  // Form validation
-  const validateForm = (errors) => {
-    let valid = true;
-    Object.values(errors).forEach(
-      // if we have an error string set valid to false
-      (val) => val.length > 0 && (valid = false)
-    );
-    return valid;
+  // Field validation
+  const validateField = (fieldName) => {
+    setIsFormValid(true);
+    switch (fieldName) {
+      case 'email':
+        if (email.val === '') {
+          setIsFormValid(false);
+          setError('email', 'Le champ Adresse email est obligatoire');
+        } else if (!validate(email.val)) {
+          setIsFormValid(false);
+          setError('email', `Le format de l'email n'est pas valide. Veuillez vérifier votre saisie`);
+        }
+        break;
+
+      case 'username':
+        if (username.val === '') {
+          setIsFormValid(false);
+          setError('username', `Le champ Pseudo est obligatoire`);
+        }
+        break;
+
+      case 'password':
+        if (password.val === '') {
+          setIsFormValid(false);
+          setError('password', `Le champ Mot de passe est obligatoire`);
+        } else if (password.val.length < 6) {
+          setIsFormValid(false);
+          setError('password', `Le mot de passe doit être composé d'au moins 6 caractères`);
+        }
+        break;
+
+      case 'passwordConfirm':
+        if (passwordConfirm.val === '') {
+          setIsFormValid(false);
+          setError('passwordConfirm', `Le champ Confirmation du mot de passe est obligatoire`);
+        } else if (passwordConfirm.val !== password.val) {
+          setIsFormValid(false);
+          setError('passwordConfirm', `Les deux mots de passe ne coïncident pas. Veuillez vérifier votre saisie`);
+        }
+        break;
+
+      default:
+        return;
+    }
   }
 
 
@@ -56,11 +95,10 @@ const SignupForm = ({
           className="form"
           onSubmit={(event) => {
             event.preventDefault();
-            if (validateForm(errors)) {
-              submitNewUser();
-            } else {
-              console.error('Invalid Form');
+            if (!isFormValid) {
+              return;
             }
+            submitNewUser();
           }}
         >
           <label htmlFor="email" className="label">
@@ -68,26 +106,19 @@ const SignupForm = ({
             <input
               required
               type="text"
-              value={email}
+              value={email.val}
               name="email"
               placeholder="Votre adresse email..."
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
               }}
               onBlur={(event) => {
-                const isEmailValid = validate(email);
-                if (!isEmailValid) {
-                  setError(event.target.name, "L'adresse email n'est pas valide. Veuillez vérifier votre saisie");
-                } else {
-                  setError(event.target.name, '');
-                }
+                clearValidity(event.target.name);
+                validateField(event.target.name);
               }}
             />
-            {errors.email.length > 0 &&
-              <span className='error'>{errors.email}</span>
-            }
-            {errors.alreadyRegistered &&
-              <span className='error'>Un utilisateur possédant cette adresse email est déjà enregistré</span>
+            {!!email.error &&
+              <span className='error'>{email.error}</span>
             }
           </label>
           <label htmlFor="username" className="label">
@@ -95,22 +126,19 @@ const SignupForm = ({
             <input
               required
               type="text"
-              value={username}
+              value={username.val}
               name="username"
               placeholder="Le pseudo que vous souhaitez utiliser..."
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
               }}
               onBlur={(event) => {
-                if (username.length === 0) {
-                  setError(event.target.name, "Le champ Pseudo est requis");
-                } else {
-                  setError(event.target.name, '');
-                }
+                clearValidity(event.target.name);
+                validateField(event.target.name);
               }}
             />
-            {errors.username &&
-              <span className='error'>{errors.username}</span>
+            {!!username.error &&
+              <span className='error'>{username.error}</span>
             }
           </label>
           <label htmlFor="password" className="label">
@@ -118,37 +146,45 @@ const SignupForm = ({
             <input
               required
               type="password"
-              value={password}
+              value={password.val}
               name="password"
               placeholder="Mot de passe de plus de 5 caractères..."
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
-                if (password.length < 5) {
-                  setError(event.target.name, "Le mot de passe doit contenir au minimum 5 caractères");
-                } else {
-                  setError(event.target.name, '');
-                }
+              }}
+              onBlur={(event) => {
+                clearValidity(event.target.name);
+                validateField(event.target.name);
               }}
             />
-            {errors.password.length > 0 &&
-              <span className='error'>{errors.password}</span>}
+            {!!password.error &&
+              <span className='error'>{password.error}</span>
+            }
           </label>
           <label htmlFor="passwordConfirm" className="label">
             Confirmation du mot de passe*&nbsp;:
             <input
               required
               type="password"
-              value={passwordConfirm}
+              value={passwordConfirm.val}
               name="passwordConfirm"
               placeholder="Confirmez le mot de passe..."
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
               }}
+              onBlur={(event) => {
+                clearValidity(event.target.name);
+                validateField(event.target.name);
+              }}
             />
-            {errors.passwordDiffer &&
-              <span className='error'>Les deux mots de passe ne coïncident pas. Veuillez vérifier votre saisie</span>
+            {!!passwordConfirm.error &&
+              <span className='error'>{passwordConfirm.error}</span>
             }
           </label>
+
+          {!!apiErrorMessage &&
+            <p className="api-error">{apiErrorMessage}</p>
+          }
 
           <div className="actions">
             <input
@@ -176,14 +212,29 @@ const SignupForm = ({
 };
 
 SignupForm.propTypes = {
-  email: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
-  passwordConfirm: PropTypes.string.isRequired,
+  email: PropTypes.shape({
+    val: PropTypes.string,
+    error: PropTypes.string
+  }).isRequired,
+  username: PropTypes.PropTypes.shape({
+    val: PropTypes.string,
+    error: PropTypes.string
+  }).isRequired,
+  password: PropTypes.PropTypes.shape({
+    val: PropTypes.string,
+    error: PropTypes.string
+  }).isRequired,
+  passwordConfirm: PropTypes.PropTypes.shape({
+    val: PropTypes.string,
+    error: PropTypes.string
+  }).isRequired,
   changeField: PropTypes.func.isRequired,
   submitNewUser: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
-  setError: PropTypes.func.isRequired
+  setError: PropTypes.func.isRequired,
+  setIsFormValid: PropTypes.func.isRequired,
+  isFormValid: PropTypes.bool.isRequired,
+  clearValidity: PropTypes.func.isRequired,
+  isFormSubmitted: PropTypes.bool.isRequired,
 };
 
 export default SignupForm;

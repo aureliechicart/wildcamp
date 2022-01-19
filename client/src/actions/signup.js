@@ -5,7 +5,10 @@ export const SET_ERROR = 'SET_ERROR';
 export const TOGGLE_ALREADY_REGISTERED = 'TOGGLE_ALREADY_REGISTERED';
 export const TOGGLE_PASSWORD_DIFFER = 'TOGGLE_PASSWORD_DIFFER';
 export const CLEAR_SIGNUP_FORM = 'CLEAR_SIGNUP_FORM';
+export const SET_IS_FORM_VALID = 'SET_IS_FORM_VALID';
 export const SET_IS_FORM_SUBMITTED = 'SET_IS_FORM_SUBMITTED';
+export const CLEAR_VALIDITY = 'CLEAR_VALIDITY';
+export const SET_API_ERROR_MESSAGE = 'SET_API_ERROR_MESSAGE';
 
 // === action creators
 
@@ -35,9 +38,25 @@ export const togglePasswordDiffer = () => ({
 
 export const clearSignupForm = () => ({
   type: CLEAR_SIGNUP_FORM,
-})
+});
 
 export const setIsFormSubmitted = (value) => ({
   type: SET_IS_FORM_SUBMITTED,
   value: value
+});
+
+export const setIsFormValid = (newValue) => ({
+  type: SET_IS_FORM_VALID,
+  newValue: newValue
+});
+
+export const clearValidity = (fieldName) => ({
+  type: CLEAR_VALIDITY,
+  fieldName: fieldName
+});
+
+
+export const setAPIErrorMessage = (message) => ({
+  type: SET_API_ERROR_MESSAGE,
+  message: message
 })
