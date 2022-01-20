@@ -22,7 +22,6 @@ const signupMiddleware = (store) => (next) => (action) => {
       axios.post('/api/signup', newUser)
         .then((response) => {
           // once we get the id of the new user from the database
-          console.log('response fom signup', response);
           if (response.data.user.id) {
             // we reset the inputs and errors
             store.dispatch(clearSignupForm());
@@ -31,7 +30,6 @@ const signupMiddleware = (store) => (next) => (action) => {
           }
         })
         .catch((error) => {
-          console.log('error from signup', error.response);
           if (error.response.data.message) {
             store.dispatch(setAPIErrorMessage(error.response.data.message));
           } else {
