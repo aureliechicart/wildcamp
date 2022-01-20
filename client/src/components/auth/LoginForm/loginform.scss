@@ -2,7 +2,8 @@
 
 .login-form {
   padding: 0.8rem;
-  margin: 0 auto;;
+  margin: 0 auto;
+  ;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -30,11 +31,13 @@
     margin: 0 auto;
 
     @media screen and (max-width: 460px) {
-      font-size: 2.5rem;;
+      font-size: 2.5rem;
+      ;
     }
 
     @media screen and (max-width: 360px) {
-      font-size: 2rem;;
+      font-size: 2rem;
+      ;
     }
   }
 
@@ -45,7 +48,8 @@
     margin: 0 auto 2rem auto;
 
     @media screen and (max-width: 460px) {
-      font-size: 1rem;;
+      font-size: 1rem;
+      ;
     }
   }
 
@@ -56,7 +60,8 @@
     justify-content: center;
 
     @media screen and (max-width: 360px) {
-      font-size: 1rem;;
+      font-size: 1rem;
+      ;
     }
 
     .message {
@@ -138,6 +143,15 @@
         input[type=button]:hover {
           background-color: $mediumColor;
         }
+      }
+
+      .api-error {
+        display: block;
+        color: whitesmoke;
+        font-size: 0.9rem;
+        padding: 0.3rem;
+        margin-top: 1rem;
+        background-color: $errorColor;
       }
 
     }

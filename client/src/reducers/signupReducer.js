@@ -113,11 +113,11 @@ function signupReducer(state = initialState, action) {
         isFormSubmitted: action.value
       }
 
-      case SET_API_ERROR_MESSAGE:
-        return {
-          ...state,
-          apiErrorMessage: action.message
-        }
+    case SET_API_ERROR_MESSAGE:
+      return {
+        ...state,
+        apiErrorMessage: action.message
+      }
 
 
     default:

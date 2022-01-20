@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import {
   updateLoginField,
   submitLogin,
-  setLoginError
+  setIsFormValid,
+  setError,
+  clearValidity
 } from '../../actions/auth';
 
 // importing presentational component
@@ -16,7 +18,8 @@ const mapStateToProps = (state) => ({
   email: state.auth.email,
   password: state.auth.password,
   isAuthenticated: state.auth.isAuthenticated,
-  errors: state.auth.errors
+  isFormValid: state.auth.isFormValid,
+  apiErrorMessage: state.auth.apiErrorMessage
 });
 
 // === mapDispatchToProps
@@ -29,9 +32,16 @@ const mapDispatchToProps = (dispatch) => ({
   submitLogin: () => {
     dispatch(submitLogin());
   },
-  setLoginError: (fieldName, error) => {
-    dispatch(setLoginError(fieldName, error));
+  setError: (fieldName, error) => {
+    dispatch(setError(fieldName, error));
+  },
+  setIsFormValid: (newValue) => {
+    dispatch(setIsFormValid(newValue));
+  },
+  clearValidity: (fieldName) => {
+    dispatch(clearValidity(fieldName));
   }
+  
 });
 
 // === creating the assistant

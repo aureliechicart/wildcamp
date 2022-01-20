@@ -1,27 +1,30 @@
 import {
   UPDATE_LOGIN_FIELD,
-  SET_LOGIN_ERROR,
   CLEAR_LOGIN,
   SAVE_USER,
-  SET_INCORRECT_PASSWORD,
-  SET_USER_NOT_FOUND,
   SET_IS_AUTHENTICATED,
   CLEAR_USER,
   SAVE_AUTO_CHECKED_USER,
+  SET_ERROR,
+  SET_IS_FORM_VALID,
+  CLEAR_VALIDITY,
+  SET_API_ERROR_MESSAGE
 } from '../actions/auth'
 
 const initialState = {
-  email: '',
-  password: '',
+  email: {
+    val: '',
+    error: null
+  },
+  password: {
+    val: '',
+    error: null
+  },
   isAuthenticated: false,
   loggedInUser: {},
-  errors: {
-    email: '',
-    password: '',
-    incorrectPassword: false,
-    userNotFound: false
-  },
-  focused: false
+  focused: false,
+  isFormValid: true,
+  apiErrorMessage: null
 };
 
 function authReducer(state = initialState, action) {
@@ -29,29 +32,26 @@ function authReducer(state = initialState, action) {
     case UPDATE_LOGIN_FIELD:
       return {
         ...state,
-        [action.fieldName]: action.newValue,
-      };
-
-    case SET_LOGIN_ERROR:
-      return {
-        ...state,
-        errors: {
-          ...state.errors,
-          [action.fieldName]: action.error
+        [action.fieldName]: {
+          ...state[action.fieldName],
+          val: action.newValue
         }
       }
 
     case CLEAR_LOGIN:
       return {
         ...state,
-        email: '',
-        password: '',
-        errors: {
-          email: '',
-          password: '',
-          incorrectPassword: false,
-          userNotFound: false
-        }
+        email: {
+          val: '',
+          error: null
+        },
+        password: {
+          val: '',
+          error: null
+        },
+        focused: false,
+        isFormValid: true,
+        apiErrorMessage: null
       }
 
     case SAVE_USER:
@@ -70,25 +70,6 @@ function authReducer(state = initialState, action) {
         isAuthenticated: true
       }
 
-    case SET_INCORRECT_PASSWORD:
-      return {
-        ...state,
-        errors: {
-          ...state.errors,
-          incorrectPassword: action.value
-        }
-      }
-
-    case SET_USER_NOT_FOUND:
-      return {
-        ...state,
-        errors: {
-          ...state.errors,
-          userNotFound: action.value
-        },
-        isAuthenticated: false
-      }
-
     case SET_IS_AUTHENTICATED:
       return {
         ...state,
@@ -99,12 +80,36 @@ function authReducer(state = initialState, action) {
       return {
         ...state,
         loggedInUser: {},
-        errors: {
-          email: '',
-          password: '',
-          incorrectPassword: false,
-          userNotFound: false
+      }
+
+    case SET_ERROR:
+      return {
+        ...state,
+        [action.fieldName]: {
+          ...state[action.fieldName],
+          error: action.error
         }
+      }
+
+    case SET_IS_FORM_VALID:
+      return {
+        ...state,
+        isFormValid: action.newValue
+      }
+
+    case CLEAR_VALIDITY:
+      return {
+        ...state,
+        [action.fieldName]: {
+          ...state[action.fieldName],
+          error: null
+        }
+      }
+
+    case SET_API_ERROR_MESSAGE:
+      return {
+        ...state,
+        apiErrorMessage: action.message
       }
 
     default:

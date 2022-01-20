@@ -4,15 +4,15 @@ import jwt_decode from 'jwt-decode';
 import {
   SUBMIT_LOGIN,
   clearLogin,
-  setUserNotFound,
-  setIncorrectPassword,
   SUBMIT_LOGOUT,
   saveUser,
   CHECK_USER,
   setIsAuthenticated,
   clearUser,
   saveAutoCheckedUser,
+  setAPIErrorMessage
 } from '../actions/auth';
+
 
 const authMiddleware = (store) => (next) => (action) => {
 
@@ -67,15 +67,15 @@ const authMiddleware = (store) => (next) => (action) => {
     }
   );
 
-
   switch (action.type) {
     case SUBMIT_LOGIN:
       // we signup the new user using the information in state
       const { email, password } = store.getState().auth;
-      axios.post('/api/login', {
-        email,
-        password
-      })
+      const userToLogin = {
+        email: email.val,
+        password: password.val,
+      }
+      axios.post('/api/login', userToLogin)
         .then((response) => {
           // we reset the inputs and errors
           store.dispatch(clearLogin());
@@ -85,18 +85,14 @@ const authMiddleware = (store) => (next) => (action) => {
           store.dispatch(setIsAuthenticated(true));
 
 
-          const user = {
+          const userToLS = {
             id: response.data.user.id,
             jwt: response.data.user.refreshToken
           }
-          localStorage.setItem("user", JSON.stringify(user));
+          localStorage.setItem("user", JSON.stringify(userToLS));
         })
         .catch((error) => {
-          if (error.response.data.noUserFound) {
-            store.dispatch(setUserNotFound(true));
-          } else if (error.response.data.incorrectPassword) {
-            store.dispatch(setIncorrectPassword(true));
-          }
+          store.dispatch(setAPIErrorMessage(error.response.data.message || error.response.data));
         });
       break;
 
@@ -104,11 +100,11 @@ const authMiddleware = (store) => (next) => (action) => {
       const user = JSON.parse(localStorage.getItem("user"));
       axiosJWT.post('/api/logout',
         { token: user.jwt })
-        .then((response) => {
-          // we reset the user saved in state
+        .then((_) => {
+          // we clear the user saved in state
           store.dispatch(clearUser());
           // we clear localStorage
-          localStorage.clear();
+          localStorage.removeItem("user");
         })
         .catch((error) => {
           console.log('logout - error from catch : ', error);
@@ -116,6 +112,7 @@ const authMiddleware = (store) => (next) => (action) => {
       break;
 
     case CHECK_USER:
+      // on each rendering of App (each page reload), we return the user information if there is a token in cookie
       axios.get('/api/auth/user')
         .then((response) => {
           // we save the authenticated user in state
@@ -147,14 +144,10 @@ const authMiddleware = (store) => (next) => (action) => {
           // we update the user item in localStorage with the new refresh token
           localStorage.setItem('user', JSON.stringify(newUser));
         })
-        .catch((error) => {
-          if (!error.response.data.success) {
-            store.dispatch(setIsAuthenticated(false));
-          }
-        })
+        .catch((_) => {
+          store.dispatch(setIsAuthenticated(false));
+        });
       break;
-
-
 
     default:
   }
@@ -163,3 +156,4 @@ const authMiddleware = (store) => (next) => (action) => {
 };
 
 export default authMiddleware;
+

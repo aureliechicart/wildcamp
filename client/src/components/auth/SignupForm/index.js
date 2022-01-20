@@ -64,9 +64,9 @@ const SignupForm = ({
         if (password.val === '') {
           setIsFormValid(false);
           setError('password', `Le champ Mot de passe est obligatoire`);
-        } else if (password.val.length < 6) {
+        } else if (password.val.length < 5) {
           setIsFormValid(false);
-          setError('password', `Le mot de passe doit être composé d'au moins 6 caractères`);
+          setError('password', `Le mot de passe doit être composé d'au moins 5 caractères`);
         }
         break;
 

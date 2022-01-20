@@ -1,7 +1,6 @@
 // === action types
 export const UPDATE_LOGIN_FIELD = 'UPDATE_LOGIN_FIELD';
 export const SUBMIT_LOGIN = 'SUBMIT_LOGIN';
-export const SET_LOGIN_ERROR = 'SET_LOGIN_ERROR';
 export const SET_USER_NOT_FOUND = 'SET_USER_NOT_FOUND';
 export const SET_INCORRECT_PASSWORD = 'SET_INCORRECT_PASSWORD';
 export const CLEAR_LOGIN = 'CLEAR_LOGIN';
@@ -10,6 +9,11 @@ export const SAVE_USER = 'SAVE_USER';
 export const SET_IS_AUTHENTICATED = 'SET_IS_AUTHENTICATED';
 export const CLEAR_USER = 'CLEAR_USER';
 export const SAVE_AUTO_CHECKED_USER = 'SAVE_AUTO_CHECKED_USER';
+export const SET_IS_FORM_VALID = 'SET_IS_FORM_VALID';
+export const SET_IS_FORM_SUBMITTED = 'SET_IS_FORM_SUBMITTED';
+export const CLEAR_VALIDITY = 'CLEAR_VALIDITY';
+export const SET_API_ERROR_MESSAGE = 'SET_API_ERROR_MESSAGE';
+export const SET_ERROR = 'SET_ERROR';
 
 // check if user is authenticated in Page component (has routes)
 export const CHECK_USER = 'CHECK_USER';
@@ -29,12 +33,6 @@ export const submitLogin = () => ({
 export const setIsAuthenticated = (value) => ({
   type: SET_IS_AUTHENTICATED,
   value: value
-});
-
-export const setLoginError = (fieldName, error) => ({
-  type: SET_LOGIN_ERROR,
-  fieldName: fieldName,
-  error: error
 });
 
 export const setUserNotFound = (value) => ({
@@ -72,4 +70,31 @@ export const clearUser = () => ({
 export const saveAutoCheckedUser = (user) => ({
   type: SAVE_AUTO_CHECKED_USER,
   user: user
-})
+});
+
+export const setIsFormSubmitted = (value) => ({
+  type: SET_IS_FORM_SUBMITTED,
+  value: value
+});
+
+export const setIsFormValid = (newValue) => ({
+  type: SET_IS_FORM_VALID,
+  newValue: newValue
+});
+
+export const clearValidity = (fieldName) => ({
+  type: CLEAR_VALIDITY,
+  fieldName: fieldName
+});
+
+
+export const setAPIErrorMessage = (message) => ({
+  type: SET_API_ERROR_MESSAGE,
+  message: message
+});
+
+export const setError = (fieldName, error) => ({
+  type: SET_ERROR,
+  fieldName: fieldName,
+  error: error
+});

@@ -19,7 +19,6 @@ const mapStateToProps = (state) => ({
   username: state.signup.username,
   password: state.signup.password,
   passwordConfirm: state.signup.passwordConfirm,
-  errors: state.signup.errors,
   isFormValid: state.signup.isFormValid,
   isFormSubmitted: state.signup.isFormSubmitted,
   apiErrorMessage: state.signup.apiErrorMessage

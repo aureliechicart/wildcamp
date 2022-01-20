@@ -10,10 +10,13 @@ import Divider from '../../UI/Divider';
 const LoginForm = ({
   email,
   password,
-  errors,
   changeField,
   submitLogin,
-  setLoginError,
+  setError,
+  setIsFormValid,
+  isFormValid,
+  clearValidity,
+  apiErrorMessage,
   isAuthenticated
 }) => {
 
@@ -27,15 +30,35 @@ const LoginForm = ({
     history.push('/');
   }
 
-  // Form validation
-  const validateForm = (errors) => {
-    let valid = true;
-    Object.values(errors).forEach(
-      // if we have an error string set valid to false
-      (val) => val.length > 0 && (valid = false)
-    );
-    return valid;
+  // New field validation
+  const validateField = (fieldName) => {
+    setIsFormValid(true);
+    switch (fieldName) {
+      case 'email':
+        if (email.val === '') {
+          setIsFormValid(false);
+          setError('email', 'Le champ Adresse email est obligatoire');
+        } else if (!validate(email.val)) {
+          setIsFormValid(false);
+          setError('email', `Le format de l'email n'est pas valide. Veuillez vérifier votre saisie`);
+        }
+        break;
+
+      case 'password':
+        if (password.val === '') {
+          setIsFormValid(false);
+          setError('password', `Le champ Mot de passe est obligatoire`);
+        } else if (password.val.length < 5) {
+          setIsFormValid(false);
+          setError('password', `Le mot de passe doit être composé d'au moins 5 caractères`);
+        }
+        break;
+
+      default:
+        return;
+    }
   }
+
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -55,11 +78,10 @@ const LoginForm = ({
           className="form"
           onSubmit={(event) => {
             event.preventDefault();
-            if (validateForm(errors)) {
-              submitLogin();
-            } else {
-              console.error('Invalid Form')
+            if (!isFormValid) {
+              return;
             }
+            submitLogin();
           }}
         >
           <label htmlFor="email" className="label">
@@ -67,24 +89,19 @@ const LoginForm = ({
             <input
               required
               type="text"
-              value={email}
+              value={email.val}
               name="email"
               placeholder="Votre adresse email..."
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
-                const isEmailValid = validate(email);
-                if (!isEmailValid) {
-                  setLoginError(event.target.name, "L'adresse email n'est pas valide");
-                } else {
-                  setLoginError(event.target.name, '');
-                }
+              }}
+              onBlur={(event) => {
+                clearValidity(event.target.name);
+                validateField(event.target.name);
               }}
             />
-            {errors.userNotFound &&
-              <span className='error'>Adresse email inconnue. Veuillez vérifier votre saisie</span>
-            }
-            {errors.email &&
-              <span className='error'>L'adresse email n'est pas valide. Veuillez vérifier votre saisie</span>
+            {!!email.error &&
+              <span className='error'>{email.error}</span>
             }
           </label>
           <label htmlFor="password" className="label">
@@ -92,21 +109,25 @@ const LoginForm = ({
             <input
               required
               type="password"
-              value={password}
+              value={password.val}
               name="password"
               placeholder="Votre mot de passe..."
               onChange={(event) => {
                 changeField(event.target.value, event.target.name);
-                if (password.length < 5) {
-                  setLoginError(event.target.name, "Le mot de passe doit contenir au minimum 5 caractères");
-                } else {
-                  setLoginError(event.target.name, '');
-                }
+              }}
+              onBlur={(event) => {
+                clearValidity(event.target.name);
+                validateField(event.target.name);
               }}
             />
-            {errors.incorrectPassword &&
-              <span className='error'>Le mot de passe est incorrect</span>}
+            {!!password.error &&
+              <span className='error'>{password.error}</span>
+            }
           </label>
+
+          {!!apiErrorMessage &&
+            <p className="api-error">{apiErrorMessage}</p>
+          }
 
           <div className="actions">
             <input
@@ -135,12 +156,11 @@ const LoginForm = ({
 };
 
 LoginForm.propTypes = {
-  email: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
-  errors: PropTypes.object.isRequired,
+  // email: PropTypes.string.isRequired,
+  // password: PropTypes.string.isRequired,
   changeField: PropTypes.func.isRequired,
   submitLogin: PropTypes.func.isRequired,
-  setLoginError: PropTypes.func.isRequired,
+  setError: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired
 };
 
