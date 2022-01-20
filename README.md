@@ -13,15 +13,14 @@ If the visitor creates an account and logs in, they can post their own favourite
 
 ## Project status
 
- The first version of hte application is available at this [address](https://wildcamp-test.herokuapp.com/).
+ The first version of hte application is available at this [address](https://wildcamp-app.herokuapp.com/).
 
 :soon: Improvements and new features in store for the second version:
      
-     * User profile to access user info, a list of campgrounds posted/commented, and/or campgrounds marked as 'favorite'
+     * User profile to access user info, a list of campgrounds they posted/commented, and/or campgrounds marked as 'favorite'
      * Ability to upload an image file
      * Home page: list of campgrounds shown limited to ten most recent posts
-     * New page to browse all campgrounds in db with pagination
-     * Campground search page (or feature) by country
+     * New page to browse all campgrounds in db with pagination with search funcionality based on country
 
 ## Stack :wrench:
 
