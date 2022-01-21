@@ -52,11 +52,11 @@ Once the operation is completed, access the root and __install the npm packages_
 cd ../ && npm i
 ```
 
-Finally, __create__ [a PostgreSQL database](https://www.postgresql.org/docs/12/app-createdb.html) and __deploy__ the Sqitch migrations to it.
+__create__ [a PostgreSQL database](https://www.postgresql.org/docs/12/app-createdb.html) and __deploy__ the Sqitch migrations to it.
 
 ```bash
-createdb oap
-sqitch deploy db:pg:oap
+createdb wildcamp-db
+sqitch deploy db:pg:wildcamp-db
 ```
 Make sure to __configure__ PostgreSQL so createdb and sqitch commands can be executed.
 
@@ -67,6 +67,10 @@ Run the following command to import seeding data into your local database :
 ```bash
 psql -d oap -f /server/data/import.sql
 ```
+
+## Setting environment variables
+
+Copy the the .env.example file (/server/.env.example) to create a .env file with your own variables.
 
 ## Running the app :rocket:
 
