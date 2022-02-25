@@ -1,45 +1,92 @@
-# wildcamp
+# wildcamp :tent:
 
-## Project overview 📝
+## Introduction 📝
 
-Wildcamp enables travelers all over the world to share their best camping spots with the community. This project was developed for educational puposes. 
+This project has been developed for learning purposes.  
+Single Page Application enabling users to share their best camping spots and their comments.  
+React front-end + Node API.
 
 ## Project details 🔍
 
-### Fonctionality
-Without logging in, the visitor can access the home page containing a list of posted campgrounds. They can click on a campground to review the details about the spot and the comments shared by the community.
+## Stack :wrench:
 
-If the visitor creates an account and logs in, they can post their own favourite campgrounds and add comments regarding other users'campgrounds.
+### Backend
 
-## Project status
+* NodeJS v16.14.0
+* Express v4.17.1
+* PostgreSQL 12
+* pg (postgreSQL client) v8.7.1
+* Sqitch 0.9999
+* dotenv v10.0.0
+* cors v2.8.5
+* morgan v1.10.0
+* helmet v4.6.0
+* bcrypt v5.0.1
+* concurrently v6.3.0
+* cookie-parser v1.4.5
+* jsonwebtoken v8.5.1
+* express-swagger-generator v1.1.17
+
+### Frontend
+
+* Bootstrapped with create-react-app v4.0.3
+* React v17.0.2
+* React DOM v17.0.2
+* React Router DOM v5.3.0
+* React Redux v7.2.6
+* axios v 0.24.0
+* jwt-decode v3.1.2
+* Sass
+* Font Awesome icons for React
+
+### Features
+
+The visitor can access the home page containing a list of posted campgrounds. They can click on a campground to review the details about the spot and the comments shared by the community.
+
+The visitor can create an account and log in.
+
+The logged in user can post their own favourite campgrounds and add comments on campgrounds.
+
+### Status
 
  The first version of hte application is available at this [address](https://wildcamp-app.herokuapp.com/).
 
 :soon: Improvements and new features in store for the second version:
-     
-     * User profile to access user info, a list of campgrounds they posted/commented, and/or campgrounds marked as 'favorite'
-     * Ability to upload an image file
-     * Home page: list of campgrounds shown limited to ten most recent posts
-     * New page to browse all campgrounds in db with pagination with search funcionality based on country
 
-## Stack :wrench:
+* User profile to access user info and the list of campgrounds they posted/commented, and campgrounds marked as 'favorite'
+* Possibility to bookmark favorite campgrounds
+* Ability to upload an image file
+* Home page: list of campgrounds shown limited to ten most recent posts
+* New page to browse all campgrounds in db with pagination 
+* Search feature based on country or description content
 
-* [NodeJS 16.3.0](https://nodejs.org/fr/download/)
-* [NPM 7.15.1](https://www.npmjs.com/get-npm)
-* [PostgreSQL 12.7](https://www.postgresql.org/download/)
-* [Sqitch 0.9999](https://sqitch.org/download/)
+## Learning goals
 
-These tools are required for the app to run. __Please install them beforehand__.
+* Backend:
+  * Developing a full CRUD API
+  * Using Active Record models (no ORM)
+  * Using a database versioning tool (sqitch)
+  * JWT-based authentication: creating JWT on login and checking JWT validity on protected resources requests
+  * Setting up Joi validation on POST routes
+* Developing a frontend using React + Redux :
+  * using Sass variables
+  * setting up controlled inputs
+  * using effect hook, ref hook, lifecyle methods and conditional views
+  * using container components to connect a presentational component with the Redux store
+  * combining several reducers
+  * setting up Redux middleware for asynchronous API calls
+  * using action creators
+  * Adding JWT to HTTP header before sending requests to protected resources
 
 ## Install :construction_worker:
 
-__Clone__ the repository locally (for now, the "develop" branch).
+Clone the repository locally.
 
 ```bash
-git clone <url de ce repo>
+git clone <repo_url>
 ```
-Access the *client* folder and __install the dependencies__.
 
+Access the *client* folder and __install the dependencies__.
 
 ```bash
 cd client/ && yarn
@@ -47,34 +94,39 @@ cd client/ && yarn
 
 Once the operation is completed, access the root and __install the npm packages__.
 
-
 ```bash
 cd ../ && npm i
 ```
 
-__create__ [a PostgreSQL database](https://www.postgresql.org/docs/12/app-createdb.html) and __deploy__ the Sqitch migrations to it.
+Create a PostgreSQL database and deploy the Sqitch migrations to it.
 
 ```bash
-createdb wildcamp-db
-sqitch deploy db:pg:wildcamp-db
+createdb wildcamp
+sqitch deploy db:pg:<PG_connection_URI>
 ```
-Make sure to __configure__ PostgreSQL so createdb and sqitch commands can be executed.
 
-## Importing data :floppy_disk:
+Make sure to configure PostgreSQL so createdb and sqitch commands can be executed.
+
+### Importing data :floppy_disk:
 
 Run the following command to import seeding data into your local database :
 
 ```bash
-psql -d oap -f /server/data/import.sql
+psql -d wildcamp -f /server/data/seeding.sql
 ```
 
-## Setting environment variables
+### Setting environment variables
 
 Copy the the .env.example file (/server/.env.example) to create a .env file with your own variables.
 
-## Running the app :rocket:
+### Running the app :rocket:
 
-To launch the webpack server and the API server locally, run the following __script__ while at the root of the app:
+This is a monorepo containg both the frontend project (client folder) and the backend project (server folder).
+To launch the webpack server and the API server locally, access the server folder and run the following __script__:
+
 ```bash
+cd server
 npm run dev
 ```
+
+To access the API Swagger documentation, go to `http://localhost:5000/api-docs`.
