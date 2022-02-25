@@ -45,11 +45,11 @@ The visitor can access the home page containing a list of posted campgrounds. Th
 
 The visitor can create an account and log in.
 
-The logged in user can post their own favourite campgrounds and add comments on campgrounds.
+The logged in user can post their own favourite campgrounds and add comments.
 
 ### Status
 
- The first version of hte application is available at this [address](https://wildcamp-app.herokuapp.com/).
+ The first version of hte application is available [here](https://wildcamp-app.herokuapp.com/).
 
 :soon: Improvements and new features in store for the second version:
 
@@ -63,18 +63,18 @@ The logged in user can post their own favourite campgrounds and add comments on 
 ## Learning goals
 
 * Backend:
-  * Developing a full CRUD API
-  * Using Active Record models (no ORM)
-  * Using a database versioning tool (sqitch)
-  * JWT-based authentication: creating JWT on login and checking JWT validity on protected resources requests
-  * Setting up Joi validation on POST routes
+  * Developing a full __CRUD API__
+  * Using __Active Record__ models (no ORM)
+  * Using a __database versioning__ tool (sqitch)
+  * __JWT__-based authentication: creating JWT on login and checking JWT validity on protected resources requests
+  * Setting up __Joi validation__ on POST routes
 * Developing a frontend using React + Redux :
-  * using Sass variables
-  * setting up controlled inputs
+  * using __Sass variables__
+  * setting up __controlled inputs__
   * using effect hook, ref hook, lifecyle methods and conditional views
   * using container components to connect a presentational component with the Redux store
   * combining several reducers
-  * setting up Redux middleware for asynchronous API calls
+  * setting up __Redux middleware__ for asynchronous API calls
   * using action creators
   * Adding JWT to HTTP header before sending requests to protected resources
 
@@ -86,13 +86,13 @@ Clone the repository locally.
 git clone <repo_url>
 ```
 
-Access the *client* folder and __install the dependencies__.
+Access the *client* folder and install the dependencies.
 
 ```bash
 cd client/ && yarn
 ```
 
-Once the operation is completed, access the root and __install the npm packages__.
+Once the operation is completed, access the root and install the npm packages.
 
 ```bash
 cd ../ && npm i
